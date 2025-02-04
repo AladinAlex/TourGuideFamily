@@ -1,0 +1,65 @@
+@use "@/assets/css/global.scss" as *;
+
+.presentation {
+    display: flex;
+    height: calc(100vh - 90px); /* Занимает всю высоту экрана */
+
+  &__left {
+    flex: 65%; /* Левая часть занимает 60% ширины экрана */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+  }
+  
+  &__right {
+    flex: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: #f0f0f0; /* Фоновый цвет для левой части */
+    overflow: hidden; /* На всякий случай, чтобы ничего не вылезало */
+
+    &-content {
+        text-align: left;
+        padding: 20px 50px;
+        
+        .title {
+            font-size: 70px;
+            margin-bottom: 20px;
+            color: $presentation-text_title;
+            line-height: 1.1em;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 19px; /* Маленькое описание */
+            margin-bottom: 30px; /* Отступ снизу */
+            color: $presentation-text_description; /* Цвет текста */
+        }
+
+        .button {
+            padding: 10px 20px; /* Отступы внутри кнопки */
+            font-size: 1em; /* Размер текста на кнопке */
+            color: #fff; /* Цвет текста */
+            background-color: $button-color1; /* Цвет фона кнопки */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Закругляем углы */
+            cursor: pointer; /* Курсор в виде указателя */
+            transition: background-color 0.3s ease; /* Плавное изменение цвета */
+            
+        }
+
+        .button:hover {
+            background-color: $button-color2; /* Цвет фона при наведении */
+          }
+      }
+
+  } 
+}

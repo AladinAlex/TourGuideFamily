@@ -1,0 +1,13 @@
+@use "@/assets/css/global.scss" as *;
+
+.about-us {
+    
+    &__header {
+
+        &-image {
+            width: 50px;
+            height: 50px;
+            display: block;
+        }   
+    }
+}

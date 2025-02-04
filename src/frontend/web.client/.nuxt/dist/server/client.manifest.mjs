@@ -1,0 +1,1 @@
+export { default } from "file:///C:/dev/TourGuideFamily/src/frontend/web.client/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
