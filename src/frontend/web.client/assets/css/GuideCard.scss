@@ -17,11 +17,12 @@
       object-fit: cover;
       object-position: center;
       border-radius: 15px;
+      transition: transform 0.5s;
     }
-
-    // &-image:hover {
-    //     transform: scale(0.95);
-    // }
+    &-image:hover {
+        transform: scale(0.95);
+        transition: transform 0.5s;
+    }
   }
 
   &__right {

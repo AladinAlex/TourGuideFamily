@@ -1,27 +1,42 @@
 @use "@/assets/css/global.scss" as *;
 
 .about-us {
-    
-    &__header {        
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 
-        &-image {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 5px;
-        }
-
-        &-text {
-            font-size: 40px;
-            color: $text_title;
-            font-weight: 600;
-        }
+    &-lines {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    &-lines::before,
+    ::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background-color: rgba(146, 0, 45);
+      margin: 0 20px;
     }
 
-    &__content {
-        margin-top: 100px;
+    &-image {
+      width: 30px;
+      height: 30px;
     }
+
+    &-text {
+      font-size: 40px;
+      color: $text_title;
+      font-weight: 600;
+    }
+  }
+
+  &__content {
+    margin-top: 100px;
+  }
 }

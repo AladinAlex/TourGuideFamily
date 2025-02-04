@@ -24,13 +24,14 @@ let guides = ref<GuideType[]>([
   <section class="about-us section">
     <div class="main-container max-width">
       <div class="about-us__header">
-        <img
+        <div class="about-us__header-lines">
+          <img
           class="about-us__header-image"
           src="@/assets/images/lingonberry.png"
           alt=""
-        />
-        <span class="about-us__header-text">Сайт гидов и экскурсоводов Александра и Марины Аладинских</span
-        >
+          />
+        </div>
+        <span class="about-us__header-text">Сайт гидов и экскурсоводов Александра и Марины Аладинских</span>
         <!-- <span class="about-us__header-text">Откройте для себя достопримечательности Камчатки вместе с нами!</span> -->
       </div>
       <div class="about-us__content">
