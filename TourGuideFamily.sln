@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{FF38
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourGuideFamily.WebApi", "src\backend\TourGuideFamily.WebApi\TourGuideFamily.WebApi.csproj", "{3CF06D5F-1F41-4E5D-BF14-3381F0E86F9E}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "web.client", "src\frontend\web.client\web.client.esproj", "{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,12 @@ Global
 		{3CF06D5F-1F41-4E5D-BF14-3381F0E86F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF06D5F-1F41-4E5D-BF14-3381F0E86F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF06D5F-1F41-4E5D-BF14-3381F0E86F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,5 +39,6 @@ Global
 		{87FE16CA-8801-4008-85EB-5C97FF19CD2F} = {859D6F0A-DED7-43E4-BF85-30EAFD4418CF}
 		{FF383CF7-127A-48BD-9866-293ABB09637B} = {859D6F0A-DED7-43E4-BF85-30EAFD4418CF}
 		{3CF06D5F-1F41-4E5D-BF14-3381F0E86F9E} = {FF383CF7-127A-48BD-9866-293ABB09637B}
+		{7FDB0F6B-CE1A-4356-AE60-CC70B6E53861} = {87FE16CA-8801-4008-85EB-5C97FF19CD2F}
 	EndGlobalSection
 EndGlobal
