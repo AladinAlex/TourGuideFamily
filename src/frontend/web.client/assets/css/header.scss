@@ -15,7 +15,6 @@
     transition: background-color $transition-time, padding $transition-time;    
     background-color: $header-color;
 
-
     &__container-logo {
         display: grid;
         grid-template-columns: max-content auto;
@@ -26,11 +25,13 @@
         .logo-text {
             font-size: 25px;
             font-weight: 700;
+            color: $element-color1;
         }
 
         .logo-text2 {
             font-size: 14px;
             font-weight: 600;
+            color: $element-color1;
         }
 
         .logo {
@@ -71,7 +72,7 @@
     &__nav-link {
         position: relative;
         font-weight: 600;
-        color: $header_menu;
+        color: $element-color1;
         text-decoration: none;
 
         &:hover::before {
@@ -84,7 +85,7 @@
             position: absolute;
             top: calc(100% + 3px);
             left: 0;
-            background-color: $header_menu_underline;
+            background-color: $element-color1;
             height: 3px;
             width: 100%;
             opacity: 0;

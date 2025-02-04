@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@use '@/assets/css/global.scss' as *;
+
 @font-face {
     font-family: "Montserrat";
     font-style: normal;
@@ -37,18 +39,24 @@
     line-height: 1.2em;
 }
 
-html {
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-}
+// html {
+//     line-height: 1.15; /* 1 */
+//     -webkit-text-size-adjust: 100%; /* 2 */
+// }
 
-body {
-    margin: 0px;
-}
+// body {
+//     margin: 0px;
+// }
 
 html,
 body {
     width: 100%;
+    line-height: 1.15;
+    margin: 0px;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
 }
 
 main {
@@ -70,4 +78,5 @@ main {
 
 .section {
     padding: 100px 0;
+    background-color: $background-color_main;
 }

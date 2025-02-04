@@ -3,18 +3,21 @@
 .presentation {
     display: flex;
     height: calc(100vh - 90px); /* Занимает всю высоту экрана */
+    background-color: $background-color_main;
 
   &__left {
     flex: 65%; /* Левая часть занимает 60% ширины экрана */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 25px;
     
     &-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
+        border-radius: 25px;
     }
   }
   
@@ -27,27 +30,39 @@
     overflow: hidden; /* На всякий случай, чтобы ничего не вылезало */
 
     &-content {
+        // border-left: $button-color1 2px solid;
+        border-bottom: $button-color1 3px solid;
+        border-top: $button-color1 3px solid;
+        border-right: $button-color1 5px solid;
+        // border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        // border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+
+        margin: 20px 50px;
+        
         text-align: left;
         padding: 20px 50px;
         
         .title {
             font-size: 70px;
             margin-bottom: 20px;
-            color: $presentation-text_title;
+            color: $text_title;
             line-height: 1.1em;
             font-weight: 600;
         }
 
         .description {
-            font-size: 19px; /* Маленькое описание */
-            margin-bottom: 30px; /* Отступ снизу */
-            color: $presentation-text_description; /* Цвет текста */
+            font-size: 19px;
+            margin-bottom: 30px;
+            color: $text_description;
+            font-style: italic;
         }
 
         .button {
             padding: 10px 20px; /* Отступы внутри кнопки */
-            font-size: 1em; /* Размер текста на кнопке */
-            color: #fff; /* Цвет текста */
+            font-size: 16px; /* Размер текста на кнопке */
+            color: $element-color1; /* Цвет текста */
             background-color: $button-color1; /* Цвет фона кнопки */
             border: none; /* Убираем границу */
             border-radius: 5px; /* Закругляем углы */

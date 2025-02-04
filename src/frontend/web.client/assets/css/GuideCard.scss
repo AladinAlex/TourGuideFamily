@@ -1,0 +1,61 @@
+@use "@/assets/css/global.scss" as *;
+
+.guideCard {
+  display: flex;
+  height: 380px;
+  margin-bottom: 20px;
+
+  &__left {
+    flex: 50%; /* Левая часть занимает 60% ширины экрана */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-image {
+      width: 360px;
+      height: 380px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 15px;
+    }
+
+    // &-image:hover {
+    //     transform: scale(0.95);
+    // }
+  }
+
+  &__right {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* На всякий случай, чтобы ничего не вылезало */
+    margin: 30px;
+
+    &-content {
+      &-title {
+        margin: 0 0 5px 0;
+        font-size: 40px;
+        font-weight: 600;
+        color: $text_title;
+      }
+
+      &-description {
+        margin: 0 0 30px 0;
+        color: $text_description;
+        font-style: italic;
+        line-height: 1.55;
+      }
+
+      &-text {
+        font-size: 16px;
+        span {
+          margin: 0;
+          color: #696969;
+          font-weight: 400;
+          line-height: 1.55;
+        }
+      }
+    }
+  }
+}

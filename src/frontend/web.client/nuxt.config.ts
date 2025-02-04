@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/css/main.css" as *;',
+          additionalData: '@use "@/assets/css/main.scss" as *;',
         },
       },
     },
