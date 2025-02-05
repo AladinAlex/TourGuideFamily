@@ -1,0 +1,70 @@
+@use "@/assets/css/global.scss" as *;
+
+.tour-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+  transition: box-shadow 0.3s ease;
+
+  &__image-block {
+    height: 300px;
+    overflow: hidden;
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__content {
+    padding: 20px;
+  }
+
+  &__title {
+    font-size: calc(18px + 3 * ((100vw - 375px) / 1545));
+    font-weight: 600;
+    color: $text_title;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    color: $text_title;
+    font-size: 16px;
+    line-height: 1.2em;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  &__price {
+    font-size: calc(16px + 6 * ((100vw - 375px) / 1545));
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  &__price::after {
+    content: " \20BD";
+  }
+
+  &__button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: $element-color1;
+    background-color: $button-color1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  &__button:hover {
+    background-color: $button-color2;
+  }
+}
+
+.tour-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+}

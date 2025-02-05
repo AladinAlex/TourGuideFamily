@@ -2,7 +2,7 @@
 
 .guideCard {
   display: flex;
-  height: 380px;
+  height: 320px;
   margin-bottom: 20px;
 
   &__left {
@@ -12,8 +12,9 @@
     align-items: center;
 
     &-image {
-      width: 360px;
-      height: 380px;
+      width: 300px;
+      // height: 320px;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       border-radius: 15px;
@@ -31,7 +32,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden; /* На всякий случай, чтобы ничего не вылезало */
-    margin: 30px;
+    padding: 30px;
 
     &-content {
       &-title {

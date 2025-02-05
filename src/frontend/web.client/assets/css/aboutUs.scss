@@ -6,6 +6,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-bottom: 70px;
 
     &-lines {
       display: flex;
@@ -20,7 +21,7 @@
       content: "";
       flex: 1;
       height: 2px;
-      background-color: rgba(146, 0, 45);
+      background-color: $button-color1;
       margin: 0 20px;
     }
 
@@ -36,7 +37,44 @@
     }
   }
 
-  &__content {
-    margin-top: 100px;
+  &__cards {
+    margin-bottom: 90px;
+  }
+
+  &__why-we {
+    &__title {
+      align-items: center;
+      text-align: center;
+      margin-bottom: 30px;
+      span {
+        font-size: 40px;
+        font-weight: 600;
+        color: $text_title;
+      }
+    }
+
+    &__text {
+      padding-left: 20px;
+      border-left: $button-color1 4px solid;
+      border-bottom: $button-color1 3px solid;
+      border-bottom-left-radius: 15px;
+
+      p,
+      ul li {
+        font-size: calc(14px + 4 * ((100vw - 375px) / 1545));
+        line-height: 1.5em;
+      }
+
+      p,
+      ul {
+        margin: 10px 0;
+      }
+
+      ul {
+        display: grid;
+        grid-row-gap: 7px;
+        padding-left: 20px;
+      }
+    }
   }
 }

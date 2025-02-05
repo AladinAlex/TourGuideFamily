@@ -60,20 +60,19 @@
         }
 
         .button {
-            padding: 10px 20px; /* Отступы внутри кнопки */
-            font-size: 16px; /* Размер текста на кнопке */
-            color: $element-color1; /* Цвет текста */
-            background-color: $button-color1; /* Цвет фона кнопки */
-            border: none; /* Убираем границу */
-            border-radius: 5px; /* Закругляем углы */
-            cursor: pointer; /* Курсор в виде указателя */
-            transition: background-color 0.3s ease; /* Плавное изменение цвета */
-            
+            padding: 10px 20px;
+            font-size: 16px;
+            color: $element-color1;
+            background-color: $button-color1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .button:hover {
-            background-color: $button-color2; /* Цвет фона при наведении */
-          }
+            background-color: $button-color2;
+        }
       }
 
   } 

@@ -1,0 +1,19 @@
+@use "@/assets/css/global.scss" as *;
+
+.promo {
+  background-color: #fff;
+
+  &__header {
+    color: $text_title;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 70px;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 30px; /* Отступ между карточками */
+    margin: 24px 0;
+  }
+}
