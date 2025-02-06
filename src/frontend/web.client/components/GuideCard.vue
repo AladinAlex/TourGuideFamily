@@ -10,14 +10,14 @@ const props = defineProps<GuideType>();
     </div>
     <div class="guideCard__right">
       <div class="guideCard__right-content">
-        <h1 class="guideCard__right-content-title">
+        <h1 class="guideCard__right-content-title title">
           {{ props.firstname + " " + props.surname }}
         </h1>
         <h2 class="guideCard__right-content-description">
           {{ props.description }}
         </h2>
         <div class="guideCard__right-content-text">
-          <span>{{ props.text }}</span>
+          <span class="text">{{ props.text }}</span>
         </div>
       </div>
     </div>

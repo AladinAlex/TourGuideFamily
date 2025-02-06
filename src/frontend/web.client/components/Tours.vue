@@ -56,9 +56,7 @@ let tours = ref<TourType[]>([
 <template>
   <section class="tours section">
     <div class="main-container max-width">
-      <div class="tours__header">
-        <h1 class="tours__header-text">Программы путешествий</h1>
-      </div>
+      <h1 class="title">Программы путешествий</h1>
       <div class="tours__wrapper">
         <TourCard
           v-for="(tour, index) in tours"

@@ -25,16 +25,10 @@
 
   &__title {
     font-size: calc(18px + 3 * ((100vw - 375px) / 1545));
-    font-weight: 600;
-    color: $text_title;
     margin-bottom: 20px;
   }
 
   &__description {
-    color: $text_title;
-    font-size: 16px;
-    line-height: 1.2em;
-    font-weight: 400;
     margin-bottom: 8px;
   }
 
@@ -50,17 +44,6 @@
 
   &__button {
     padding: 10px 20px;
-    font-size: 16px;
-    color: $element-color1;
-    background-color: $button-color1;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  &__button:hover {
-    background-color: $button-color2;
   }
 }
 

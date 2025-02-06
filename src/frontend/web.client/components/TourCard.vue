@@ -28,10 +28,10 @@ const formattedPrice = computed(() => {
       <img src="@/assets/images/tourImage.jpg" class="tour-card__image" />
     </div>
     <div class="tour-card__content">
-      <h3 class="tour-card__title">{{ props.name }}</h3>
-      <p class="tour-card__description">{{ props.description }}</p>
+      <h3 class="title tour-card__title">{{ props.name }}</h3>
+      <p class="tour-card__description description">{{ props.description }}</p>
       <p class="tour-card__price">{{ formattedPrice }}</p>
-      <button class="tour-card__button">Узнать больше</button>
+      <button class="tour-card__button btn">Узнать больше</button>
     </div>
   </div>
 </template>

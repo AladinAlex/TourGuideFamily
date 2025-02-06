@@ -1,12 +1,9 @@
 @use "@/assets/css/global.scss" as *;
 
 .promo {
-  background-color: #fff;
+  background-color: $background-color2;
 
   &__header {
-    color: $text_title;
-    font-size: 40px;
-    font-weight: 600;
     margin-bottom: 70px;
   }
 

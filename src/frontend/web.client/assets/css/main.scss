@@ -1,42 +1,42 @@
 @charset "UTF-8";
 
-@use '@/assets/css/global.scss' as *;
+@use "@/assets/css/global.scss" as *;
 
 @font-face {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 700;
-    src: url("../fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 600;
-    src: url("../fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+  font-family: "Montserrat";
+  font-style: demibold;
+  font-weight: 600;
+  src: url("../fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    src: url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 300;
-    src: url("../fonts/Montserrat/Montserrat-Light.ttf") format("truetype");
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/Montserrat/Montserrat-Light.ttf") format("truetype");
 }
 
 * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.2em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2em;
 }
 
 // html {
@@ -50,52 +50,85 @@
 
 html,
 body {
-    width: 100%;
-    line-height: 1.15;
-    margin: 0px;
+  width: 100%;
+  line-height: 1.15;
+  margin: 0px;
 }
 
-*, ::after, ::before {
-    box-sizing: border-box;
+*,
+::after,
+::before {
+  box-sizing: border-box;
 }
 
 main {
-    display: block;
+  display: block;
 }
 
 .main-container {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .max-width {
-    width: 100%;
-    max-width: 1240px;
-    padding-left: 20px;
-    padding-right: 20px;
+  width: 100%;
+  max-width: 1240px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .section {
-    padding: 100px 0;
-    background-color: $background-color_main;
+  padding: 100px 0;
+  background-color: $background-color_main;
 }
 
-h1, h2, h3, p {
-    margin: 0;
+h1,
+h2,
+h3,
+p {
+  margin: 0;
 }
 
 .btn--size--bg {
-    height: 60px;
-    padding: 5px 60px;
+  height: 60px;
+  padding: 5px 60px;
 }
 
 .list-reset {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
-
 .title {
-    
+  font-size: 40px;
+  font-weight: 600;
+  color: $text_title;
+}
+
+.description {
+    color: $text_description;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.text {
+    color: $text_description;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: $element-color1;
+  background-color: $button-color1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: $button-color2;
 }

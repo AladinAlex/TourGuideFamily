@@ -36,28 +36,20 @@
 
     &-content {
       &-title {
-        margin: 0 0 5px 0;
-        font-size: 40px;
-        font-weight: 600;
-        color: $text_title;
+        margin: 0 0 5px 0
       }
 
       &-description {
         margin: 0 0 30px 0;
         color: $text_description;
+        font-weight: 400;
         font-style: italic;
         line-height: 1.55;
       }
 
-      &-text {
-        font-size: 16px;
-        span {
-          margin: 0;
-          color: #696969;
-          font-weight: 400;
-          line-height: 1.55;
-        }
-      }
+      // &-text {
+
+      // }
     }
   }
 }

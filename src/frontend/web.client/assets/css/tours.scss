@@ -3,15 +3,6 @@
 
 .tours {
 
-    &__header {
-
-        &-text {
-            color: $text_title;
-            font-size: 40px;
-            font-weight: 600;
-        }
-    }
-
     &__wrapper {
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* 3 колонки */

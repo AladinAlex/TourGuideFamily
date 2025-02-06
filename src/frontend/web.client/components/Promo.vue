@@ -34,7 +34,7 @@ let promos = ref<PromoType[]>([
 <template>
   <div class="promo section">
     <div class="main-container max-width">
-      <h1 class="promo__header">Акции и скидки</h1>
+      <h1 class="promo__header title">Акции и скидки</h1>
       <div class="promo__wrapper">
         <PromoCard
           v-for="(promo, index) in promos"

@@ -31,7 +31,7 @@ let guides = ref<GuideType[]>([
             alt=""
           />
         </div>
-        <span class="about-us__header-text"
+        <span class="title"
           >Сайт гидов и экскурсоводов Александра и Марины Аладинских</span
         >
         <!-- <span class="about-us__header-text">Откройте для себя достопримечательности Камчатки вместе с нами!</span> -->
@@ -49,7 +49,7 @@ let guides = ref<GuideType[]>([
       </div>
       <div class="about-us__why-we">
         <div class="about-us__why-we__title">
-          <span>Почему стоит выбрать нас?</span>
+          <span class="title">Почему стоит выбрать нас?</span>
         </div>
         <div class="about-us__why-we__text">
           <p>

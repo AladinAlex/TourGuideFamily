@@ -14,9 +14,9 @@
     </div>
     <div class="presentation__right">
       <div class="presentation__right-content">
-        <h1 class="title">{{ title }}</h1>
-        <p class="description">{{ description }}</p>
-        <button class="button" @click="handleClick">{{ buttonText }}</button>
+        <h1 class="presentation__title">{{ title }}</h1>
+        <p class="presentation__description">{{ description }}</p>
+        <button class="button btn" @click="handleClick">{{ buttonText }}</button>
       </div>
     </div>
   </div>

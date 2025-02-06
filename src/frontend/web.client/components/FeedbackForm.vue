@@ -22,7 +22,7 @@ const sendClick = async () => {
 <template>
   <div class="feedback-form section">
     <div class="main-container max-width">
-      <h1 class="feedback-form__title">Оставьте заявку и мы свяжемся с Вами</h1>
+      <h1 class="feedback-form__title title">Оставьте заявку и мы свяжемся с Вами</h1>
       <form class="feedback-form__form">
         <input
           type="text"
