@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { FeedbackType } from "~/types/FeedbackType";
+const { contactOptions } = useContactOptions();
 let feedback = ref<FeedbackType>({
   firstname: "",
   phone: "",
+  contactMethod: contactOptions[0].id,
 });
 
 const sendClick = async () => {
@@ -24,31 +26,35 @@ const sendClick = async () => {
       <form class="feedback-form__form">
         <input
           type="text"
-          v-model="feedback.firstname"
+          :model="feedback.firstname"
           placeholder="Имя *"
           required
           class="feedback-form__form-inputname"
         />
         <input
           type="tel"
-          v-model="feedback.phone"
+          v:odel="feedback.phone"
           placeholder="Номер телефона *"
           required
           class="feedback-form__form-inputphone"
         />
         <select
-          v-model="feedback.contactMethod"
+          :model="feedback.contactMethod"
           class="feedback-form__form-selecttype"
           placeholder="Выберите способ связи *"
           required
         >
-          <option value="telegram">Написать в Telegram</option>
-          <option value="whatsapp">Написать в WhatsApp</option>
-          <option value="call">Позвонить</option>
+          <option
+            v-for="(option, key) in contactOptions"
+            :key="key"
+            :value="option.id"
+          >
+            {{ option.value }}
+          </option>
         </select>
         <button
           type="submit"
-          class="feedback-form__form-btn"
+          class="feedback-form__form-btn btn--size--bg"
           @click="sendClick"
         >
           Отправить

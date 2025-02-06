@@ -3,5 +3,10 @@
 </script>
 
 <template>
-  tour.vue
+  
 </template>
+
+
+<style scoped lang="scss">
+@use "./assets/css/tour.scss" as *;
+</style>

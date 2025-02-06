@@ -21,7 +21,7 @@
     </div>
     <div class="header__menu">
       <nav class="header__nav">
-        <ul class="header__nav-ul list-reset" data-header="nav-ul">
+        <ul class="header__nav-ul list-reset">
           <li class="header__nav-li">
             <a class="header__nav-link" name="tours">Туры</a>
           </li>

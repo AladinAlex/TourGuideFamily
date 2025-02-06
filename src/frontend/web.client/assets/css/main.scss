@@ -68,7 +68,6 @@ main {
     margin-right: auto;
 }
 
-
 .max-width {
     width: 100%;
     max-width: 1240px;
@@ -83,4 +82,20 @@ main {
 
 h1, h2, h3, p {
     margin: 0;
+}
+
+.btn--size--bg {
+    height: 60px;
+    padding: 5px 60px;
+}
+
+.list-reset {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+.title {
+    
 }

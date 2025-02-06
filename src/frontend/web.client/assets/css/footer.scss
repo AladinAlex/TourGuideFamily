@@ -1,0 +1,91 @@
+@use "@/assets/css/global.scss" as *;
+
+.footer {
+  flex: 0 0 auto;
+  padding: 50px 0 20px 0;
+  background-color: #141414;
+
+  &__main-container-nav {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-column-gap: 100px;
+  }
+
+  &__wrap-logo {
+    .logo {
+      display: grid;
+      transition: opacity 0.3s;
+
+      &__image {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        object-position: left center;
+      }
+    }
+
+    .logo:hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__wrap-nav {
+    grid-template-columns: 1fr;
+    grid-row-gap: 30px;
+
+    display: grid;
+    grid-template-columns: repeat(4, -webkit-max-content);
+    grid-template-columns: repeat(4, max-content);
+    grid-column-gap: 30px;
+    justify-content: space-between;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    color: $footer_nav_color;
+    font-weight: 600;
+  }
+
+  &__nav {
+    &-list {
+      display: grid;
+      grid-row-gap: 10px;
+      margin-top: 20px;
+    }
+
+    // &-li {
+
+    // }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $element-color1;
+    transition: color 0.3s;
+  }
+
+  &__link:hover {
+    color: #c0c0c0;
+  }
+
+  &__text {
+    text-decoration: none;
+    color: $element-color1;
+  }
+
+  &__social-link {  
+    display: flex;
+    justify-content: start;
+    gap: 5px;
+
+    &__image {
+      width: 30px;
+      height: 30px;
+      background-color: $element-color1;
+      border-radius: 5px;
+    }
+    &__image:hover {
+      color: #c0c0c0;
+    }
+  }
+}
