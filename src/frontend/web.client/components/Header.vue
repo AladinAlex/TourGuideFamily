@@ -17,8 +17,12 @@ const toggleMenu = () => {
         />
       </NuxtLink>
       <div>
-        <span class="logo-text">BRUSNIKA</span>
-        <span class="logo-text2">By Aladinskiy Family</span>
+        <div>
+          <span class="logo-text">BRUSNIKA</span>
+        </div>
+        <div>
+          <span class="logo-text2">By Aladinskiy Family</span>
+        </div>
       </div>
     </div>
     <div class="header__menu">
