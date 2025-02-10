@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const isMenuOpen = ref(false);
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+</script>
 
 <template>
   <header class="header">
@@ -11,31 +17,28 @@
         />
       </NuxtLink>
       <div>
-        <div>
-          <span class="logo-text">BRUSNIKA</span>
-        </div>
-        <div>
-          <span class="logo-text2">By Aladinskiy Family</span>
-        </div>
+        <span class="logo-text">BRUSNIKA</span>
+        <span class="logo-text2">By Aladinskiy Family</span>
       </div>
     </div>
     <div class="header__menu">
-      <nav class="header__nav">
+      <button class="header__mobile-menu" @click="toggleMenu">☰</button>
+      <nav class="header__nav" :class="{ 'header__nav--active': isMenuOpen }">
         <ul class="header__nav-ul list-reset">
           <li class="header__nav-li">
-            <a class="header__nav-link" name="tours">Туры</a>
+            <a class="header__nav-link" href="#tours">Туры</a>
           </li>
           <li class="header__nav-li">
-            <a class="header__nav-link" name="about">Наша команда</a>
+            <a class="header__nav-link" href="#about">Наша команда</a>
           </li>
           <li class="header__nav-li">
-            <a class="header__nav-link" name="reviews">Контакты</a>
+            <a class="header__nav-link" href="#reviews">Контакты</a>
           </li>
           <li class="header__nav-li">
-            <a class="header__nav-link" name="reviews">Ваши вопросы</a>
+            <a class="header__nav-link" href="#reviews">Ваши вопросы</a>
           </li>
           <li class="header__nav-li">
-            <a class="header__nav-link" name="reviews">Отзывы</a>
+            <a class="header__nav-link" href="#reviews">Отзывы</a>
           </li>
         </ul>
       </nav>

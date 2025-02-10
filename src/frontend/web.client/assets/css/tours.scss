@@ -8,18 +8,18 @@
         grid-template-columns: repeat(3, 1fr); /* 3 колонки */
         gap: 24px; /* Отступ между карточками */
         margin: 24px 0;
+
+        @media (max-width: 1024px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+    
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+    
+        @media (max-width: 480px) {
+          gap: 12px;
+        }
     }
 }
-
-
-@media (max-width: 768px) {
-    .tours__wrapper {
-      grid-template-columns: 1fr; /* На маленьких экранах — одна колонка */
-    }
-  }
-  
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .tours__wrapper {
-      grid-template-columns: repeat(2, 1fr); /* На средних экранах — две колонки */
-    }
-  }

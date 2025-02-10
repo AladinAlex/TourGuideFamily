@@ -26,17 +26,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-color: #f0f0f0; /* Фоновый цвет для левой части */
-    overflow: hidden; /* На всякий случай, чтобы ничего не вылезало */
+    overflow: hidden;
 
     &-content {
-      // border-left: $button-color1 2px solid;
       border-bottom: $button-color1 3px solid;
       border-top: $button-color1 3px solid;
       border-right: $button-color1 5px solid;
-      // border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
-      // border-top-left-radius: 15px;
       border-top-right-radius: 15px;
 
       margin: 20px 50px;
@@ -63,5 +59,100 @@
     color: $text_description;
     margin-bottom: 30px;
     font-style: italic;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .presentation {
+    flex-direction: column;
+    height: auto;
+
+    &__left {
+      flex: none;
+      margin: 20px;
+
+      &-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+      }
+    }
+
+    &__right {
+      flex: none;
+      margin: 20px;
+
+      &-content {
+        margin: 10px;
+        padding: 15px;
+      }
+    }
+
+    &__title {
+      font-size: 48px;
+    }
+
+    &__description {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .presentation {
+    &__left {
+      margin: 15px;
+
+      &-image {
+        border-radius: 10px;
+      }
+    }
+
+    &__right {
+      &-content {
+        margin: 10px;
+        padding: 10px;
+        border: $button-color1 2px solid;
+        border-radius: 10px;
+      }
+    }
+
+    &__title {
+      font-size: 36px;
+    }
+
+    &__description {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .presentation {
+    &__left {
+      margin: 10px;
+
+      &-image {
+        border-radius: 5px;
+      }
+    }
+
+    &__right {
+      &-content {
+        margin: 5px;
+        padding: 5px;
+        border: $button-color1 1px solid;
+        border-radius: 5px;
+      }
+    }
+
+    &__title {
+      font-size: 28px;
+    }
+
+    &__description {
+      font-size: 12px;
+    }
   }
 }

@@ -4,7 +4,6 @@ var year = new Date().getFullYear();
 
 <template>
   <footer class="footer">
-    <!-- <p>&copy; {{year}} Мой сайт. Все права защищены.</p> -->
     <div class="main-container max-width footer__main-container-nav">
       <div class="footer__wrap-logo">
         <NuxtLink class="logo" to="/">

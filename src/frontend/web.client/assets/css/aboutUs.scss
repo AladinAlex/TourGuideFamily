@@ -8,6 +8,14 @@
     text-align: center;
     margin-bottom: 70px;
 
+    @media (max-width: 768px) {
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 480px) {
+      margin-bottom: 30px;
+    }
+
     &-lines {
       display: flex;
       align-items: center;
@@ -15,6 +23,14 @@
       position: relative;
       width: 100%;
       margin-bottom: 5px;
+
+      @media (max-width: 768px) {
+        margin-bottom: 3px;
+      }
+
+      @media (max-width: 480px) {
+        margin-bottom: 2px;
+      }
     }
     &-lines::before,
     ::after {
@@ -23,16 +39,42 @@
       height: 2px;
       background-color: $button-color1;
       margin: 0 20px;
+
+      @media (max-width: 768px) {
+        margin: 0 10px;
+      }
+
+      @media (max-width: 480px) {
+        margin: 0 5px;
+      }
     }
 
     &-image {
       width: 30px;
       height: 30px;
+
+      @media (max-width: 768px) {
+        width: 25px;
+        height: 25px;
+      }
+
+      @media (max-width: 480px) {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
   &__cards {
     margin-bottom: 90px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 60px;
+    }
+
+    @media (max-width: 480px) {
+      margin-bottom: 40px;
+    }
   }
 
   &__why-we {
@@ -40,6 +82,14 @@
       align-items: center;
       text-align: center;
       margin-bottom: 30px;
+
+      @media (max-width: 768px) {
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 480px) {
+        margin-bottom: 15px;
+      }
     }
 
     &__text {
@@ -48,21 +98,54 @@
       border-bottom: $button-color1 3px solid;
       border-bottom-left-radius: 15px;
 
+      @media (max-width: 768px) {
+        padding-left: 15px;
+        border-left-width: 3px;
+      }
+
+      @media (max-width: 480px) {
+        padding-left: 10px;
+        border-left-width: 2px;
+      }
+
       p,
       ul li {
         font-size: calc(14px + 4 * ((100vw - 375px) / 1545));
         line-height: 1.5em;
+
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 14px;
+        }
       }
 
       p,
       ul {
         margin: 10px 0;
+
+        @media (max-width: 768px) {
+          margin: 8px 0;
+        }
+
+        @media (max-width: 480px) {
+          margin: 6px 0;
+        }
       }
 
       ul {
         display: grid;
         grid-row-gap: 7px;
-        padding-left: 20px;
+        // padding-left: 20px;
+        @media (max-width: 768px) {
+          grid-row-gap: 5px;
+        }
+
+        @media (max-width: 480px) {
+          grid-row-gap: 3px;
+        }
       }
     }
   }

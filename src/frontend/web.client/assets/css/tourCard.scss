@@ -8,9 +8,25 @@
   text-align: left;
   transition: box-shadow 0.3s ease;
 
+  @media (max-width: 768px) {
+    border-width: 0.5px;
+  }
+
+  @media (max-width: 480px) {
+    border-width: 0.3px;
+  }
+
   &__image-block {
     height: 300px;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 250px;
+    }
+
+    @media (max-width: 480px) {
+      height: 200px;
+    }
   }
   &__image {
     width: 100%;
@@ -21,21 +37,59 @@
 
   &__content {
     padding: 20px;
+
+    @media (max-width: 768px) {
+      padding: 15px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 10px;
+    }
   }
 
   &__title {
     font-size: calc(18px + 3 * ((100vw - 375px) / 1545));
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
   }
 
   &__description {
     margin-bottom: 8px;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
   }
 
   &__price {
     font-size: calc(16px + 6 * ((100vw - 375px) / 1545));
     font-weight: 600;
     margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
   }
 
   &__price::after {
@@ -44,10 +98,24 @@
 
   &__button {
     padding: 10px 20px;
+
+    @media (max-width: 768px) {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
   }
 }
 
 .tour-card:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s ease;
+
+  @media (hover: none) {
+    box-shadow: none;
+  }
 }

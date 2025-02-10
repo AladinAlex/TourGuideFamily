@@ -34,7 +34,6 @@ let guides = ref<GuideType[]>([
         <span class="title"
           >Сайт гидов и экскурсоводов Александра и Марины Аладинских</span
         >
-        <!-- <span class="about-us__header-text">Откройте для себя достопримечательности Камчатки вместе с нами!</span> -->
       </div>
       <div class="about-us__cards">
         <GuideCard
