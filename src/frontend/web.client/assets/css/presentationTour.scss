@@ -1,0 +1,70 @@
+@use "@/assets/css/global.scss" as *;
+
+.price-info {
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 500;
+    color: $text_description;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+}
+
+.tour-inclusions {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+
+  .columns {
+    display: flex;
+    gap: 30px; /* Отступ между колонками */
+  }
+
+  .column {
+    flex: 1; /* Равномерное распределение ширины */
+    &__title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  .included h3 {
+    // color: #4caf50;
+    color: $text_title;
+  }
+
+  .excluded h3 {
+    color: $text_title;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .check-icon {
+    color: #4caf50;
+    margin-right: 8px;
+  }
+
+  .cross-icon {
+    color: #ff5722;
+    margin-right: 8px;
+  }
+
+  li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: $text_description;
+  }
+}

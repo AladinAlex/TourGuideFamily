@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import type { FeedbackType } from "~/types/FeedbackType";
+
+const props = defineProps({
+  tourId: {
+    type: Number,
+    required: false,
+    default: () => undefined
+  }
+});
+
 const { contactOptions } = useContactOptions();
 let feedback = ref<FeedbackType>({
   firstname: "",
   phone: "",
   contactMethod: contactOptions[0].id,
+  tourId: props.tourId
 });
 
 const sendClick = async () => {
@@ -59,6 +69,7 @@ const sendClick = async () => {
         >
           Отправить
         </button>
+        <!-- TODO: Сделать ссылку на политиику конфиденциальности -->
         <span class="feedback-form__form-privacy"
           >Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности</span
         >
@@ -68,5 +79,5 @@ const sendClick = async () => {
 </template>
 
 <style scoped lang="scss">
-@use "./assets/css/FeedbackForm.scss" as *;
+@use "./assets/css/feedbackForm.scss" as *;
 </style>

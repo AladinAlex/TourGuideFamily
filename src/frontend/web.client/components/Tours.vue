@@ -1,50 +1,58 @@
 <script setup lang="ts">
 import TourCard from "~/components/TourCard.vue";
-import type { TourType } from "~/types/TourType";
-let tours = ref<TourType[]>([
+import type { CardTourType } from "~/types/CardTourType";
+let tours = ref<CardTourType[]>([
   {
+    id: 1,
     name: "Восхождение на вулкан Горелый",
     description: "Цена за группу до 4 чел.",
     image: "",
-    price: 46000,
+    price: 46000
   },
   {
+    id: 1,
     name: "Поездка на горячие источники",
     description: "Цена за человека",
     image: "",
     price: 8000,
   },
   {
+    id: 1,
     name: "Восхождение на вулкан Горелый",
     description: "Цена за группу до 4 чел.",
     image: "",
     price: 46000,
   },
   {
+    id: 1,
     name: "Поездка на горячие источники",
     description: "Цена за человека",
     image: "",
     price: 8000,
   },
   {
+    id: 1,
     name: "Восхождение на вулкан Горелый",
     description: "Цена за группу до 4 чел.",
     image: "",
     price: 46000,
   },
   {
+    id: 1,
     name: "Поездка на горячие источники",
     description: "Цена за человека",
     image: "",
     price: 8000,
   },
   {
+    id: 1,
     name: "Восхождение на вулкан Горелый",
     description: "Цена за группу до 4 чел.",
     image: "",
     price: 46000,
   },
   {
+    id: 1,
     name: "Поездка на горячие источники",
     description: "Цена за человека",
     image: "",
@@ -61,6 +69,7 @@ let tours = ref<TourType[]>([
         <TourCard
           v-for="(tour, index) in tours"
           :key="index"
+          :id="tour.id"
           :name="tour.name"
           :image="tour.image"
           :price="tour.price"

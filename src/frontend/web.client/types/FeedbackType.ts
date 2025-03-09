@@ -1,5 +1,6 @@
 export type FeedbackType = {
-    firstname: string,
-    phone: string,
-    contactMethod: number
+    firstname: String,
+    phone: String,
+    contactMethod: Number,
+    tourId?: Number
 }

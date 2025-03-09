@@ -1,7 +1,7 @@
 @use "@/assets/css/global.scss" as *;
 
 .promo {
-  background-color: $background-color2;
+  background-color: $background-color2 !important;
 
   &__header {
     margin-bottom: 70px;
