@@ -1,0 +1,24 @@
+@use "@/assets/css/global.scss" as *;
+
+.privacy-policy {
+
+  &__title {
+    font-size: 50px !important;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  &__subtitle {
+    font-size: 32px !important;
+    font-weight: 700;
+    margin-bottom: 40px;
+    margin-top: 80px;
+    line-height: 1.1em;
+  }
+  
+  &__text {
+    color: $text_description;
+    line-height: 1.56em;
+    font-weight: 500;
+  }
+}
