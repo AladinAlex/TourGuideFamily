@@ -1,12 +1,17 @@
 <script setup lang="ts">
-  import Presentation from '~/components/Presentation.vue'
-  import AboutUs from '~/components/AboutUs.vue'
-  import Tours from '~/components/Tours.vue'
-  import Promo from '~/components/Promo.vue'
-  import FeedbackForm from '~/components/FeedbackForm.vue'
-import type { PromoType } from '~/types/PromoType'
+import Presentation from "~/components/Presentation.vue";
+import AboutUs from "~/components/AboutUs.vue";
+import Tours from "~/components/Tours.vue";
+import Promo from "~/components/Promo.vue";
+import FeedbackForm from "~/components/FeedbackForm.vue";
+import type { PromoType } from "~/types/PromoType";
 
-  let promos = ref<PromoType[]>([
+definePageMeta({
+  title: "Туры по Камчатке",
+  layout: "default"
+});
+
+let promos = ref<PromoType[]>([
   {
     image: "",
     title: "От четырех человек",
@@ -34,7 +39,6 @@ import type { PromoType } from '~/types/PromoType'
     description: "Если Вы по совету от нашего клиента, то скидка - 5%",
   },
 ]);
-
 </script>
 
 <template>
