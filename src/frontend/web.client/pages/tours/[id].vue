@@ -4,6 +4,9 @@ import PresentationTour from "~/components/PresentationTour.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { TourType } from "~/types/TourType";
+import FeedbackModal from "@/components/Modals/FeedbackModal.vue";
+import { useModalStore } from "@/stores/modal";
+
 
 definePageMeta({
   title: "Страница тура",
@@ -74,7 +77,14 @@ const tour: TourType = {
 };
 
 var buttonText = "Оставить заявку";
-const handleClick = () => {};
+
+const modal = useModalStore();
+const handleClick = () => {
+  modal.open({
+    component: FeedbackModal,
+    componentProps: {},
+  });
+};
 </script>
 
 <template>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { FeedbackType } from "~/types/FeedbackType";
+import { useModalStore } from "@/stores/modal";
+
 
 const props = defineProps({
   tourId: {
     type: Number,
     required: false,
-    default: () => undefined
-  }
+    default: () => undefined,
+  },
 });
 
 const { contactOptions } = useContactOptions();
@@ -14,7 +16,7 @@ let feedback = ref<FeedbackType>({
   firstname: "",
   phone: "",
   contactMethod: contactOptions[0].id,
-  tourId: props.tourId
+  tourId: props.tourId,
 });
 
 const sendClick = async () => {
@@ -27,12 +29,19 @@ const sendClick = async () => {
     alert("Форма успешно отправлена!");
   }
 };
+
+const modal = useModalStore();
+const privacyHandle = () => {
+  modal.close()
+}
 </script>
 
 <template>
   <div class="feedback-form section">
     <div class="main-container max-width">
-      <h1 class="feedback-form__title title">Оставьте заявку и мы свяжемся с Вами</h1>
+      <h1 class="feedback-form__title title">
+        Оставьте заявку и мы свяжемся с Вами
+      </h1>
       <form class="feedback-form__form">
         <input
           type="text"
@@ -69,10 +78,10 @@ const sendClick = async () => {
         >
           Отправить
         </button>
-        <!-- TODO: Сделать ссылку на политиику конфиденциальности -->
-        <span class="feedback-form__form-privacy"
-          >Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности</span
-        >
+        <span class="feedback-form__form-privacy">
+          Нажимая кнопку, вы соглашаетесь с
+          <NuxtLink to="/PrivacyPolicy" class="feedback-form__form-privacy-link" @click="privacyHandle">Политикой конфиденциальности</NuxtLink>
+        </span>
       </form>
     </div>
   </div>

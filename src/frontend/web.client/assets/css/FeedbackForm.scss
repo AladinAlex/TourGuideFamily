@@ -85,6 +85,19 @@
       color: $text_description;
       font-size: 14px;
 
+      &-link {
+        color: $text_description;
+        text-decoration: none;
+        cursor: pointer;
+        border-bottom: 1px solid;
+        border-bottom-color:  $text_description;
+      }
+
+      &-link:hover {
+        border-bottom-color: transparent;
+        transition: border-bottom-color 0.3s ease;
+      }
+
       @media (max-width: 768px) {
         font-size: 12px;
       }

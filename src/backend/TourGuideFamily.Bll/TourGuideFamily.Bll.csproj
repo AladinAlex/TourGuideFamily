@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="2.70.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\s3\Storage.GrpcContracts\Storage.GrpcContracts.csproj" />
+    <ProjectReference Include="..\TourGuideFamily.Dal\TourGuideFamily.Dal.csproj" />
+  </ItemGroup>
+
+</Project>

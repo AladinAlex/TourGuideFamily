@@ -68,3 +68,111 @@
     color: $text_description;
   }
 }
+
+
+@media (max-width: 1024px) {
+  .price-info {
+    &__header {
+      font-size: 20px; /* Уменьшаем размер заголовка */
+      margin-bottom: 30px; /* Уменьшаем отступ снизу */
+    }
+
+    &__title {
+      margin-bottom: 40px; /* Уменьшаем отступ снизу */
+    }
+  }
+
+  .tour-inclusions {
+    margin: 30px auto; /* Уменьшаем отступы */
+    padding: 15px; /* Уменьшаем внутренние отступы */
+
+    .columns {
+      gap: 20px; /* Уменьшаем отступ между колонками */
+    }
+
+    .column {
+      &__title {
+        font-size: 20px; /* Уменьшаем размер заголовка */
+      }
+    }
+
+    li {
+      font-size: 16px; /* Уменьшаем размер текста */
+      margin-bottom: 8px; /* Уменьшаем отступы */
+    }
+  }
+}
+
+/* Для мобильных устройств (до 768px) */
+@media (max-width: 768px) {
+  .price-info {
+    &__header {
+      font-size: 18px; /* Уменьшаем размер заголовка */
+      margin-bottom: 20px; /* Уменьшаем отступ снизу */
+    }
+
+    &__title {
+      margin-bottom: 30px; /* Уменьшаем отступ снизу */
+    }
+  }
+
+  .tour-inclusions {
+    margin: 20px auto; /* Уменьшаем отступы */
+    padding: 10px; /* Уменьшаем внутренние отступы */
+
+    .columns {
+      flex-direction: column; /* Переводим колонки в столбец */
+      gap: 15px; /* Уменьшаем отступы */
+    }
+
+    .column {
+      flex: unset; /* Убираем флекс для колонок */
+
+      &__title {
+        font-size: 18px; /* Уменьшаем размер заголовка */
+        margin-bottom: 15px; /* Уменьшаем отступы */
+      }
+    }
+
+    li {
+      font-size: 14px; /* Уменьшаем размер текста */
+      margin-bottom: 6px; /* Уменьшаем отступы */
+    }
+  }
+}
+
+/* Для очень маленьких экранов (до 480px) */
+@media (max-width: 480px) {
+  .price-info {
+    &__header {
+      font-size: 16px; /* Ещё меньше размер заголовка */
+      margin-bottom: 15px; /* Уменьшаем отступ снизу */
+    }
+
+    &__title {
+      margin-bottom: 20px; /* Уменьшаем отступ снизу */
+    }
+  }
+
+  .tour-inclusions {
+    margin: 15px auto; /* Ещё меньше отступы */
+    padding: 8px; /* Ещё меньше внутренние отступы */
+
+    .columns {
+      flex-direction: column; /* Колонки остаются в столбце */
+      gap: 10px; /* Уменьшаем отступы */
+    }
+
+    .column {
+      &__title {
+        font-size: 16px; /* Ещё меньше размер заголовка */
+        margin-bottom: 10px; /* Уменьшаем отступы */
+      }
+    }
+
+    li {
+      font-size: 12px; /* Ещё меньше размер текста */
+      margin-bottom: 4px; /* Уменьшаем отступы */
+    }
+  }
+}

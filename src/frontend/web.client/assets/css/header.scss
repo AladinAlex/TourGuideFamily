@@ -31,8 +31,8 @@
     grid-column-gap: 7px;
 
     @media (max-width: 768px) {
-      grid-template-columns: max-content;
-      justify-content: center;
+      // grid-template-columns: max-content;
+      // justify-content: start;
     }
 
     .logo-text {
