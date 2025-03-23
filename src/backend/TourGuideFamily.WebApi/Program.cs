@@ -1,25 +1,31 @@
 using TourGuideFamily.Dal.Extensions;
+using TourGuideFamily.Bll;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 var services = builder.Services;
 
-//services.AddControllers();
+services.AddControllers();
 services
-    //.AddOpenApi()
+    .AddOpenApi()
     .AddLogging()
+    .AddDalInfrastructure(builder.Configuration)
     .AddDalRepositories()
-    .AddDalInfrastructure(builder.Configuration);
+    .AddServices();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
+{
     app.MapOpenApi();
+    //app.UseSwaggerUi();
+}
+
+
+
 //app.UseHttpsRedirection();
 //app.UseAuthorization();
-//app.MapControllers();
+app.MapControllers();
 //app.MigrateDown();
+
 app.MigrateUp();
 
 app.Run();

@@ -1,4 +1,5 @@
-﻿using Storage.Bll.Services.Interfaces;
+﻿using Storage.Bll.Consts;
+using Storage.Bll.Services.Interfaces;
 
 namespace Storage.Bll.Services;
 public class UploadService : IUploadService
@@ -7,17 +8,17 @@ public class UploadService : IUploadService
 
     public UploadService()
     {
-        _storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Storage");
+        _storagePath = Path.Combine(AppContext.BaseDirectory, StorageResourse.ResourseFolderName);
         if (!Directory.Exists(_storagePath))
         {
             Directory.CreateDirectory(_storagePath);
         }
     }
 
-    public async Task<string> UploadFileAsync(string fileName, byte[] fileData, string scheme, string host)
+    public async Task<string> UploadFileAsync(string fileName, byte[] fileData, string scheme, string host, int? port)
     {
         var uniqueFileName = await SaveFileToStorage(fileName, fileData);
-        return GenerateFileUrl(uniqueFileName, scheme, host);
+        return GenerateFileUrl(uniqueFileName, scheme, host, port);
     }
 
     private async Task<string> SaveFileToStorage(string fileName, byte[] fileData)
@@ -32,8 +33,8 @@ public class UploadService : IUploadService
         return uniqueFileName;
     }
 
-    public string GenerateFileUrl(string fileName, string scheme, string host)
+    public string GenerateFileUrl(string fileName, string scheme, string host, int? port)
     {
-        return $"{scheme}://{host}/api/files/download/{fileName}";
+        return $"{scheme}://{host}:{port}/{StorageResourse.ResourseFolderName}/{fileName}";
     }
 }

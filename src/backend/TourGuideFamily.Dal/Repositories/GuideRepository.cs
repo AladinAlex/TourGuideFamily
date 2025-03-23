@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
@@ -9,14 +10,14 @@ namespace TourGuideFamily.Dal.Repositories;
 
 public class GuideRepository : PgRepository, IGuideRepository
 {
-    public GuideRepository(DalOptions dalSettings) : base(dalSettings)
+    public GuideRepository(IOptions<DalOptions> dalSettings) : base(dalSettings.Value)
     {
     }
 
     public async Task<long> AddAsync(CreateGuide entity, CancellationToken token)
     {
         var sql = @"
-insert into guide(image, firstname, surname, description)
+insert into guides(image, firstname, surname, description)
 values(@image, @firstname, @surname, @description)
   returning id;
 ";

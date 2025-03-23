@@ -5,17 +5,11 @@ namespace Storage.WebApi.GrpcServices;
 
 public class UploadFileServiceGrpc : Storage.GrpcContracts.Api.UploadFileService.UploadFileServiceBase
 {
-    private readonly string _storagePath;
     private readonly IUploadService _uploadService;
     
     public UploadFileServiceGrpc(IUploadService uploadService)
     {
         _uploadService = uploadService;
-        _storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Storage");
-        if (!Directory.Exists(_storagePath))
-        {
-            Directory.CreateDirectory(_storagePath);
-        }
     }
 
     public override async Task<Storage.GrpcContracts.Api.UploadFileResponse> UploadFile(IAsyncStreamReader<Storage.GrpcContracts.Api.UploadFileRequest> requestStream, ServerCallContext context)
@@ -51,7 +45,7 @@ public class UploadFileServiceGrpc : Storage.GrpcContracts.Api.UploadFileService
             }
 
             var httpRequest = context.GetHttpContext().Request;
-            var fileUrl = await _uploadService.UploadFileAsync(fileName, fileData, httpRequest.Scheme, httpRequest.Host.Host);
+            var fileUrl = await _uploadService.UploadFileAsync(fileName, fileData, httpRequest.Scheme, httpRequest.Host.Host, httpRequest.Host.Port);
 
             return new Storage.GrpcContracts.Api.UploadFileResponse { FileUrl = fileUrl };
         }

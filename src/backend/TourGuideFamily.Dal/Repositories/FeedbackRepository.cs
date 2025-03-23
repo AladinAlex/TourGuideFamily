@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
@@ -8,7 +9,7 @@ namespace TourGuideFamily.Dal.Repositories;
 
 public class FeedbackRepository : PgRepository, IFeedbackRepository
 {
-    public FeedbackRepository(DalOptions dalSettings) : base(dalSettings)
+    public FeedbackRepository(IOptions<DalOptions> dalSettings) : base(dalSettings.Value)
     {
     }
 

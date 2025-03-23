@@ -33,10 +33,12 @@ public class MultimediaService : IMultimediaService
         const int chunkSize = 8192;
         for (int i = 0; i < bytes.Length; i += chunkSize)
         {
-            //var chunk = new byte[chunkSize];
-            //Array.Copy(bytes, i, chunk, 0, chunkSize);
-            //await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(chunk) });
-            await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(bytes, i, chunkSize) });
+            int countBytes;
+            if (chunkSize < bytes.Length - i)
+                countBytes = chunkSize;
+            else
+                countBytes = bytes.Length - i;
+            await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(bytes, i, countBytes) });
         }
 
         await call.RequestStream.CompleteAsync();

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
@@ -8,7 +9,7 @@ namespace TourGuideFamily.Dal.Repositories;
 
 public class TourDayRepository : PgRepository, ITourDayRepository
 {
-    public TourDayRepository(DalOptions dalSettings) : base(dalSettings)
+    public TourDayRepository(IOptions<DalOptions> dalSettings) : base(dalSettings.Value)
     {
         dataSourceBuilder.MapComposite<TourDay>("tour_day_type", Translator);
     }

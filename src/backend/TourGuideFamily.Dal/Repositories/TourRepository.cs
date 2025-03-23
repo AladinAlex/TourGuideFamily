@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
@@ -8,7 +9,7 @@ namespace TourGuideFamily.Dal.Repositories;
 
 public class TourRepository : PgRepository, ITourRepository
 {
-    public TourRepository(DalOptions dalSettings) : base(dalSettings)
+    public TourRepository(IOptions<DalOptions> dalSettings) : base(dalSettings.Value)
     {
     }
 
@@ -61,7 +62,7 @@ left join tour_days d on d.tour_id = t.id
         using var connection = await dataSource.OpenConnectionAsync(token);
         var cmd = new CommandDefinition(
             sql,
-            new {},
+            new { },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token);
         return (await connection.QueryAsync<TourInfoModel>(cmd))

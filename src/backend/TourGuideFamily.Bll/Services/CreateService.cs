@@ -19,18 +19,24 @@ public class CreateService : ICreateService
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
     {
         using var transaction = CreateTransactionScope();
-
-        var imageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
-        var createModel = new CreateGuide
+        try
         {
-            Description = model.Description,
-            Firstname = model.Firstname,
-            Surname = model.Surname,
-            Image = imageUrl
-        };
-        var id = await _guideRepository.AddAsync(createModel, token);
-        transaction.Complete();
-        return id;
+            var imageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
+            var createModel = new CreateGuide
+            {
+                Description = model.Description,
+                Firstname = model.Firstname,
+                Surname = model.Surname,
+                Image = imageUrl
+            };
+            var id = await _guideRepository.AddAsync(createModel, token);
+            transaction.Complete();
+            return id;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
 
     private TransactionScope CreateTransactionScope(

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TourGuideFamily.Dal.Infrastructure;
+using TourGuideFamily.Dal.Repositories;
 using TourGuideFamily.Dal.Settings;
+using TourGuideFamily.Domain.Interfaces;
 
 namespace TourGuideFamily.Dal.Extensions;
 
@@ -17,7 +19,12 @@ public static class ServiceCollectionExtensions
     }
     private static void AddPostgresRepositories(IServiceCollection services)
     {
-        //services.AddScoped<ITaskRepository, TaskRepository>();
+        services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+        services.AddScoped<IGuideRepository, GuideRepository>();
+        services.AddScoped<IInclusionRepository, InclusionRepository>();
+        services.AddScoped<IPromoRepository, PromoRepository>();
+        services.AddScoped<ITourDayRepository, TourDayRepository>();
+        services.AddScoped<ITourRepository, TourRepository>();
     }
 
     public static IServiceCollection AddDalInfrastructure(
