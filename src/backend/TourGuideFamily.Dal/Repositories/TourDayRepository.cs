@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
@@ -14,7 +15,7 @@ public class TourDayRepository : PgRepository, ITourDayRepository
         dataSourceBuilder.MapComposite<TourDay>("tour_day_type", Translator);
     }
 
-    public async Task<long[]> AddRangeAsync(TourDay[] entities, CancellationToken token)
+    public async Task<long[]> AddRangeAsync(TourDay[] entities, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
 insert into tour_days (tour_id, number, image, name, description)
@@ -32,7 +33,8 @@ insert into tour_days (tour_id, number, image, name, description)
                 days = entities
             },
             commandTimeout: DefaultTimeoutInSeconds,
-            cancellationToken: token);
+            cancellationToken: token,
+            transaction: transaction);
         return (await connection.QueryAsync<long>(cmd))
             .ToArray();
     }

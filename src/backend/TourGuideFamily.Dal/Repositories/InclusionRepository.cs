@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
@@ -14,7 +15,7 @@ public class InclusionRepository : PgRepository, IInclusionRepository
         dataSourceBuilder.MapComposite<Inclusion>("inclusion_type", Translator);
     }
 
-    public async Task<long[]> AddRangeAsync(Inclusion[] entities, CancellationToken token)
+    public async Task<long[]> AddRangeAsync(Inclusion[] entities, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
 insert into inclusions (tour_id, description, include)
@@ -32,7 +33,8 @@ insert into inclusions (tour_id, description, include)
                 inclusions = entities
             },
             commandTimeout: DefaultTimeoutInSeconds,
-            cancellationToken: token);
+            cancellationToken: token,
+            transaction: transaction);
         return (await connection.QueryAsync<long>(cmd))
             .ToArray();
     }

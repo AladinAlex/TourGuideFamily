@@ -17,6 +17,7 @@ public class CreateService : ICreateService
     readonly ITourDayRepository _tourDayRepository;
     readonly IInclusionRepository _inclusionRepository;
     readonly IDateTimeService _dateTimeService;
+    readonly IUnitOfWork _unitOfWork;
     public CreateService(IGuideRepository guideRepository,
         IMultimediaService multimediaService,
         IPromoRepository promoRepository,
@@ -24,7 +25,8 @@ public class CreateService : ICreateService
         ITourDayRepository tourDayRepository,
         IInclusionRepository inclusionRepository,
         IDateTimeService dateTimeService,
-        IFeedbackRepository feedbackRepository)
+        IFeedbackRepository feedbackRepository,
+        IUnitOfWork unitOfWork)
     {
         _guideRepository = guideRepository;
         _multimediaService = multimediaService;
@@ -34,11 +36,11 @@ public class CreateService : ICreateService
         _inclusionRepository = inclusionRepository;
         _feedbackRepository = feedbackRepository;
         _dateTimeService = dateTimeService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
     {
-        using var transaction = CreateTransactionScope();
         try
         {
             var imageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
@@ -50,7 +52,6 @@ public class CreateService : ICreateService
                 Image = imageUrl
             };
             var id = await _guideRepository.AddAsync(createModel, token);
-            transaction.Complete();
             return id;
         }
         catch (Exception ex)
@@ -61,7 +62,6 @@ public class CreateService : ICreateService
 
     public async Task<long> Promo(CreatePromoModel model, CancellationToken token)
     {
-        using var transaction = CreateTransactionScope();
         try
         {
             var imageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
@@ -72,7 +72,7 @@ public class CreateService : ICreateService
                 Image = imageUrl
             };
             var id = await _promoRepository.AddRangeAsync(new[] { createModel }, token);
-            transaction.Complete();
+            
             return id[0];
         }
         catch (Exception ex)
@@ -97,9 +97,10 @@ public class CreateService : ICreateService
     }
     public async Task<long> Tour(CreateTourModel model, CancellationToken token)
     {
-        using var transaction = CreateTransactionScope(timeout: TimeSpan.FromSeconds(10));
         try
         {
+            var transaction = await _unitOfWork.BeginTransactionAsync();
+
             var tourImageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
             var createTourModel = new Tour
             {
@@ -111,7 +112,7 @@ public class CreateService : ICreateService
                 Price = model.Price,
                 DurationHour = model.DurationHour
             };
-            var tourId = await _tourRepository.AddAsync(createTourModel, token);
+            var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);
             var tasks = new List<Task>();
             if (model.Promos is not null && model.Promos.Length > 0)
             {
@@ -131,7 +132,7 @@ public class CreateService : ICreateService
                     });
                     //});
                 }
-                tasks.Add(_promoRepository.AddRangeAsync(newPromos.ToArray(), token));
+                tasks.Add(_promoRepository.AddRangeAsync(newPromos.ToArray(), token, transaction));
             }
             if (model.Days is not null && model.Days.Length > 0)
             {
@@ -148,7 +149,7 @@ public class CreateService : ICreateService
                         Image = dayUrl
                     });
                 }
-                tasks.Add(_tourDayRepository.AddRangeAsync(newDays.ToArray(), token));
+                tasks.Add(_tourDayRepository.AddRangeAsync(newDays.ToArray(), token, transaction));
             }
             if (model.Inclusions is not null && model.Inclusions.Length > 0)
             {
@@ -162,30 +163,18 @@ public class CreateService : ICreateService
                         TourId = tourId
                     });
                 }
-                tasks.Add(_inclusionRepository.AddRangeAsync(newInclusions.ToArray(), token));
+                tasks.Add(_inclusionRepository.AddRangeAsync(newInclusions.ToArray(), token, transaction));
             }
             await Task.WhenAll(tasks);
-            transaction.Complete();
+            await _unitOfWork.CommitAsync();
+
             return tourId;
         }
         catch (Exception ex)
         {
+            await _unitOfWork.RollbackAsync();
             throw;
         }
     }
 
-    private TransactionScope CreateTransactionScope(
-    IsolationLevel level = IsolationLevel.ReadCommitted, TimeSpan? timeout = null)
-    {
-        if (!timeout.HasValue)
-            timeout = TimeSpan.FromSeconds(5);
-        return new TransactionScope(
-            TransactionScopeOption.Required,
-            new TransactionOptions
-            {
-                IsolationLevel = level,
-                Timeout = timeout.Value
-            },
-            TransactionScopeAsyncFlowOption.Enabled);
-    }
 }

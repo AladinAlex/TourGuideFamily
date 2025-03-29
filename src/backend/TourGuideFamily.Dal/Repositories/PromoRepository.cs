@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
@@ -14,7 +15,7 @@ public class PromoRepository : PgRepository, IPromoRepository
         dataSourceBuilder.MapComposite<Promo>("promo_type", Translator);
     }
 
-    public async Task<long[]> AddRangeAsync(Promo[] entities, CancellationToken token)
+    public async Task<long[]> AddRangeAsync(Promo[] entities, CancellationToken token, IDbTransaction transaction = null)
     {
         var sql = @"
 insert into promos (tour_id, image, name, description)
@@ -32,7 +33,8 @@ insert into promos (tour_id, image, name, description)
                 promos = entities
             },
             commandTimeout: DefaultTimeoutInSeconds,
-            cancellationToken: token);
+            cancellationToken: token,
+            transaction: transaction);
         return (await connection.QueryAsync<long>(cmd))
             .ToArray();
     }

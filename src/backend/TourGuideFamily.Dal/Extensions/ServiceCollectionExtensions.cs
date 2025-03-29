@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPromoRepository, PromoRepository>();
         services.AddScoped<ITourDayRepository, TourDayRepository>();
         services.AddScoped<ITourRepository, TourRepository>();
+        services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
     }
 
     public static IServiceCollection AddDalInfrastructure(

@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
 using TourGuideFamily.Domain.Entities;
@@ -13,7 +14,7 @@ public class TourRepository : PgRepository, ITourRepository
     {
     }
 
-    public async Task<long> AddAsync(Tour entity, CancellationToken token)
+    public async Task<long> AddAsync(Tour entity, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
 insert into tours (image, name, description, min_participants, max_participants, price, duration_hour)
@@ -36,7 +37,8 @@ insert into tours (image, name, description, min_participants, max_participants,
                 image = entity.Image
             },
             commandTimeout: DefaultTimeoutInSeconds,
-            cancellationToken: token);
+            cancellationToken: token,
+            transaction: transaction);
         return await connection.QueryFirstAsync<long>(cmd);
     }
 
