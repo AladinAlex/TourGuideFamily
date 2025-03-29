@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
         return serviceCollection.AddScoped<ICreateService, CreateService>()
                 .AddScoped<IFeedbackService, FeedbackService>()
                 .AddScoped<IGetTourService, GetTourService>()
-                .AddScoped<IMultimediaService, MultimediaService>();
+                .AddScoped<IMultimediaService, MultimediaService>()
+                .AddScoped<IDateTimeService, DateTimeService>();
     }
 }

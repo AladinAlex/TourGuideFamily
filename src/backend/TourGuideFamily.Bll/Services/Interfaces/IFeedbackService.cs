@@ -4,5 +4,5 @@ namespace TourGuideFamily.Bll.Services.Interfaces;
 
 public interface IFeedbackService
 {
-    Task Create(CreateFeedbackModel model, CancellationToken token);
+    Task Create(CreateFeedback model, CancellationToken token);
 }

@@ -12,7 +12,7 @@ public class FeedbackService : IFeedbackService
         _feedbackRepository = feedbackRepository;
     }
 
-    public async Task Create(CreateFeedbackModel model, CancellationToken token)
+    public async Task Create(CreateFeedback model, CancellationToken token)
     {
         await _feedbackRepository.AddAsync(model, token);
         //TODO: добавить транзакцию и отправлять уведомление в телеграмм

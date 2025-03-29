@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc(options =>
 {
+    options.MaxReceiveMessageSize = 1024 * 1024 * 35; // 25 MB
     //interceptors
 }).AddJsonTranscoding();
 

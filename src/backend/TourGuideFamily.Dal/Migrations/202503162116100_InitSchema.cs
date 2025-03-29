@@ -9,6 +9,7 @@ public class InitSchema : Migration
     {
         Create.Table("tours")
             .WithColumn("id").AsInt64().PrimaryKey("tours_pk").Identity()
+            .WithColumn("image").AsString().NotNullable()
             .WithColumn("name").AsString().NotNullable()
             .WithColumn("description").AsString().NotNullable()
             .WithColumn("min_participants").AsInt16().NotNullable()

@@ -5,5 +5,5 @@ namespace TourGuideFamily.Domain.Interfaces;
 
 public interface IFeedbackRepository
 {
-    Task<long> AddAsync(CreateFeedbackModel entity, CancellationToken token);
+    Task<long> AddAsync(CreateFeedback entity, CancellationToken token);
 }

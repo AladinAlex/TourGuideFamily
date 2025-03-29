@@ -30,16 +30,17 @@ public class MultimediaService : IMultimediaService
         };
         await call.RequestStream.WriteAsync(new UploadFileRequest { Metadata = metadata });
 
-        const int chunkSize = 8192;
-        for (int i = 0; i < bytes.Length; i += chunkSize)
-        {
-            int countBytes;
-            if (chunkSize < bytes.Length - i)
-                countBytes = chunkSize;
-            else
-                countBytes = bytes.Length - i;
-            await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(bytes, i, countBytes) });
-        }
+        //const int chunkSize = 1024 * 1024 * 5;
+        //for (int i = 0; i < bytes.Length; i += chunkSize)
+        //{
+        //    int countBytes;
+        //    if (chunkSize < bytes.Length - i)
+        //        countBytes = chunkSize;
+        //    else
+        //        countBytes = bytes.Length - i;
+        //    await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(bytes, i, countBytes) });
+        //}
+        await call.RequestStream.WriteAsync(new UploadFileRequest { Data = Google.Protobuf.ByteString.CopyFrom(bytes) });
 
         await call.RequestStream.CompleteAsync();
         var response = await call.ResponseAsync;

@@ -29,7 +29,7 @@ insert into promos (tour_id, image, name, description)
             sql,
             new
             {
-                days = entities
+                promos = entities
             },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token);

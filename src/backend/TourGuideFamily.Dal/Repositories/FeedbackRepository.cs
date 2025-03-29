@@ -13,7 +13,7 @@ public class FeedbackRepository : PgRepository, IFeedbackRepository
     {
     }
 
-    public async Task<long> AddAsync(CreateFeedbackModel entity, CancellationToken token)
+    public async Task<long> AddAsync(CreateFeedback entity, CancellationToken token)
     {
         var sql = @"
 insert into feedback (firstname, phone_number, contact_method, tour_id, created_on)

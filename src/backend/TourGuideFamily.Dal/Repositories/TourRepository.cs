@@ -16,8 +16,8 @@ public class TourRepository : PgRepository, ITourRepository
     public async Task<long> AddAsync(Tour entity, CancellationToken token)
     {
         var sql = @"
-insert into tours (name, description, min_participants, max_participants, price, duration_hour)
-     values (@name, @description, @min_participants, @max_participants, @price, @duration_hour)
+insert into tours (image, name, description, min_participants, max_participants, price, duration_hour)
+     values (@image, @name, @description, @min_participants, @max_participants, @price, @duration_hour)
   returning id;
 ";
 
@@ -33,6 +33,7 @@ insert into tours (name, description, min_participants, max_participants, price,
                 max_participants = entity.MaxParticipants,
                 price = entity.Price,
                 duration_hour = entity.DurationHour,
+                image = entity.Image
             },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token);
@@ -73,6 +74,7 @@ left join tour_days d on d.tour_id = t.id
     {
         var sql = @"
 select t.name
+     , image
      , description
      , t.min_participants
      , t.max_participants
