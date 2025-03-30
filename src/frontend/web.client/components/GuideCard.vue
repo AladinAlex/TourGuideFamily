@@ -6,7 +6,7 @@ const props = defineProps<GuideType>();
 <template>
   <div class="guideCard">
     <div class="guideCard_left">
-      <img class="guideCard__left-image" src="@/assets/images/unknownGuide.jpg" alt="Фото гида" />
+      <img class="guideCard__left-image" :src="image" alt="Фото гида" />
     </div>
     <div class="guideCard__right">
       <div class="guideCard__right-content">

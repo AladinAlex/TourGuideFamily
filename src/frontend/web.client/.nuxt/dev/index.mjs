@@ -345,7 +345,9 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {},
+  "public": {
+    "apiBase": "https://localhost:3000/api"
+  },
   "ipx": {
     "baseURL": "/_ipx",
     "alias": {},

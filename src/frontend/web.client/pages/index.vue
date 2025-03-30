@@ -4,50 +4,54 @@ import AboutUs from "~/components/AboutUs.vue";
 import Tours from "~/components/Tours.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
-import type { PromoType } from "~/types/PromoType";
+import type { MainType } from "~/types/MainType";
+const { $api } = useNuxtApp()
 
 definePageMeta({
   title: "Туры по Камчатке",
   layout: "default"
 });
 
-let promos = ref<PromoType[]>([
+const model = ref<MainType | null>()
+// const runtimeConfig = useRuntimeConfig();
+// onServerPrefetch(async () => {
+//   try {
+//     const response = await $fetch<MainType>('main/main')
+//     console.log('response: ', response)
+//     model.value = response
+//   } catch (error) {
+//     console.log('error: ', error)
+//   }
+// });
+
+const loadMainData = async () => {
+  try {
+    const {data: responseData, error: responseError} = await useAsyncData<MainType>('main', () => $api<MainType>('/main/main'))
+    console.log('responseError', responseError.value)
+    console.log('responseData', responseData.value)
+    if(responseError.value) {
+      console.log('error: ', responseError.value)
+    } else {
+      model.value = responseData.value
+    }
+  }
+  catch(error)
   {
-    image: "",
-    title: "От четырех человек",
-    description: "Семье или компании скидка - 5% на каждого",
-  },
-  {
-    image: "",
-    title: "От восьми человек",
-    description: "Для больших компаний скидка - 10% на каждого",
-  },
-  {
-    image: "",
-    title: "День рождения",
-    description:
-      "Подарим скидку 5%, если ваш День Рождения выпадает на время похода",
-  },
-  {
-    image: "",
-    title: "Для детей",
-    description: "Детям до 12 лет скидка 5%",
-  },
-  {
-    image: "",
-    title: "По совету друга",
-    description: "Если Вы по совету от нашего клиента, то скидка - 5%",
-  },
-]);
+    console.log('error', error)
+  }
+}
+
+await loadMainData()
+
 </script>
 
 <template>
   <main class="page">
     <div class="main-page">
       <Presentation />
-      <AboutUs />
-      <Tours />
-      <Promo :promos="promos" title="Акции и скидки" />
+      <AboutUs :guides="model?.guides" />
+      <Tours :tours="model?.tours" />
+      <Promo :promos="model?.promos" title="Акции и скидки" />
       <FeedbackForm />
     </div>
   </main>

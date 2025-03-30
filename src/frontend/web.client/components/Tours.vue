@@ -1,64 +1,15 @@
 <script setup lang="ts">
 import TourCard from "~/components/TourCard.vue";
 import type { CardTourType } from "~/types/CardTourType";
-let tours = ref<CardTourType[]>([
-  {
-    id: 1,
-    name: "Восхождение на вулкан Горелый",
-    description: "1-4",
-    image: "",
-    price: 46000
-  },
-  {
-    id: 1,
-    name: "Поездка на горячие источники",
-    description: "1",
-    image: "",
-    price: 8000,
-  },
-  {
-    id: 1,
-    name: "Восхождение на вулкан Горелый",
-    description: "1-4",
-    image: "",
-    price: 46000,
-  },
-  {
-    id: 1,
-    name: "Поездка на горячие источники",
-    description: "1",
-    image: "",
-    price: 8000,
-  },
-  {
-    id: 1,
-    name: "Восхождение на вулкан Горелый",
-    description: "1-4",
-    image: "",
-    price: 46000,
-  },
-  {
-    id: 1,
-    name: "Поездка на горячие источники",
-    description: "1",
-    image: "",
-    price: 8000,
-  },
-  {
-    id: 1,
-    name: "Восхождение на вулкан Горелый",
-    description: "1-4",
-    image: "",
-    price: 46000,
-  },
-  {
-    id: 1,
-    name: "Поездка на горячие источники",
-    description: "1",
-    image: "",
-    price: 8000,
-  },
-]);
+
+const props = defineProps({
+  tours: {
+    type: Array as PropType<CardTourType[]>,
+    default: () => [],
+    required: true,
+  }
+});
+
 </script>
 
 <template>
@@ -70,10 +21,13 @@ let tours = ref<CardTourType[]>([
           v-for="(tour, index) in tours"
           :key="index"
           :id="tour.id"
-          :name="tour.name"
           :image="tour.image"
+          :name="tour.name"
+          :min-participants="tour.minParticipants"
+          :max-participants="tour.maxParticipants"
           :price="tour.price"
-          :description="tour.description"
+          :duration-hour="tour.durationHour"
+          :day-count="tour.dayCount"
         />
       </div>
     </div>

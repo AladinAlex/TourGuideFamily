@@ -3,22 +3,13 @@ import GuideCard from "~/components/GuideCard.vue";
 import SeparateLine from "~/components/SeparateLine.vue";
 import type { GuideType } from "~/types/GuideType";
 
-let guides = ref<GuideType[]>([
-  {
-    firstname: "Александр",
-    surname: "Аладинский",
-    description: "Экскурсовод (гид), регистрационный №: 41-Э-43078-23",
-    text: "Это он ответит вам, когда позвоните. Рулил автомобильным бизнесом, пока однажды на вершине Эльбруса не понял, что дело жизни выглядит совсем иначе. С тех пор прошёл вершины Кавказа, вулканы Камчатки, тысячники, перебрался на Марс, исследовал его и вернулся на Землю.",
-    image: "@/assets/images/AlexandrGuide.jpg",
-  },
-  {
-    firstname: "Марина",
-    surname: "Аладинская",
-    description: "Экскурсовод (гид), регистрационный №: 41-Э-43072-23",
-    text: "Это он ответит вам, когда позвоните. Рулил автомобильным бизнесом, пока однажды на вершине Эльбруса не понял, что дело жизни выглядит совсем иначе. С тех пор прошёл вершины Кавказа, вулканы Камчатки, тысячники, перебрался на Марс, исследовал его и вернулся на Землю.",
-    image: "@/assets/images/unknownGuide.jpg",
-  },
-]);
+const props = defineProps({
+  guides: {
+    type: Array as PropType<GuideType[]>,
+    default: () => [],
+    required: true,
+  }
+});
 
 let reasons = ref<{title: string, text: string}[]>([
 {
@@ -50,6 +41,7 @@ let reasons = ref<{title: string, text: string}[]>([
   text: 'Вы можете обратиться к нам за консультацией, советом в организации отдыха по Камчатке. Поможем, чем можем!'
 }
 ])
+
 </script>
 
 <template>
@@ -68,7 +60,6 @@ let reasons = ref<{title: string, text: string}[]>([
           :firstname="guide.firstname"
           :surname="guide.surname"
           :description="guide.description"
-          :text="guide.text"
           :image="guide.image"
         />
       </div>

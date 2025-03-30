@@ -3,6 +3,7 @@
 public record TourInfoModel
 {
     public required long Id { get; init; }
+    public required string Image { get; init; }
     public required string Name { get; init; }
     public required short MinParticipants { get; init; }
     public required short MaxParticipants { get; init; }

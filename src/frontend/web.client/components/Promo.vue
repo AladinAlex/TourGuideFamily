@@ -26,7 +26,7 @@ const props = defineProps({
           v-for="(promo, index) in promos"
           :key="index"
           :image="promo.image"
-          :title="promo.title"
+          :name="promo.name"
           :description="promo.description"
         />
       </div>

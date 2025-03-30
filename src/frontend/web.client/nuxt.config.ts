@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   // plugins: [
   //   // '~/plugins/pinia.client.ts',
   // ],
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL,
+    }
+  },
   devtools: { enabled: true },
   compatibilityDate: "2025-02-04",
   modules: [

@@ -47,6 +47,7 @@ insert into tours (image, name, description, min_participants, max_participants,
         var sql = @"
    select t.id
         , t.name
+        , t.image
         , t.min_participants
         , t.max_participants
         , t.price

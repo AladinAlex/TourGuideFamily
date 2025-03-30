@@ -1,8 +1,11 @@
 
 export type CardTourType = {
     id: number,
-    name: string,
-    description: string,
     image: string,
-    price: number
+    name: string,
+    minParticipants: number,
+    maxParticipants: number,
+    price: number,
+    durationHour: number | undefined,
+    dayCount: number
 }

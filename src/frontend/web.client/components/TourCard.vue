@@ -12,7 +12,7 @@ const routeToTour = (id: string) => {
 <template>
   <div class="tour-card" @click.self="routeToTour('1')">
     <div class="tour-card__image-block">
-      <img src="@/assets/images/tourImage.jpg" class="tour-card__image" />
+      <img :src="image" class="tour-card__image" />
     </div>
     <div class="tour-card__content">
       <!-- TODO: переделать, добавить иконки (1 день или несколько, также для времени, лучше добрать икноку часов и дальше 8ч) -->
@@ -24,7 +24,7 @@ const routeToTour = (id: string) => {
             alt="Рубль"
           />
         <span class="tour-card__description-text">
-          {{ props.description }} чел.
+          {{ props.minParticipants + " - " + props.maxParticipants }} чел.
         </span>
       </p>
       <p class="tour-card__price">
