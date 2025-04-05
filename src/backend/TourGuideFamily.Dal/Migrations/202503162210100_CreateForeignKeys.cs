@@ -16,6 +16,11 @@ public class CreateForeignKeys : Migration
             .FromTable("inclusions").ForeignColumn("tour_id")
             .ToTable("tours").PrimaryColumn("id")
             .OnDelete(System.Data.Rule.Cascade);
+
+        Create.ForeignKey("tour_promos_fk")
+            .FromTable("promos").ForeignColumn("tour_id")
+            .ToTable("tours").PrimaryColumn("id")
+            .OnDelete(System.Data.Rule.Cascade);
     }
 
     public override void Down()

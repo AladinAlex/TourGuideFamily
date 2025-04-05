@@ -5,15 +5,15 @@ import SeparateLine from "~/components/SeparateLine.vue";
 const props = defineProps({
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   included: {
     type: Array as PropType<String[]>,
-    required: true,
+    required: false,
   },
   excluded: {
     type: Array as PropType<String[]>,
-    required: true,
+    required: false,
   },
 });
 </script>

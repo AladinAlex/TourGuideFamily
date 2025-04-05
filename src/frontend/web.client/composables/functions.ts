@@ -1,4 +1,6 @@
-export function addWordDay(value: number): string {
+export function addWordDay(value: number | undefined): string {
+  if(value == undefined)
+    return ''
   const lastDigit = value % 10;
   const lastTwoDigits = value % 100;
   if (lastDigit === 1 && lastTwoDigits !== 11) {

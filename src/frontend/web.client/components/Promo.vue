@@ -6,7 +6,7 @@ const props = defineProps({
   promos: {
     type: Array as PropType<PromoType[]>,
     default: () => [],
-    required: true,
+    required: false,
   },
   title: {
     type: String,

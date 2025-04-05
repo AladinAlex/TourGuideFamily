@@ -4,13 +4,22 @@ import { useRouter } from 'vue-router';
 const props = defineProps<CardTourType>();
 
 const router = useRouter();
-const routeToTour = (id: string) => {
-  router.push('/tours/' + 1);
+const routeToTour = (slug: string) => {
+  console.log('slug: ', slug)
+  router.push('/tours/' + slug);
 }
+
+const duration = () => {
+  if(props.durationHour)
+    return props.durationHour + ' ч.'
+  else
+    return props.dayCount + ' дн.'
+}
+
 </script>
 
 <template>
-  <div class="tour-card" @click.self="routeToTour('1')">
+  <div class="tour-card" @click.self="routeToTour(props.slug)">
     <div class="tour-card__image-block">
       <img :src="image" class="tour-card__image" />
     </div>
@@ -21,15 +30,23 @@ const routeToTour = (id: string) => {
         <img
             src="@/assets/images/people.png"
             class="tour-card__description-image"
-            alt="Рубль"
+            alt="Группа людей"
           />
         <span class="tour-card__description-text">
           {{ props.minParticipants + " - " + props.maxParticipants }} чел.
         </span>
+        <img
+            src="@/assets/images/time_black.png"
+            class="tour-card__description-image"
+            alt="Длительность"
+          />
+        <span class="tour-card__description-text">
+          {{ duration() }}
+        </span>
       </p>
       <p class="tour-card__price">
         <img
-            src="@/assets/images/ruble2.png"
+            src="@/assets/images/ruble-black.png"
             class="tour-card__price-image"
             alt="Рубль"
           />
@@ -38,7 +55,7 @@ const routeToTour = (id: string) => {
         </span>
 
       </p>
-      <button class="tour-card__button btn" @click="routeToTour('1')">Узнать больше</button>
+      <button class="tour-card__button btn" @click="routeToTour(props.slug)">Узнать больше</button>
     </div>
   </div>
 </template>

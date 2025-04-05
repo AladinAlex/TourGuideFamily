@@ -1,14 +1,17 @@
 import type { PromoType } from "./PromoType"
-import type { TourProgramType } from "./TourProgramType"
+import type { DayType } from "./DayType"
 
 export type TourType = {
     id: number,
+    image: string,
     name: string,
     description: string,
-    image: string,
+    minParticipants: number,
+    maxParticipants: number,
     price: number,
-    program: TourProgramType[],
+    durationHour: number | undefined,
+    days: DayType[],
     promos: PromoType[],
-    included: String[],
-    excluded: String[],
+    included: string[],
+    excluded: string[],
 }

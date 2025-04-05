@@ -5,14 +5,14 @@ import Tours from "~/components/Tours.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { MainType } from "~/types/MainType";
-const { $api } = useNuxtApp()
+const { $api } = useNuxtApp();
 
 definePageMeta({
   title: "Туры по Камчатке",
-  layout: "default"
+  layout: "default",
 });
 
-const model = ref<MainType | null>()
+const model = ref<MainType | null>();
 // const runtimeConfig = useRuntimeConfig();
 // onServerPrefetch(async () => {
 //   try {
@@ -26,23 +26,19 @@ const model = ref<MainType | null>()
 
 const loadMainData = async () => {
   try {
-    const {data: responseData, error: responseError} = await useAsyncData<MainType>('main', () => $api<MainType>('/main/main'))
-    console.log('responseError', responseError.value)
-    console.log('responseData', responseData.value)
-    if(responseError.value) {
-      console.log('error: ', responseError.value)
+    const { data: responseData, error: responseError } =
+      await useAsyncData<MainType>("main", () => $api<MainType>("/main/main"));
+    if (responseError.value) {
+      console.log("error: ", responseError.value);
     } else {
-      model.value = responseData.value
+      model.value = responseData.value;
     }
+  } catch (error) {
+    console.log("error: ", error);
   }
-  catch(error)
-  {
-    console.log('error', error)
-  }
-}
+};
 
-await loadMainData()
-
+await loadMainData();
 </script>
 
 <template>

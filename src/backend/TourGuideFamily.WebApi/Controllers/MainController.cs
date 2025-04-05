@@ -32,12 +32,12 @@ public class MainController
         }
     }
 
-    [HttpGet("Tour/{tourId}")]
-    public async Task<IActionResult> Tour(long tourId, CancellationToken token)
+    [HttpGet("Tour/{slug}")]
+    public async Task<IActionResult> Tour(string slug, CancellationToken token)
     {
         try
         {
-            return new JsonResult(await _getTourService.Tour(tourId, token));
+            return new JsonResult(await _getTourService.Tour(slug, token));
         }
         catch (Exception ex)
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TourGuideFamily.Domain.Entities;
+﻿namespace TourGuideFamily.Domain.Entities;
 
 public record Tour
 {
@@ -16,4 +10,5 @@ public record Tour
     public required short MaxParticipants { get; init; }
     public required decimal Price { get; init; }
     public short? DurationHour { get; init; }
+    public required string Slug { get; init; }
 }

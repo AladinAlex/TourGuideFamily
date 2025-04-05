@@ -20,7 +20,6 @@ const props = defineProps({
         <TourCard
           v-for="(tour, index) in tours"
           :key="index"
-          :id="tour.id"
           :image="tour.image"
           :name="tour.name"
           :min-participants="tour.minParticipants"
@@ -28,6 +27,7 @@ const props = defineProps({
           :price="tour.price"
           :duration-hour="tour.durationHour"
           :day-count="tour.dayCount"
+          :slug="tour.slug"
         />
       </div>
     </div>

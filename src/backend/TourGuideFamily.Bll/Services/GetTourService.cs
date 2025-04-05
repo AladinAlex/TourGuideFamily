@@ -45,8 +45,9 @@ public class GetTourService : IGetTourService
         };
     }
 
-    public async Task<TourModel> Tour(long tourId, CancellationToken token)
+    public async Task<TourModel> Tour(string slug, CancellationToken token)
     {
+        var tourId = await _tourRepository.GetTourIdBySlug(slug, token);
         var tourTask = _tourRepository.GetById(tourId, token);
         var daysTask = _tourDayRepository.GetByTourId(tourId, token);
         var promosTask = _promoRepository.GetByTourId(tourId, token);
@@ -63,14 +64,16 @@ public class GetTourService : IGetTourService
 
         return new TourModel
         {
+            Id = tourId,
             Name = tour.Name,
+            Image = tour.Image,
             Description = tour.Description,
             MinParticipants = tour.MinParticipants,
             MaxParticipants = tour.MaxParticipants,
             Price = tour.Price,
             DurationHour = tour.DurationHour,
             Days = days,
-            Promo = promos,
+            Promos = promos,
             Included = included,
             Excluded = excluded,
         };

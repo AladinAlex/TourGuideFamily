@@ -15,7 +15,8 @@ public class InitSchema : Migration
             .WithColumn("min_participants").AsInt16().NotNullable()
             .WithColumn("max_participants").AsInt16().NotNullable()
             .WithColumn("price").AsDecimal().NotNullable()
-            .WithColumn("duration_hour").AsInt16().Nullable();
+            .WithColumn("duration_hour").AsInt16().Nullable()
+            .WithColumn("slug").AsString().NotNullable();
 
         Create.Table("tour_days")
             .WithColumn("id").AsInt64().PrimaryKey("tour_days_pk").Identity()

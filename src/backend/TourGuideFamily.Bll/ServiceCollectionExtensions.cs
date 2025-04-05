@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
                 .AddScoped<IFeedbackService, FeedbackService>()
                 .AddScoped<IGetTourService, GetTourService>()
                 .AddScoped<IMultimediaService, MultimediaService>()
-                .AddScoped<IDateTimeService, DateTimeService>();
+                .AddScoped<IDateTimeService, DateTimeService>()
+                .AddScoped<IUrlCoderService, UrlCoderService>();
     }
 }

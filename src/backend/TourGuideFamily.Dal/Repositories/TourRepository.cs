@@ -17,8 +17,8 @@ public class TourRepository : PgRepository, ITourRepository
     public async Task<long> AddAsync(Tour entity, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
-insert into tours (image, name, description, min_participants, max_participants, price, duration_hour)
-     values (@image, @name, @description, @min_participants, @max_participants, @price, @duration_hour)
+insert into tours (image, name, description, min_participants, max_participants, price, duration_hour, slug)
+     values (@image, @name, @description, @min_participants, @max_participants, @price, @duration_hour, @slug)
   returning id;
 ";
 
@@ -34,7 +34,8 @@ insert into tours (image, name, description, min_participants, max_participants,
                 max_participants = entity.MaxParticipants,
                 price = entity.Price,
                 duration_hour = entity.DurationHour,
-                image = entity.Image
+                image = entity.Image,
+                slug = entity.Slug
             },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token,
@@ -45,22 +46,23 @@ insert into tours (image, name, description, min_participants, max_participants,
     public async Task<TourInfoModel[]> GetToursInfo(CancellationToken token)
     {
         var sql = @"
-   select t.id
-        , t.name
+   select t.name
         , t.image
         , t.min_participants
         , t.max_participants
         , t.price
         , t.duration_hour
+        , t.slug
         , count(1) as day_count
      from tours t
 left join tour_days d on d.tour_id = t.id
- group by t.id
-        , t.name
+ group by t.name
+        , t.image
         , t.min_participants
         , t.max_participants
         , t.price
         , t.duration_hour
+        , t.slug
 ";
         using var dataSource = dataSourceBuilder.Build();
         using var connection = await dataSource.OpenConnectionAsync(token);
@@ -97,5 +99,45 @@ select t.name
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token);
         return await connection.QueryFirstAsync<TourModel>(cmd);
+    }
+
+    public async Task<int> GetCountBySlug(string slug, CancellationToken token)
+    {
+        var sql = @"
+select count(1)
+  from tours t
+ where t.slug = @slug
+";
+        using var dataSource = dataSourceBuilder.Build();
+        using var connection = await dataSource.OpenConnectionAsync(token);
+        var cmd = new CommandDefinition(
+            sql,
+            new
+            {
+                slug = slug,
+            },
+            commandTimeout: DefaultTimeoutInSeconds,
+            cancellationToken: token);
+        return await connection.QueryFirstAsync<int>(cmd);
+    }
+
+    public async Task<long> GetTourIdBySlug(string slug, CancellationToken token)
+    {
+        var sql = @"
+select t.id
+  from tours t
+ where t.slug = @slug
+";
+        using var dataSource = dataSourceBuilder.Build();
+        using var connection = await dataSource.OpenConnectionAsync(token);
+        var cmd = new CommandDefinition(
+            sql,
+            new
+            {
+                slug = slug,
+            },
+            commandTimeout: DefaultTimeoutInSeconds,
+            cancellationToken: token);
+        return await connection.QueryFirstAsync<long>(cmd);
     }
 }

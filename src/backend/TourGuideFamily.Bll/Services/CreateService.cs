@@ -18,6 +18,7 @@ public class CreateService : ICreateService
     readonly IInclusionRepository _inclusionRepository;
     readonly IDateTimeService _dateTimeService;
     readonly IUnitOfWork _unitOfWork;
+    readonly IUrlCoderService _urlCoderService;
     public CreateService(IGuideRepository guideRepository,
         IMultimediaService multimediaService,
         IPromoRepository promoRepository,
@@ -26,7 +27,8 @@ public class CreateService : ICreateService
         IInclusionRepository inclusionRepository,
         IDateTimeService dateTimeService,
         IFeedbackRepository feedbackRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IUrlCoderService urlCoderService)
     {
         _guideRepository = guideRepository;
         _multimediaService = multimediaService;
@@ -37,6 +39,7 @@ public class CreateService : ICreateService
         _feedbackRepository = feedbackRepository;
         _dateTimeService = dateTimeService;
         _unitOfWork = unitOfWork;
+        _urlCoderService = urlCoderService;
     }
 
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
@@ -102,6 +105,8 @@ public class CreateService : ICreateService
             var transaction = await _unitOfWork.BeginTransactionAsync();
 
             var tourImageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
+
+            var slug = await _urlCoderService.EncodeToSlugAsync(model.Name, token);
             var createTourModel = new Tour
             {
                 Image = tourImageUrl,
@@ -110,7 +115,8 @@ public class CreateService : ICreateService
                 MinParticipants = model.MinParticipants,
                 MaxParticipants = model.MaxParticipants,
                 Price = model.Price,
-                DurationHour = model.DurationHour
+                DurationHour = model.DurationHour,
+                Slug = slug
             };
             var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);
             var tasks = new List<Task>();
