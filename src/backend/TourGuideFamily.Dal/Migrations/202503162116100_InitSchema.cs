@@ -11,7 +11,6 @@ public class InitSchema : Migration
             .WithColumn("id").AsInt64().PrimaryKey("tours_pk").Identity()
             .WithColumn("image").AsString().NotNullable()
             .WithColumn("name").AsString().NotNullable()
-            .WithColumn("description").AsString().NotNullable()
             .WithColumn("min_participants").AsInt16().NotNullable()
             .WithColumn("max_participants").AsInt16().NotNullable()
             .WithColumn("price").AsDecimal().NotNullable()

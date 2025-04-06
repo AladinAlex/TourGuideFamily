@@ -64,10 +64,8 @@ public class GetTourService : IGetTourService
 
         return new TourModel
         {
-            Id = tourId,
             Name = tour.Name,
             Image = tour.Image,
-            Description = tour.Description,
             MinParticipants = tour.MinParticipants,
             MaxParticipants = tour.MaxParticipants,
             Price = tour.Price,

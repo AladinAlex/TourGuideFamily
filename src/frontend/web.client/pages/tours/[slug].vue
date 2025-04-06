@@ -98,7 +98,7 @@ const handleClick = () => {
     :excluded="tour?.excluded"
   />
   <Promo :promos="tour?.promos" />
-  <FeedbackForm :tourId="tour?.id" />
+  <FeedbackForm :slug="slug" />
 </template>
 
 <style scoped lang="scss">

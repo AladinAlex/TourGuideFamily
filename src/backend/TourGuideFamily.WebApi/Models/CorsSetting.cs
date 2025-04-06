@@ -2,5 +2,5 @@
 
 internal record CorsSetting
 {
-    internal string[] Urls { get; init; }
+    public string[] Urls { get; init; }
 }

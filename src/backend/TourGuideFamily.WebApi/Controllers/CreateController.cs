@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TourGuideFamily.Bll.Models;
 using TourGuideFamily.Bll.Services.Interfaces;
-using TourGuideFamily.Domain.Models;
 using TourGuideFamily.WebApi.Models;
 
 namespace TourGuideFamily.WebApi.Controllers;
@@ -39,22 +37,6 @@ public class CreateController
         try
         {
             return new JsonResult(await _createService.Promo(model, token));
-        }
-        catch (Exception ex)
-        {
-            return new JsonResult(new ErrorResponse
-            {
-                Error = ex.Message
-            });
-        }
-    }
-
-    [HttpPost("Feedback")]
-    public async Task<IActionResult> Feedback(CreateFeedbackModel model, CancellationToken token)
-    {
-        try
-        {
-            return new JsonResult(await _createService.Feedback(model, token));
         }
         catch (Exception ex)
         {

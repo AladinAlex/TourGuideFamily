@@ -1,8 +1,19 @@
 <script setup lang="ts">
+import InProgressModal from "~/components/Modals/InProgressModal.vue";
+import { useModalStore } from "@/stores/modal";
+
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
+};
+
+const modal = useModalStore();
+const handleClick = () => {
+  modal.open({
+    component: InProgressModal,
+    componentProps: {}
+  })
 };
 </script>
 
@@ -30,19 +41,29 @@ const toggleMenu = () => {
       <nav class="header__nav" :class="{ 'header__nav--active': isMenuOpen }">
         <ul class="header__nav-ul list-reset">
           <li class="header__nav-li">
-            <a class="header__nav-link" href="#tours">Туры</a>
+            <!-- <a class="header__nav-link" href="#tours">Туры</a> -->
+            <NuxtLink class="header__nav-link" to="/#tours">Туры</NuxtLink>
           </li>
           <li class="header__nav-li">
-            <a class="header__nav-link" href="#about">Наша команда</a>
+            <!-- <a class="header__nav-link" href="#about">Наша команда</a> -->
+            <NuxtLink class="header__nav-link" to="/#about">Наша команда</NuxtLink>
           </li>
+          <!-- <li class="header__nav-li"> -->
+            <!-- <a class="header__nav-link" href="#reviews">Контакты</a> -->
+            <!-- <NuxtLink class="header__nav-link" @click="handleClick">Контакты</NuxtLink> -->
+          <!-- </li> -->
           <li class="header__nav-li">
-            <a class="header__nav-link" href="#reviews">Контакты</a>
+            <!-- <a class="header__nav-link" href="#promo">Акции</a> -->
+            <NuxtLink class="header__nav-link" to="/#promo">Акции</NuxtLink>
+            <!-- <NuxtLink class="header__nav-link" :to="{ path: '/', query: {scrollTo: 'promo'} }">Акции</NuxtLink> -->
           </li>
+          <!-- <li class="header__nav-li"> -->
+            <!-- <a class="header__nav-link" href="#reviews">Ваши вопросы</a> -->
+            <!-- <NuxtLink class="header__nav-link" @click="handleClick">Ваши вопросы</NuxtLink> -->
+          <!-- </li> -->
           <li class="header__nav-li">
-            <a class="header__nav-link" href="#reviews">Ваши вопросы</a>
-          </li>
-          <li class="header__nav-li">
-            <a class="header__nav-link" href="#reviews">Отзывы</a>
+            <!-- <a class="header__nav-link" href="#reviews">Отзывы</a> -->
+            <NuxtLink class="header__nav-link" @click="handleClick">Отзывы</NuxtLink>
           </li>
         </ul>
       </nav>

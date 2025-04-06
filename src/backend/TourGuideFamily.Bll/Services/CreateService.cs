@@ -86,13 +86,17 @@ public class CreateService : ICreateService
 
     public async Task<long> Feedback(CreateFeedbackModel model, CancellationToken token)
     {
-
+        long? tourId = null;
+        if(!string.IsNullOrWhiteSpace(model.Slug))
+        {
+            tourId = await _tourRepository.GetTourIdBySlug(model.Slug, token);
+        }
         var createModel = new CreateFeedback
         {
             Firstname = model.Firstname,
             PhoneNumber = model.PhoneNumber,
             ContactMethod = (short)model.ContactMethod,
-            TourId = model.TourId,
+            TourId = tourId,
             CreatedOn = _dateTimeService.GetDateTimeOffset()
         };
         var id = await _feedbackRepository.AddAsync(createModel, token);
@@ -111,7 +115,6 @@ public class CreateService : ICreateService
             {
                 Image = tourImageUrl,
                 Name = model.Name,
-                Description = model.Description,
                 MinParticipants = model.MinParticipants,
                 MaxParticipants = model.MaxParticipants,
                 Price = model.Price,

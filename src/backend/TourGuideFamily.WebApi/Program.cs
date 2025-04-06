@@ -1,14 +1,15 @@
-using TourGuideFamily.Dal.Extensions;
 using TourGuideFamily.Bll;
+using TourGuideFamily.Dal.Extensions;
 using TourGuideFamily.WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-services.Configure<CorsSetting>(builder.Configuration.GetSection(nameof(CorsSetting)));
+//services.Configure<CorsSetting>(builder.Configuration.GetSection(nameof(CorsSetting)));
 
 CorsSetting corsSetting = new();
 builder.Configuration.GetSection(nameof(CorsSetting)).Bind(corsSetting);
+//var corsSetting = builder.Configuration.GetSection(nameof(CorsSetting)).Get<CorsSetting>();
 services.AddControllers();
 services
     .AddOpenApi()
@@ -36,7 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
+app.UseCors("VuePolicy");
 //app.UseHttpsRedirection();
 //app.UseAuthorization();
 app.MapControllers();

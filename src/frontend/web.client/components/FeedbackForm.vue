@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { FeedbackType } from "~/types/FeedbackType";
 import { useModalStore } from "@/stores/modal";
-
+import RequestSendedModal from "@/components/Modals/RequestSendedModal.vue";
+const { $api } = useNuxtApp();
 
 const props = defineProps({
-  tourId: {
-    type: Number,
+  slug: {
+    type: String,
     required: false,
     default: () => undefined,
   },
@@ -16,24 +17,39 @@ let feedback = ref<FeedbackType>({
   firstname: "",
   phone: "",
   contactMethod: contactOptions[0].id,
-  tourId: props.tourId,
+  slug: props.slug,
 });
 
 const sendClick = async () => {
+  console.log('ss', feedback.value)
   if (
     feedback.value.contactMethod &&
     feedback.value.firstname &&
     feedback.value.phone
   ) {
-    console.log("Данные формы:", feedback);
-    alert("Форма успешно отправлена!");
+    try {
+      const response = await $api("/main/feedback", { 
+        method: "POST",
+        body: JSON.stringify(feedback.value),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      modal.open({
+        component: RequestSendedModal,
+        componentProps: {}
+      })
+    } catch (error: any) {
+      console.error("Ошибка при отправке данных:", error.message);
+      throw error;
+    }
   }
 };
 
 const modal = useModalStore();
 const privacyHandle = () => {
-  modal.close()
-}
+  modal.close();
+};
 </script>
 
 <template>
@@ -52,7 +68,7 @@ const privacyHandle = () => {
         />
         <input
           type="tel"
-          v:odel="feedback.phone"
+          :model="feedback.phone"
           placeholder="Номер телефона *"
           required
           class="feedback-form__form-inputphone"
@@ -72,7 +88,7 @@ const privacyHandle = () => {
           </option>
         </select>
         <button
-          type="submit"
+          type="button"
           class="feedback-form__form-btn btn--size--bg"
           @click="sendClick"
         >
@@ -80,7 +96,12 @@ const privacyHandle = () => {
         </button>
         <span class="feedback-form__form-privacy">
           Нажимая кнопку, вы соглашаетесь с
-          <NuxtLink to="/PrivacyPolicy" class="feedback-form__form-privacy-link" @click="privacyHandle">Политикой конфиденциальности</NuxtLink>
+          <NuxtLink
+            to="/PrivacyPolicy"
+            class="feedback-form__form-privacy-link"
+            @click="privacyHandle"
+            >Политикой конфиденциальности</NuxtLink
+          >
         </span>
       </form>
     </div>

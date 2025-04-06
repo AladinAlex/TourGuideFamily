@@ -46,7 +46,7 @@ var year = new Date().getFullYear();
           <span class="footer__title">Полезное</span>
           <ul class="footer__nav-list list-reset">
             <li class="footer__nav-li">
-              <NuxtLink to="/" class="footer__link"
+              <NuxtLink to="/PrivacyPolicy" class="footer__link"
                 >Политика конфиденциальности</NuxtLink
               >
             </li>
