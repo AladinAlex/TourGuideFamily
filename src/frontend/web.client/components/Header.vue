@@ -1,20 +1,34 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
 import InProgressModal from "~/components/Modals/InProgressModal.vue";
 import { useModalStore } from "@/stores/modal";
 
-const isMenuOpen = ref(false);
+const route = useRoute();
+const modal = useModalStore();
 
-const toggleMenu = () => {
+const isMenuOpen = ref<boolean>(false);
+
+const toggleMenu = (): void => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const modal = useModalStore();
-const handleClick = () => {
+const handleClick = (): void => {
+  isMenuOpen.value = false;
   modal.open({
     component: InProgressModal,
     componentProps: {}
   })
 };
+
+watch(
+  () => route,
+  (value): void => {
+    if (value.hash) {
+      isMenuOpen.value = false;
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>
