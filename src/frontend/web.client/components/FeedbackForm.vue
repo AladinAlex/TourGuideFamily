@@ -109,5 +109,5 @@ const privacyHandle = () => {
 </template>
 
 <style scoped lang="scss">
-@use "./assets/css/feedbackForm.scss" as *;
+@use "./assets/css/FeedbackForm.scss" as *;
 </style>

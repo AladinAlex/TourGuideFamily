@@ -25,33 +25,40 @@
 }
 
 .days-navigation {
-  display: flex;
-  gap: 10px;
   margin-bottom: 30px;
-  justify-content: center;
+  width: 600px;
+
+  .swiper-slide-thumb-active .day-button {
+    background: $button-color1;
+    color: #fff;
+  }
 }
 
 .day-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   padding: 10px 20px;
   background: $background-color2;
   border-radius: 8px;
   cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
   transition: background-color 0.2s;
   border: 2px solid $background-color2;
 
   &.active {
     background: $button-color1;
     color: #fff;
-  }
-}
 
-.day-button:hover {
-  &:not(.active) {
+    &:hover {
+      color: #000;
+    }
+  }
+
+  &:hover {
     color: #000;
     border-color: $button-color1;
-  }
-  &.active {
-    color: #000;
   }
 }
 
@@ -164,6 +171,7 @@
 /* Для очень маленьких экранов (до 480px) */
 @media (max-width: 480px) {
   .days-navigation {
+    max-width: 360px;
     gap: 3px; /* Ещё меньше отступ между кнопками */
     margin-bottom: 15px; /* Уменьшаем отступ снизу */
   }
