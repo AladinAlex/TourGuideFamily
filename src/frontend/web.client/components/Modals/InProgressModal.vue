@@ -37,6 +37,10 @@ defineEmits(["close"]);
   .section {
     padding: 50px !important;
     border-radius: 15px;
+
+    @media (width <= 768px) {
+      padding: 25px !important;
+    }
   }
 }
 </style>

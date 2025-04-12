@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+
 import type { DayType } from "~/types/DayType";
+
 const props = defineProps({
   days: {
     type: Array as PropType<DayType[]>,
@@ -7,45 +15,55 @@ const props = defineProps({
     required: false,
   },
 });
-const currentDay = ref<DayType>(props.days[0]);
 
-const selectDay = (day:DayType) => {
-  currentDay.value = day;
+const thumbsSwiper = ref(null);
+const modules = [FreeMode, Navigation, Thumbs];
+
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value = swiper;
 };
 </script>
 
 <template>
   <section class="tour-program section">
-    <div v-if="days?.length" class="main-container max-width">
-        <!-- Навигация по дням -->
-        <div class="days-navigation">
-          <button
-            v-for="day in days"
-            :key="day.number"
-            :class="['day-button', { active: currentDay.number === day.number }]"
-            @click="selectDay(day)"
-          >
-            День {{ day.number }}
-          </button>
-        </div>
-
-        <!-- Контент выбранного дня -->
+    <swiper
+      @swiper="setThumbsSwiper"
+      :spaceBetween="10"
+      :slidesPerView="4"
+      :freeMode="true"
+      :watchSlidesProgress="true"
+      :modules="modules"
+      class="days-navigation max-width"
+    >
+      <swiper-slide v-for="day in days" :key="day.number">
+        <span class="day-button" tabindex="1">День {{ day.number }}</span>
+      </swiper-slide>
+    </swiper>
+    <swiper
+      :effect="'fade'"
+      :spaceBetween="10"
+      :thumbs="{ swiper: thumbsSwiper }"
+      :modules="modules"
+      class="max-width mySwiper"
+    >
+      <swiper-slide v-for="day in days" :key="day.number">
         <div class="day-content">
           <div class="image-container">
             <img
-              :src="currentDay.image"
-              :alt="'День ' + currentDay.number"
+              :src="day.image"
+              :alt="'День ' + day.number"
               class="day-image"
             />
           </div>
           <div class="day-title">
-            {{ 'День ' + currentDay.number + ': ' + currentDay.name }}
+            {{ 'День ' + day.number + ': ' + day.name }}
           </div>
           <div class="day-description">
-            {{ currentDay.description }}
+            {{ day.description }}
           </div>
         </div>
-    </div>
+      </swiper-slide>
+    </swiper>
   </section>
 </template>
 
