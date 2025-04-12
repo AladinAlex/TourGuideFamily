@@ -1,0 +1,202 @@
+@use "@/assets/css/global.scss" as *;
+
+.tour-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 90px); /* Занимает всю высоту экрана */
+  overflow: hidden;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #fff;
+}
+
+.background-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1200px;
+}
+
+.tour-title {
+  font-size: 80px;
+  margin-bottom: 50px;
+  line-height: 1.1em;
+  font-weight: 600;
+}
+
+.tour-description {
+  font-size: 25px;
+  margin-bottom: 35px;
+}
+
+.tour-price {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  margin-bottom: 20px;
+
+  &__image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  &__text {
+    font-size: 35px;
+    font-weight: 600;
+  }
+}
+
+.tour-duration {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  margin-bottom: 20px;
+
+  &__image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  &__text {
+    font-size: 35px;
+    font-weight: 600;
+  }
+}
+
+.tour-btn {
+  padding: 16px 50px;
+  font-size: 20px;
+  color: $element-color1;
+  background-color: $button-color1;
+  border: 2px solid $button-color1;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tour-btn:hover {
+  background-color: transparent;
+}
+
+
+
+@media (max-width: 1200px) {
+  .tour-title {
+    font-size: 60px;
+  }
+
+  .tour-description {
+    font-size: 20px;
+  }
+
+  .tour-price__text,
+  .tour-duration__text {
+    font-size: 30px;
+  }
+
+  .tour-btn {
+    font-size: 18px;
+    padding: 14px 40px;
+  }
+}
+
+/* Для экранов шириной до 768px (мобильные устройства) */
+@media (max-width: 768px) {
+  .tour-page {
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .tour-title {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  .tour-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  // .tour-price {
+  //   flex-direction: column;
+  //   gap: 10px;
+  // }
+
+  .tour-price__image,
+  .tour-duration__image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tour-price__text,
+  .tour-duration__text {
+    font-size: 20px;
+  }
+
+  .tour-btn {
+    font-size: 16px;
+    padding: 12px 30px;
+    border-radius: 10px;
+  }
+}
+
+/* Для экранов шириной до 480px (маленькие мобильные устройства) */
+@media (max-width: 480px) {
+  .tour-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  .tour-description {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  // .tour-price {
+  //   flex-direction: column;
+  //   gap: 8px;
+  // }
+
+  .tour-price__image,
+  .tour-duration__image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tour-price__text,
+  .tour-duration__text {
+    font-size: 16px;
+  }
+
+  .tour-btn {
+    font-size: 14px;   
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+}

@@ -1,0 +1,50 @@
+@use "@/assets/css/global.scss" as *;
+.separate-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+
+  &__image {
+    width: 30px;
+    height: 30px;
+  
+    @media (max-width: 768px) {
+      width: 25px;
+      height: 25px;
+    }
+  
+    @media (max-width: 480px) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+
+  @media (max-width: 768px) {
+    margin-bottom: 3px;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 2px;
+  }
+}
+
+.separate-line::before,
+::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background-color: $button-color1;
+  margin: 0 20px;
+
+  @media (max-width: 768px) {
+    margin: 0 10px;
+  }
+
+  @media (max-width: 480px) {
+    margin: 0 5px;
+  }
+}

@@ -1,0 +1,202 @@
+@use "@/assets/css/global.scss" as *;
+
+.tour-program {
+  //   background-color: $background-color2 !important;
+  &.section {
+    padding: 100px 0 0 0;
+
+    @media (max-width: 1024px) {
+      max-width: 100%;
+      padding: 40px 0;
+    }
+  
+    @media (max-width: 768px) {
+      max-width: 100%;
+      padding: 15px 10px;
+    }
+  
+    @media (max-width: 480px) {
+      max-width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+  }
+}
+
+.days-navigation {
+  margin-bottom: 30px;
+  width: 600px;
+
+  .swiper-slide-thumb-active .day-button {
+    background: $button-color1;
+    color: #fff;
+  }
+}
+
+.day-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 20px;
+  background: $background-color2;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+  border: 2px solid $background-color2;
+
+  &.active {
+    background: $button-color1;
+    color: #fff;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  &:hover {
+    color: #000;
+    border-color: $button-color1;
+  }
+}
+
+.day-content {
+  background-color: $background-color2;
+  padding: 20px;
+
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+
+  .image-container {
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .day-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  .day-title {
+    margin: 20px 10px;
+    font-size: 26px;
+    font-weight: 600;
+    color: $text_title;
+    text-align: left;
+  }
+
+  .day-description {
+    text-align: justify;
+    color: $text_description;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+}
+
+
+/* Для планшетов (до 1024px) */
+@media (max-width: 1024px) {
+  .days-navigation {
+    gap: 8px; /* Уменьшаем отступ между кнопками */
+    margin-bottom: 25px; /* Уменьшаем отступ снизу */
+  }
+
+  .day-button {
+    padding: 8px 16px; /* Уменьшаем размер кнопки */
+    font-size: 14px; /* Уменьшаем размер шрифта */
+  }
+
+  .day-content {
+    padding: 15px; /* Уменьшаем внутренние отступы */
+  }
+
+  .day-image {
+    height: 300px; /* Уменьшаем высоту изображения */
+  }
+
+  .day-title {
+    font-size: 22px; /* Уменьшаем размер заголовка */
+    margin: 15px 10px; /* Уменьшаем отступы */
+  }
+
+  .day-description {
+    font-size: 14px; /* Уменьшаем размер текста описания */
+    line-height: 1.4; /* Сlightly smaller line height */
+  }
+}
+
+/* Для мобильных устройств (до 768px) */
+@media (max-width: 768px) {
+  .days-navigation {
+    // flex-direction: column; /* Переводим кнопки в столбец */
+    // align-items: center; /* Центрируем кнопки */
+    gap: 5px; /* Уменьшаем отступ между кнопками */
+    margin-bottom: 20px; /* Уменьшаем отступ снизу */
+  }
+
+  .day-button {
+    padding: 6px 12px; /* Уменьшаем размер кнопки */
+    font-size: 12px; /* Уменьшаем размер шрифта */
+    width: 100%; /* Делаем кнопки на всю ширину */
+    max-width: 300px; /* Ограничиваем максимальную ширину */
+    text-align: center; /* Центрируем текст внутри кнопки */
+  }
+
+  .day-content {
+    padding: 10px; /* Уменьшаем внутренние отступы */
+  }
+
+  .day-image {
+    height: 250px; /* Уменьшаем высоту изображения */
+  }
+
+  .day-title {
+    font-size: 18px; /* Уменьшаем размер заголовка */
+    margin: 10px 5px; /* Уменьшаем отступы */
+    text-align: center; /* Центрируем заголовок */
+  }
+
+  .day-description {
+    font-size: 12px; /* Уменьшаем размер текста описания */
+    line-height: 1.3; /* Сlightly smaller line height */
+  }
+}
+
+/* Для очень маленьких экранов (до 480px) */
+@media (max-width: 480px) {
+  .days-navigation {
+    max-width: 360px;
+    gap: 3px; /* Ещё меньше отступ между кнопками */
+    margin-bottom: 15px; /* Уменьшаем отступ снизу */
+  }
+
+  .day-button {
+    padding: 4px 8px; /* Ещё меньше размер кнопки */
+    font-size: 10px; /* Ещё меньше размер шрифта */
+    max-width: 250px; /* Ограничиваем максимальную ширину */
+  }
+
+  .day-content {
+    padding: 8px; /* Ещё меньше внутренние отступы */
+  }
+
+  .day-image {
+    height: 200px; /* Ещё меньше высота изображения */
+  }
+
+  .day-title {
+    font-size: 16px; /* Ещё меньше размер заголовка */
+    margin: 8px 5px; /* Уменьшаем отступы */
+  }
+
+  .day-description {
+    font-size: 10px; /* Ещё меньше размер текста описания */
+    line-height: 1.2; /* Ещё меньше высота строки */
+  }
+}
