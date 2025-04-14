@@ -42,6 +42,8 @@ let reasons = ref<{title: string, text: string}[]>([
 }
 ])
 
+let title = 'Сайт гидов-экскурсоводов Александра и Марины Аладинских'
+
 </script>
 
 <template>
@@ -49,9 +51,7 @@ let reasons = ref<{title: string, text: string}[]>([
     <div class="main-container max-width">
       <div class="about-us__header">
         <SeparateLine />
-        <span class="title"
-          >Сайт гидов и экскурсоводов Александра и Марины Аладинских</span
-        >
+        <span class="title">{{ title }}</span>
       </div>
       <div class="about-us__cards">
         <GuideCard

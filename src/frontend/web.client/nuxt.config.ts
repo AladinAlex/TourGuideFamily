@@ -1,10 +1,8 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+
 import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
-  // plugins: [
-  //   // '~/plugins/pinia.client.ts',
-  // ],
+  ssr: true,
   runtimeConfig: {
     public: {
       apiBase: process.env.API_BASE_URL,
@@ -29,5 +27,5 @@ export default defineNuxtConfig({
         '@': fileURLToPath(new URL('./', import.meta.url)), // Абсолютный путь к корню проекта
       },
     },
-  },
+  }
 })

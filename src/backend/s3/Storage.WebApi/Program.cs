@@ -25,13 +25,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapGrpcReflectionService();
 }
-string filesPath = Path.Combine(AppContext.BaseDirectory, StorageResourse.ResourseFolderName);
+
+var storageFolder = builder.Configuration["StoragePath"]!;
+string filesPath = Path.Combine(AppContext.BaseDirectory, storageFolder);
+if (!Directory.Exists(filesPath))
+{
+    Directory.CreateDirectory(filesPath);
+}
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(filesPath),
-    RequestPath = $"/{StorageResourse.ResourseFolderName}",
+    RequestPath = $"/{storageFolder}",
     ServeUnknownFileTypes = true,
     DefaultContentType = "application/octet-stream"
 });
 app.MapGrpcService<UploadFileServiceGrpc>();
+
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
 app.Run();

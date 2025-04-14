@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
-using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
 using TourGuideFamily.Domain.Models;
 

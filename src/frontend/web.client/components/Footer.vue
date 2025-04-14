@@ -1,4 +1,11 @@
 <script setup lang="ts">
+const props = defineProps({
+  topTours: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+    required: false,
+  }
+});
 var year = new Date().getFullYear();
 </script>
 
@@ -22,9 +29,11 @@ var year = new Date().getFullYear();
               <NuxtLink to="/" class="footer__link">Все туры</NuxtLink>
             </li>
             <li class="footer__nav-li">
-              <NuxtLink to="/" class="footer__link"
-                >Ниже будет список топ 5 туров</NuxtLink
-              >
+              <NuxtLink v-for="(tour, index) in topTours"
+              to="/"
+              class="footer__link">
+              Ниже будет список топ 5 туров
+            </NuxtLink>
             </li>
           </ul>
         </div>

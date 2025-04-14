@@ -1,5 +1,6 @@
 using TourGuideFamily.Bll;
 using TourGuideFamily.Dal.Extensions;
+using TourGuideFamily.WebApi.Middlewares;
 using TourGuideFamily.WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ services
     .AddLogging()
     .AddDalInfrastructure(builder.Configuration)
     .AddDalRepositories()
-    .AddServices()
+    .AddServices(builder.Configuration)
     .AddCors(options =>
     {
         options.AddPolicy("VuePolicy", builder =>
@@ -36,6 +37,9 @@ if (app.Environment.IsDevelopment())
     //app.UseSwaggerUi();
 }
 
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
+app.UseMiddleware<GrpcExceptionMiddleware>();
 
 app.UseCors("VuePolicy");
 //app.UseHttpsRedirection();

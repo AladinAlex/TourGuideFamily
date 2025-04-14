@@ -2,5 +2,5 @@
 
 public static class StorageResourse
 {
-    public const string ResourseFolderName = "Storage";
+    //public const string ResourseFolderName = "Storage";
 }
