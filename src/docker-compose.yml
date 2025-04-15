@@ -41,7 +41,7 @@ services:
       storage:
         condition: service_healthy  # Ждём запуска (но не health-чека, т.к. gRPC)
     healthcheck:
-      test: ["dotnet", "exec", "Storage.WebApi.dll", "check-health"]
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -63,7 +63,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - StoragePath=/Storage
     healthcheck:
-      test: ["dotnet", "exec", "Storage.WebApi.dll", "check-health"]
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 30s
       timeout: 5s
       retries: 3

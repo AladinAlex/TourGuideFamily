@@ -5,6 +5,7 @@
 
 # Этот этап используется при запуске из VS в быстром режиме (по умолчанию для конфигурации отладки)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+RUN apt-get update && apt-get install -y curl
 WORKDIR /app
 EXPOSE 80
 EXPOSE 5001
@@ -22,7 +23,7 @@ COPY ["s3/Storage.GrpcContracts/Storage.GrpcContracts.csproj", "s3/Storage.GrpcC
 COPY ["./Directory.Build.props", "/"]
 RUN dotnet restore "./TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj"
 COPY . .
-WORKDIR "/src/TourGuideFamily.WebApi"
+WORKDIR "/src/Storage.WebApi"
 RUN dotnet build "./TourGuideFamily.WebApi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
