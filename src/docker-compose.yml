@@ -39,9 +39,9 @@ services:
       postgres:
         condition: service_healthy
       storage:
-        condition: service_healthy
+        condition: service_healthy  # Ждём запуска (но не health-чека, т.к. gRPC)
     healthcheck:
-      test: ["CMD", "dotnet", "TourGuideFamily.WebApi.dll", "check-health"]
+      test: ["CMD", "/bin/sh", "-c", "timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/80'"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -63,7 +63,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - StoragePath=/Storage
     healthcheck:
-      test: ["CMD", "dotnet", "Storage.WebApi.dll", "check-health"]
+      test: ["CMD", "/bin/sh", "-c", "timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/80'"]
       interval: 10s
       timeout: 5s
       retries: 3
