@@ -3,11 +3,11 @@ import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
   ssr: true,
-  runtimeConfig: {
-    public: {
-      apiBase: process.env.API_BASE_URL + '/api',
-    }
-  },
+  // runtimeConfig: {
+  //   public: {
+  //     apiBase: process.env.API_BASE_URL + '/api',
+  //   }
+  // },
   devtools: { enabled: true },
   compatibilityDate: "2025-02-04",
   modules: [
