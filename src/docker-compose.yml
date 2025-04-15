@@ -35,7 +35,8 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Production
       - DalOptions__PostgresConnectionString=Host=postgres;Database=touristing;Username=postgres;Password=aladin
-      - Grpc__StorageUrl=http://storage:5001  # gRPC-адрес сервиса 2
+      - Grpc__StorageUrl=http://storage:80  # gRPC-адрес сервиса 2
+      - CorsSetting__Urls__0=http://frontend:3000
     depends_on:
       postgres:
         condition: service_healthy
