@@ -2,6 +2,8 @@ using Storage.WebApi.GrpcServices;
 using Storage.Bll;
 using Microsoft.Extensions.FileProviders;
 using Storage.Bll.Consts;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,11 @@ builder.Services.AddGrpc(options =>
 builder.Services.AddGrpcReflection();
 builder.Services.AddGrpcSwagger();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddServices();
+
+builder.Services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy());
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -41,6 +46,25 @@ app.UseStaticFiles(new StaticFileOptions
 });
 app.MapGrpcService<UploadFileServiceGrpc>();
 
-app.MapGet("/health", () => Results.Ok("Healthy"));
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        var result = new
+        {
+            Status = report.Status.ToString(),
+            Checks = report.Entries.Select(e => new
+            {
+                Name = e.Key,
+                Status = e.Value.Status.ToString(),
+                Description = e.Value.Description
+            }),
+            Duration = report.TotalDuration
+        };
+
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(result);
+    }
+});
 
 app.Run();
