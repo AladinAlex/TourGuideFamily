@@ -39,12 +39,12 @@ services:
       postgres:
         condition: service_healthy
       storage:
-        condition: service_healthy  # Ждём запуска (но не health-чека, т.к. gRPC)
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+        condition: service_started
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
     networks:
       - tourguide_net
 
@@ -62,11 +62,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - StoragePath=/Storage
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
     networks:
       - tourguide_net
 
@@ -82,7 +82,7 @@ services:
       - API_BASE_URL=http://main:80  # API сервиса 1
     depends_on:
       main:
-        condition: service_healthy
+        condition: service_started
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
       interval: 30s
