@@ -80,7 +80,7 @@ services:
     ports:
       - "3000:3000"  # Порт Nuxt SSR
     environment:
-      - API_BASE_URL=http://main:5000  # API сервиса 1
+      - API_BASE_URL=http://main:80  # API сервиса 1
     depends_on:
       main:
         condition: service_started
