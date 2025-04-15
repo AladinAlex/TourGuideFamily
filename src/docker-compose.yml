@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "15432:5432"
+      - "5432:5432"
     # command: -c log_statement=all
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d touristing"]
@@ -57,7 +57,6 @@ services:
     container_name: tourguide_storage
     ports:
       - "5001:80"  # gRPC-порт
-      - "5002:80"    # HTTP-порт (опционально)
     volumes:
       - uploaded_images:/Storage  # Папка для сохранения картинок
     environment:
@@ -81,7 +80,7 @@ services:
     ports:
       - "3000:3000"  # Порт Nuxt SSR
     environment:
-      - API_BASE_URL=http://main:80  # API сервиса 1
+      - API_BASE_URL=http://main:5000  # API сервиса 1
     depends_on:
       main:
         condition: service_started
