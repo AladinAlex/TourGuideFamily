@@ -41,7 +41,7 @@ services:
       storage:
         condition: service_healthy  # Ждём запуска (но не health-чека, т.к. gRPC)
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:80/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -63,7 +63,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - StoragePath=/Storage
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:80/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
