@@ -7,7 +7,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 5001
 
 
 # Этот этап используется для сборки проекта службы
@@ -22,7 +21,7 @@ COPY ["s3/Storage.GrpcContracts/Storage.GrpcContracts.csproj", "s3/Storage.GrpcC
 COPY ["./Directory.Build.props", "/"]
 RUN dotnet restore "./TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj"
 COPY . .
-WORKDIR "/src/Storage.WebApi"
+WORKDIR "/src/TourGuideFamily.WebApi"
 RUN dotnet build "./TourGuideFamily.WebApi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
