@@ -69,7 +69,7 @@ services:
       - ASPNETCORE_Kestrel__Endpoints__gRPC__Url=http://+:5001
       - ASPNETCORE_Kestrel__Endpoints__Http__Protocols=Http1
       - ASPNETCORE_Kestrel__Endpoints__Http__Url=http://+:5000
-      - StoragePath=/Storage
+      - StoragePath=Storage
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost/health"]
     #   interval: 30s
