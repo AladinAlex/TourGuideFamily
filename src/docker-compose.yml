@@ -35,7 +35,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Production
       - DalOptions__PostgresConnectionString=Host=postgres;Database=touristing;Username=postgres;Password=aladin
-      - Grpc__StorageUrl=http://storage:80  # gRPC-адрес сервиса 2
+      - Grpc__StorageUrl=http://storage:5001  # gRPC-адрес сервиса storage
       - CorsSetting__Urls__0=http://frontend:3000
     depends_on:
       postgres:
@@ -57,11 +57,14 @@ services:
       dockerfile: DockerfileS3Storage
     container_name: tourguide_storage
     ports:
-      - "5001:80"  # gRPC-порт
+      - "5001:5001"  # gRPC-порт
+      - "5002:5000"  # http-порт
     volumes:
       - uploaded_images:/Storage  # Папка для сохранения картинок
     environment:
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:5000;https://+:5001
+      - ASPNETCORE_Kestrel__Endpoints__gRPC__Protocols=Http2
+      - ASPNETCORE_Kestrel__Endpoints__gRPC__Url=https://+:5001
       - ASPNETCORE_ENVIRONMENT=Production
       - StoragePath=/Storage
     # healthcheck:
