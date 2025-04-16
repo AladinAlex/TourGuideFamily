@@ -38,6 +38,6 @@ public class UploadService : IUploadService
 
     public string GenerateFileUrl(string fileName, string scheme, string host, int? port)
     {
-        return $"{scheme}://{host}:{port}/{_storageFolder}/{fileName}";
+        return $"/{_storageFolder}/{fileName}";
     }
 }

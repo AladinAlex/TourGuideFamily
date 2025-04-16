@@ -1,6 +1,4 @@
-﻿using TourGuideFamily.Domain.Models;
-
-namespace TourGuideFamily.Bll.Models;
+﻿namespace TourGuideFamily.Bll.Models;
 
 public record MainModel
 {
