@@ -36,7 +36,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - DalOptions__PostgresConnectionString=Host=postgres;Database=touristing;Username=postgres;Password=aladin
       - Grpc__StorageUrl=http://storage:5001  # gRPC-адрес сервиса storage
-      - CorsSetting__Urls__0=http://frontend:3000;https://kam-brusnika.ru
+      - CorsSetting__Urls__0=http://frontend:3000;https://kam-brusnika.ru;http://89.111.142.80:5002
       - Storage__Url=http://89.111.142.80:5002
     depends_on:
       postgres:
