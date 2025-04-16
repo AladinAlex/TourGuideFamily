@@ -62,10 +62,12 @@ services:
     volumes:
       - uploaded_images:/Storage  # Папка для сохранения картинок
     environment:
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000;http://+:5001
       - ASPNETCORE_Kestrel__Endpoints__gRPC__Protocols=Http2
       - ASPNETCORE_Kestrel__Endpoints__gRPC__Url=http://+:5001
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_Kestrel__Endpoints__Http__Protocols=Http1
+      - ASPNETCORE_Kestrel__Endpoints__Http__Url=http://+:5000
       - StoragePath=/Storage
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost/health"]
