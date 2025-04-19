@@ -27,13 +27,26 @@ const sendClick = async () => {
     feedback.value.phone
   ) {
     try {
-      const response = await $api("/main/feedback", { 
-        method: "POST",
+      // const response = await $api("/main/feedback", { 
+      //   method: "POST",
+      //   body: JSON.stringify(feedback.value),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      const { data, error, status } = await useFetch("/api/main/feedback", {
+        baseURL:  process.env.API_BASE_URL,
+        method: 'POST',
         body: JSON.stringify(feedback.value),
         headers: {
           "Content-Type": "application/json",
         },
+        onRequestError({ error }) {
+          console.error("Request error (main):", error);
+        },
       });
+
       modal.open({
         component: RequestSendedModal,
         componentProps: {}
