@@ -25,8 +25,9 @@ export default defineNuxtConfig({
   // },
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_BASE_URL ?? 'https://api.kam-brusnika.ru',
-    }
+      apiBase: process.env.API_BASE_URL
+    },
+    apiBase: process.env.API_BASE_URL,
   },
   devtools: { enabled: true },
   compatibilityDate: "2025-02-04",
