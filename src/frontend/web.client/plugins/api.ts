@@ -1,13 +1,13 @@
-import { $fetch } from 'ofetch';
+// import { $fetch } from 'ofetch';
 
-export default defineNuxtPlugin((nuxtApp) => {
-    const api = $fetch.create({
-      baseURL: process.env.API_BASE_URL + '/api'
-    })
-    return {
-      provide: {
-        api
-      }
-    }
-  })
+// export default defineNuxtPlugin((nuxtApp) => {
+//     const api = $fetch.create({
+//       baseURL: process.env.API_BASE_URL
+//     })
+//     return {
+//       provide: {
+//         api
+//       }
+//     }
+//   })
   

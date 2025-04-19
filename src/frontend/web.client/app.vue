@@ -10,8 +10,6 @@ const layout = ref();
 watch(
   () => route.meta,
   async (newMeta, oldMeta) => {
-    console.log("old", oldMeta);
-    console.log("new", newMeta);
     if (
       newMeta?.layout === undefined ||
       (newMeta?.layout || "default") !== (oldMeta?.layout || "default")

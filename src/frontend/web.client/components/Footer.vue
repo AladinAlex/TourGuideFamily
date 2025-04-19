@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const props = defineProps({
-  topTours: {
-    type: Array as PropType<string[]>,
-    default: () => [],
-    required: false,
-  }
-});
+import { useTopToursStore } from "@/stores/topTours";
 var year = new Date().getFullYear();
+var phones: string[] = ["+7 (924) 783-04-21", "+7 (900) 444-11-25"];
+var whatsAppLink: string = "https://wa.me/79247830421";
+var telegramLink: string = "https://t.me/+79247830421";
+
+const store = useTopToursStore();
+const { topLinks } = storeToRefs(store);
 </script>
 
 <template>
@@ -25,16 +25,18 @@ var year = new Date().getFullYear();
         <div class="footer__nav">
           <span class="footer__title">Туры</span>
           <ul class="footer__nav-list list-reset">
-            <li class="footer__nav-li">
+            <!-- <li class="footer__nav-li">
               <NuxtLink to="/" class="footer__link">Все туры</NuxtLink>
-            </li>
-            <li class="footer__nav-li">
-              <NuxtLink v-for="(tour, index) in topTours"
-              to="/"
-              class="footer__link">
-              Ниже будет список топ 5 туров
+            </li> -->
+            <NuxtLink
+              v-for="(tour, index) in topLinks"
+              to=""
+              class="footer__link"
+            >
+              <li class="footer__nav-li">
+                {{ tour.name }}
+              </li>
             </NuxtLink>
-            </li>
           </ul>
         </div>
         <div class="footer__nav">
@@ -65,17 +67,21 @@ var year = new Date().getFullYear();
           <span class="footer__title">Связаться</span>
           <ul class="footer__nav-list list-reset">
             <li class="footer__nav-li">
-              <span class="footer__text">+7 (905) 494-83-77</span>
+              <p v-for="(phone, index) in phones">
+                <NuxtLink :to="'tel:' + phone" class="footer__text">
+                  {{ phone }}
+                </NuxtLink>
+              </p>
             </li>
             <li class="footer__nav-li">
               <div class="footer__social-link">
-                <NuxtLink to="/">
+                <NuxtLink :to="telegramLink" target="_blank">
                   <img
                     src="@/assets/images/telegram.png"
                     class="footer__social-link__image"
                   />
                 </NuxtLink>
-                <NuxtLink to="/">
+                <NuxtLink :to="whatsAppLink" target="_blank">
                   <img
                     src="@/assets/images/whatsapp.png"
                     class="footer__social-link__image"

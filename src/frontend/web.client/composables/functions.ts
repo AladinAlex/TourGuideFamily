@@ -23,3 +23,7 @@ export function formatPrice(value: number): string {
 export function sendRequest(): void  {
 
 }
+
+export function getTourRoute(slug: string): string {
+    return '/tours/' + slug;
+}

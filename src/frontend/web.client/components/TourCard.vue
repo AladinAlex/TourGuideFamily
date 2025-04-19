@@ -5,8 +5,8 @@ const props = defineProps<CardTourType>();
 
 const router = useRouter();
 const routeToTour = (slug: string) => {
-  console.log('slug: ', slug)
-  router.push('/tours/' + slug);
+  var link = getTourRoute(slug)
+  router.push(link);
 }
 
 const duration = () => {

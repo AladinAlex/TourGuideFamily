@@ -4,6 +4,8 @@ using Microsoft.Extensions.FileProviders;
 using Storage.Bll.Consts;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,16 @@ builder.Services.AddGrpc(options =>
     //interceptors
 }).AddJsonTranscoding();
 
+//#if DEBUG
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.Listen(IPAddress.Any, 5201, listenOptions =>
+//    {
+//        listenOptions.Protocols = HttpProtocols.Http2;
+//        listenOptions.UseHttps("server.pfx", "your-password");
+//    });
+//});
+//#endif
 
 builder.Services.AddGrpcReflection();
 builder.Services.AddGrpcSwagger();

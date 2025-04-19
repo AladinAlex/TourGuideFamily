@@ -6,40 +6,53 @@ import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { TourType } from "~/types/TourType";
 import FeedbackModal from "@/components/Modals/FeedbackModal.vue";
 import { useModalStore } from "@/stores/modal";
-const { $api } = useNuxtApp()
+const { $api } = useNuxtApp();
 
 definePageMeta({
   title: "Страница тура",
   layout: "default",
 });
+const config = useRuntimeConfig()
 const route = useRoute();
 // Получаем текущий маршрут
 const slug = route.params.slug as string;
-console.log('in [slug]:', slug)
 var buttonText = "Оставить заявку";
-const tour = ref<TourType>()
-
+const tour = ref<TourType>();
 
 // Получаем значение параметра из route.params
 // const loadTourData = async () => {
-  try {
-    const {data: responseData, error: responseError} = await useAsyncData<TourType>('tour', () => $api<TourType>('/Main/Tour/' + slug))
-    // console.log('responseError', responseError.value)
-    // console.log('responseData', responseData.value)
-    if(responseError.value) {
-      console.log('error: ', responseError.value)
-    } else {
-      if(responseData.value)
-        tour.value = responseData.value
-      else
-        tour.value = {} as TourType
+try {
+  // console.log('slug: ', slug)
+
+  // // const {data: responseData, error: responseError} = await useAsyncData<TourType>('tour', () => $api<TourType>('api/Main/Tour/' + slug))
+  //   const {data: responseData, error: responseError} = await useFetch('/api/Main/Tour/slug')
+  // if(responseError.value) {
+  //   console.log('error: ', responseError.value)
+  // } else {
+  //   if(responseData.value)
+  //     tour.value = responseData.value
+  //   else
+  //     tour.value = {} as TourType
+  // }
+
+  const { data, error, status } = await useFetch<TourType>(
+    "/api/Main/Tour/" + slug,
+    {
+      baseURL: config.public.apiBase,
+      onRequestError({ error }) {
+        console.error("Request error (" + slug + "): ", error);
+      },
     }
-    console.log('tour.value', tour.value)
+  );
+  if (error.value) {
+    console.log("error: ", error.value);
+  } else {
+    if (data.value) tour.value = data.value;
+    else tour.value = {} as TourType;
   }
-  catch(error)
-  {
-    console.log('error', error)
-  }
+} catch (error) {
+  console.log("error", error);
+}
 // }
 
 // await loadTourData()
@@ -71,7 +84,9 @@ const handleClick = () => {
             class="tour-price__image"
             alt="Рубль"
           />
-          <span class="tour-price__text">{{ formatPrice(tour?.price ?? 0) }}</span>
+          <span class="tour-price__text">{{
+            formatPrice(tour?.price ?? 0)
+          }}</span>
         </div>
 
         <div class="tour-duration">
@@ -81,9 +96,7 @@ const handleClick = () => {
             alt="Рубль"
           />
           <span class="tour-duration__text">
-            {{
-              1 + " " + addWordDay(1)
-            }}</span
+            {{ 1 + " " + addWordDay(1) }}</span
           >
         </div>
 

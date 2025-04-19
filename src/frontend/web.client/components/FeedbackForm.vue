@@ -21,7 +21,6 @@ let feedback = ref<FeedbackType>({
 });
 
 const sendClick = async () => {
-  console.log('ss', feedback.value)
   if (
     feedback.value.contactMethod &&
     feedback.value.firstname &&
