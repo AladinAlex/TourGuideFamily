@@ -62,7 +62,7 @@ const loadMainData = async () => {
     //   model.value = responseData.value;
     // }
     const { data, error, status } = await useFetch<MainType>("/api/main/main", {
-      baseURL: config.public.apiBase,
+      baseURL: config.apiBase,
       onRequestError({ error }) {
         console.error("Request error (main):", error);
       },

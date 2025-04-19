@@ -38,7 +38,7 @@ try {
   const { data, error, status } = await useFetch<TourType>(
     "/api/Main/Tour/" + slug,
     {
-      baseURL: config.public.apiBase,
+      baseURL: config.apiBase,
       onRequestError({ error }) {
         console.error("Request error (" + slug + "): ", error);
       },
