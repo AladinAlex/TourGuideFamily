@@ -112,7 +112,7 @@ public class CreateService : ICreateService
             CreatedOn = _dateTimeService.GetDateTimeOffset()
         };
 
-        string message = "Новая заявка от " + model.Firstname + ". Телефон: " + model.Firstname + ". Способ связи: " + model.ContactMethod.GetDescription();
+        string message = "Новая заявка от " + model.Firstname + ". Телефон: " + model.PhoneNumber + ". Способ связи: " + model.ContactMethod.GetDescription();
         using var transaction = CreateTransactionScope();
         var id = await _feedbackRepository.AddAsync(createModel, token);
         var tasks = new List<Task>(telegram.Chats.Length);
