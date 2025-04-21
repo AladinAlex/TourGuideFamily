@@ -2,7 +2,6 @@
 import type { FeedbackType } from "~/types/FeedbackType";
 import { useModalStore } from "@/stores/modal";
 import RequestSendedModal from "@/components/Modals/RequestSendedModal.vue";
-const { $api } = useNuxtApp();
 
 const props = defineProps({
   slug: {
@@ -11,46 +10,47 @@ const props = defineProps({
     default: () => undefined,
   },
 });
-
+const config = useRuntimeConfig();
 const { contactOptions } = useContactOptions();
-let feedback = ref<FeedbackType>({
-  firstname: "",
-  phone: "",
-  contactMethod: contactOptions[0].id,
-  slug: props.slug,
-});
+// const feedback = reactive<FeedbackType>({
+//   firstname: '',
+//   phone: '',
+//   contactMethod: contactOptions[0].id,
+//   slug: props.slug,
+// });
+
+const firstname = ref<string>("");
+const phone = ref<string>("");
+const slug = ref<string | undefined>("");
+const contactMethod = ref<number>(contactOptions[0].id);
 
 const sendClick = async () => {
-  if (
-    feedback.value.contactMethod &&
-    feedback.value.firstname &&
-    feedback.value.phone
-  ) {
+  if (contactMethod && firstname && phone) {
+    let isOk = true
     try {
-      // const response = await $api("/main/feedback", { 
-      //   method: "POST",
-      //   body: JSON.stringify(feedback.value),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-
       const { data, error, status } = await useFetch("/api/main/feedback", {
-        baseURL:  process.env.API_BASE_URL,
-        method: 'POST',
-        body: JSON.stringify(feedback.value),
+        // baseURL: process.env.API_BASE_URL,
+        baseURL: config.public.apiBase,
+        method: "POST",
+        body: JSON.stringify({
+          firstname: firstname.value,
+          phoneNumber: phone.value,
+          contactMethod: contactMethod.value,
+          slug: slug.value,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
         onRequestError({ error }) {
-          console.error("Request error (main):", error);
+          isOk = false
+          console.error("Request error:", error);
         },
       });
-
-      modal.open({
-        component: RequestSendedModal,
-        componentProps: {}
-      })
+      if(isOk)
+        modal.open({
+          component: RequestSendedModal,
+          componentProps: {},
+        });
     } catch (error: any) {
       console.error("Ошибка при отправке данных:", error.message);
       throw error;
@@ -73,20 +73,21 @@ const privacyHandle = () => {
       <form class="feedback-form__form">
         <input
           type="text"
-          :model="feedback.firstname"
+          v-model="firstname"
           placeholder="Имя *"
           required
           class="feedback-form__form-inputname"
+          @change="console.log('Name changed:', firstname)"
         />
         <input
           type="tel"
-          :model="feedback.phone"
+          v-model="phone"
           placeholder="Номер телефона *"
           required
           class="feedback-form__form-inputphone"
         />
         <select
-          :model="feedback.contactMethod"
+          v-model="contactMethod"
           class="feedback-form__form-selecttype"
           placeholder="Выберите способ связи *"
           required

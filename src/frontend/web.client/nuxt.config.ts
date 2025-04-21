@@ -1,6 +1,5 @@
 
 import { fileURLToPath } from 'node:url'
-// import api from './plugins/api'
 
 export default defineNuxtConfig({
   ssr: true,

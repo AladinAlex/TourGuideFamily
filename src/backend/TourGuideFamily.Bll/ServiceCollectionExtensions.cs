@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Storage.GrpcContracts.Api;
+using TelegramService;
 using TourGuideFamily.Bll.Services;
 using TourGuideFamily.Bll.Services.Interfaces;
 
@@ -40,6 +41,7 @@ public static class ServiceCollectionExtensions
                 #endif
             });
         return serviceCollection
+                .AddTelegramService(configuration)
                 .AddScoped<ICreateService, CreateService>()
                 .AddScoped<IFeedbackService, FeedbackService>()
                 .AddScoped<IGetTourService, GetTourService>()

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\s3\Storage.GrpcContracts\Storage.GrpcContracts.csproj" />
+    <ProjectReference Include="..\TelegramService\TelegramService.csproj" />
     <ProjectReference Include="..\TourGuideFamily.Dal\TourGuideFamily.Dal.csproj" />
   </ItemGroup>
 
