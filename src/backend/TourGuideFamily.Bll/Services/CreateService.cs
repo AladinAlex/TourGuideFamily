@@ -118,7 +118,7 @@ public class CreateService : ICreateService
         var tasks = new List<Task>(telegram.Chats.Length);
         foreach (long chat in telegram.Chats)
         {
-            tasks.Add(sendMesage(chat, message));
+            tasks.Add(sendMessage(chat, message));
         }
         transaction.Complete();
         return id;
@@ -218,7 +218,7 @@ public class CreateService : ICreateService
             },
             TransactionScopeAsyncFlowOption.Enabled);
     }
-    private async Task sendMesage(long chat_id, string text)
+    private async Task sendMessage(long chat_id, string text)
     {
         bool End = false;
         int counter = 1;
