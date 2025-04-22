@@ -65,4 +65,20 @@ public class MainController
             });
         }
     }
+
+    [HttpGet("TopTour/{limit?}")]
+    public async Task<IResult> Tour(int? limit, CancellationToken token)
+    {
+        try
+        {
+            return Results.Ok(await _getTourService.GetTopTourLinks(limit, token));
+        }
+        catch (Exception ex)
+        {
+            return Results.BadRequest(new ErrorResponse
+            {
+                Error = ex.Message
+            });
+        }
+    }
 }

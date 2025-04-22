@@ -27,3 +27,14 @@ export function sendRequest(): void  {
 export function getTourRoute(slug: string): string {
     return '/tours/' + slug;
 }
+
+export const getDuration = (durationHourMin: number | undefined, durationHourMax: number | undefined, dayCount: number | undefined) => {
+  if(durationHourMin && durationHourMax)
+    return durationHourMin + '-' + durationHourMax + ' ч.'
+  else if(durationHourMin)
+    return durationHourMin + ' ч.'
+  else if(durationHourMax)
+    return durationHourMax + ' ч.'
+  else
+    return dayCount + ' дн.'
+}

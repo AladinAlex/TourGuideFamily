@@ -1,12 +1,43 @@
 <script setup lang="ts">
-import { useTopToursStore } from "@/stores/topTours";
+import type { TourLinkType } from '@/types/TourLinkType';
+
+const config = useRuntimeConfig();
 var year = new Date().getFullYear();
 var phones: string[] = ["+7 (924) 783-04-21", "+7 (900) 444-11-25"];
 var whatsAppLink: string = "https://wa.me/79247830421";
 var telegramLink: string = "https://t.me/+79247830421";
+let countTours = 5
 
-const store = useTopToursStore();
-const { topLinks } = storeToRefs(store);
+const topLinks = ref<TourLinkType[]>([])
+const loadTopTours = async () => {
+  try {
+    // const { data: responseData, error: responseError } =
+    //   await useAsyncData<MainType>("main", () => $api<MainType>("api/main/main"));
+    // if (responseError.value) {
+    //   console.log("error: ", responseError.value);
+    // } else {
+    //   model.value = responseData.value;
+    // }
+    const { data, error, status } = await useFetch<TourLinkType[]>("/api/main/toptour/" + countTours, {
+      baseURL: config.public.apiBase,
+      onRequestError({ error }) {
+        console.error("Request error (toptour):", error);
+      },
+    });
+
+    if (error.value) {
+      console.log("error: ", error.value);
+    } else {
+      if(topLinks.value) topLinks.value = data.value!
+      else topLinks.value = [] as TourLinkType[]
+    }
+  } catch (error) {
+    console.log("error: ", error);
+  }
+};
+
+await loadTopTours();
+
 </script>
 
 <template>
@@ -30,7 +61,7 @@ const { topLinks } = storeToRefs(store);
             </li> -->
             <NuxtLink
               v-for="(tour, index) in topLinks"
-              to=""
+              :to="'/tours/' + tour.slug"
               class="footer__link"
             >
               <li class="footer__nav-li">

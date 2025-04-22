@@ -19,14 +19,14 @@ const props = defineProps({
 const thumbsSwiper = ref(null);
 const modules = [FreeMode, Navigation, Thumbs];
 
-const setThumbsSwiper = (swiper) => {
+const setThumbsSwiper = (swiper: any) => {
   thumbsSwiper.value = swiper;
 };
 </script>
 
 <template>
   <section class="tour-program section">
-    <swiper
+    <swiper v-if="days.length > 1"
       @swiper="setThumbsSwiper"
       :spaceBetween="10"
       :slidesPerView="4"
@@ -55,7 +55,7 @@ const setThumbsSwiper = (swiper) => {
               class="day-image"
             />
           </div>
-          <div class="day-title">
+          <div class="day-title" v-if="days.length > 1">
             {{ 'День ' + day.number + ': ' + day.name }}
           </div>
           <div class="day-description">

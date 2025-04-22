@@ -5,7 +5,6 @@ import Tours from "~/components/Tours.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { MainType } from "~/types/MainType";
-import { useTopToursStore } from "@/stores/topTours";
 
 const { $api } = useNuxtApp();
 const config = useRuntimeConfig();
@@ -15,7 +14,6 @@ definePageMeta({
 });
 
 const model = ref<MainType | null>();
-const topTours = useTopToursStore();
 // const route = useRoute();
 // function scrollToBlock(blockId: string) {
 //   nextTick(() => {
@@ -72,9 +70,6 @@ const loadMainData = async () => {
       console.log("error: ", error.value);
     } else {
       model.value = data.value;
-      data.value?.tours.slice(0, 5).forEach((element) => {
-        topTours.addLink({ name: element.name, slug: element.slug });
-      });
     }
   } catch (error) {
     console.log("error: ", error);

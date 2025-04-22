@@ -5,7 +5,8 @@ export type CardTourType = {
     minParticipants: number,
     maxParticipants: number,
     price: number,
-    durationHour: number | undefined,
+    durationHourMin: number | undefined,
+    durationHourMax: number | undefined,
     dayCount: number,
     slug: string
 }

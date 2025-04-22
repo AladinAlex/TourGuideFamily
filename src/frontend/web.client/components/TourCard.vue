@@ -10,10 +10,7 @@ const routeToTour = (slug: string) => {
 }
 
 const duration = () => {
-  if(props.durationHour)
-    return props.durationHour + ' ч.'
-  else
-    return props.dayCount + ' дн.'
+  return getDuration(props.durationHourMin, props.durationHourMax, props.dayCount)
 }
 
 </script>

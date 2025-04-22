@@ -139,7 +139,8 @@ public class CreateService : ICreateService
                 MinParticipants = model.MinParticipants,
                 MaxParticipants = model.MaxParticipants,
                 Price = model.Price,
-                DurationHour = model.DurationHour,
+                DurationHourMin = model.DurationHourMin,
+                DurationHourMax = model.DurationHourMax,
                 Slug = slug
             };
             var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);

@@ -55,7 +55,8 @@ public class GetTourService : IGetTourService
             Price = x.Price,
             Slug = x.Slug,
             DayCount = x.DayCount,
-            DurationHour = x.DurationHour,
+            DurationHourMin = x.DurationHourMin,
+            DurationHourMax = x.DurationHourMax,
         }).ToArray();
         var promo = promoTask.Result.Select(x => new PromoModel
         {
@@ -107,11 +108,18 @@ public class GetTourService : IGetTourService
             MinParticipants = tour.MinParticipants,
             MaxParticipants = tour.MaxParticipants,
             Price = tour.Price,
-            DurationHour = tour.DurationHour,
+            DurationHourMin = tour.DurationHourMin,
+            DurationHourMax = tour.DurationHourMax,
             Days = days,
             Promos = promos,
             Included = included,
             Excluded = excluded,
         };
+    }
+
+    public async Task<TourGuideFamily.Domain.Models.TourLinkModel[]> GetTopTourLinks(int? limit, CancellationToken token)
+    {
+        var topTours = await _tourRepository.GetTourLink(limit, token);
+        return topTours;
     }
 }

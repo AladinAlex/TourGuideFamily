@@ -25,7 +25,8 @@ const props = defineProps({
           :min-participants="tour.minParticipants"
           :max-participants="tour.maxParticipants"
           :price="tour.price"
-          :duration-hour="tour.durationHour"
+          :duration-hour-min="tour.durationHourMin"
+          :duration-hour-max="tour.durationHourMax"
           :day-count="tour.dayCount"
           :slug="tour.slug"
         />

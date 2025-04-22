@@ -47,7 +47,7 @@ try {
   if (error.value) {
     console.log("error: ", error.value);
   } else {
-    if (data.value) tour.value = data.value;
+    if (data.value) tour.value = data.value
     else tour.value = {} as TourType;
   }
 } catch (error) {
@@ -64,6 +64,10 @@ const handleClick = () => {
     componentProps: {},
   });
 };
+
+const duration = () => {
+  return getDuration(tour.value?.durationHourMin, tour.value?.durationHourMax, tour.value?.days.length)
+}
 </script>
 
 <template>
@@ -84,9 +88,12 @@ const handleClick = () => {
             class="tour-price__image"
             alt="Рубль"
           />
-          <span class="tour-price__text">{{
-            formatPrice(tour?.price ?? 0)
-          }}</span>
+          <div>
+            <span class="tour-price__text">{{
+              formatPrice(tour?.price ?? 0)
+            }}</span>
+          <span class="tour-price__text2">за машину</span>
+        </div>
         </div>
 
         <div class="tour-duration">
@@ -96,7 +103,7 @@ const handleClick = () => {
             alt="Рубль"
           />
           <span class="tour-duration__text">
-            {{ 1 + " " + addWordDay(1) }}</span
+            {{ duration() }}</span
           >
         </div>
 

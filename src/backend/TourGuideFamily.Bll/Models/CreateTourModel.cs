@@ -9,7 +9,8 @@ public class CreateTourModel
     public required short MinParticipants { get; init; }
     public required short MaxParticipants { get; init; }
     public required decimal Price { get; init; }
-    public short? DurationHour { get; init; }
+    public short? DurationHourMin { get; init; }
+    public short? DurationHourMax { get; init; }
     public CreateTourPromoModel[]? Promos { get; init; }
     public CreateTourDayModel[]? Days { get; init; }
     public CreateInclusionModel[]? Inclusions { get; init; }

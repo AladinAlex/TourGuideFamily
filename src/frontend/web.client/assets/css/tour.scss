@@ -68,6 +68,12 @@
     font-size: 35px;
     font-weight: 600;
   }
+
+  &__text2 {
+    margin-left: 5px;
+    font-size: 25px;
+    font-weight: 400;
+  }
 }
 
 .tour-duration {
@@ -118,6 +124,10 @@
   .tour-price__text,
   .tour-duration__text {
     font-size: 30px;
+  }
+
+  .tour-price__text2 {
+    font-size: 20px;
   }
 
   .tour-btn {
