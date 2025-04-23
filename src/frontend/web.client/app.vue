@@ -6,6 +6,18 @@ import { useModalStore } from "@/stores/modal";
 
 const route = useRoute();
 const layout = ref();
+useHead({
+  title: "Туры по Камчатке от Александра и Марины Аладинских",
+  meta: [
+    { name: 'description', content: 'Групповые и ндивидуальные туры по Камчатке с местными гидами. Восхождения на вулканы, термальные источники, смотровыеЮ местная культура. Лучшие цены 2025!' },
+    { name: 'keywords', content: "туры на Камчатку, Камчатка 2025, вулканы Камчатки, тур к медведям, отдых на Камчатке цена, кам-брусника, кам брусника" },
+    { name: 'og:title', content: 'Туры по Камчатке от Александра и Марины Аладинских' },
+    { name: 'og:description', content: 'Групповые и ндивидуальные туры по Камчатке с лучшими гидами' },
+    { name: 'og:image', content: '/og.jpg' },
+    { property: 'og:type', content: 'website' },
+  ],
+})
+
 
 watch(
   () => route.meta,
