@@ -22,7 +22,7 @@ const handleClick = () => {
     <div class="presentation__left">
       <img
         src="@/assets/images/presentation.jpg"
-        alt="Изображение"
+        alt="Заставка"
         class="presentation__left-image"
       />
     </div>

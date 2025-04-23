@@ -110,12 +110,14 @@ await loadTopTours();
                   <img
                     src="@/assets/images/telegram.png"
                     class="footer__social-link__image"
+                    alt="telegram"
                   />
                 </NuxtLink>
                 <NuxtLink :to="whatsAppLink" target="_blank">
                   <img
                     src="@/assets/images/whatsapp.png"
                     class="footer__social-link__image"
+                    alt="whatsapp"
                   />
                 </NuxtLink>
               </div>

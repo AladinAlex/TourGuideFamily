@@ -8,10 +8,6 @@ import FeedbackModal from "@/components/Modals/FeedbackModal.vue";
 import { useModalStore } from "@/stores/modal";
 const { $api } = useNuxtApp();
 
-definePageMeta({
-  title: "Страница тура",
-  layout: "default",
-});
 const config = useRuntimeConfig()
 const route = useRoute();
 // Получаем текущий маршрут
@@ -80,7 +76,7 @@ const duration = () => {
       <div class="content-overlay">
         <h1 class="tour-title">{{ tour?.name }}</h1>
 
-        <p class="tour-description">{{ tour?.description }}</p>
+        <!-- <p class="tour-description">{{ tour?.description }}</p> -->
 
         <div class="tour-price">
           <img

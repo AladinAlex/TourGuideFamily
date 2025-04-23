@@ -18,7 +18,7 @@ const duration = () => {
 <template>
   <div class="tour-card" @click.self="routeToTour(props.slug)">
     <div class="tour-card__image-block">
-      <img :src="image" class="tour-card__image" />
+      <img :src="image" class="tour-card__image" alt="Заставка тура"/>
     </div>
     <div class="tour-card__content">
       <!-- TODO: переделать, добавить иконки (1 день или несколько, также для времени, лучше добрать икноку часов и дальше 8ч) -->
