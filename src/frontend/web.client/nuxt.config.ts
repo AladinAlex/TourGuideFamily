@@ -34,9 +34,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   vite: {
-    build: {
-      minify: 'terser',
-    },
     css: {
       preprocessorOptions: {
         scss: {
