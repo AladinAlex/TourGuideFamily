@@ -14,6 +14,16 @@ const props = defineProps({
     default: () => [],
     required: false,
   },
+  description: {
+    type: String,
+    default: () => '',
+    required: true
+  },
+  descriptionImage: {
+    type: String,
+    default: () => '',
+    required: true
+  }
 });
 
 const thumbsSwiper = ref(null);
@@ -26,6 +36,20 @@ const setThumbsSwiper = (swiper: any) => {
 
 <template>
   <section class="tour-program section">
+
+<div class="day-content">
+          <div class="image-container">
+            <img
+              :src="descriptionImage"
+              alt='Описание'
+              class="day-image"
+            />
+          </div>
+          <div class="day-description">
+            {{ description }}
+          </div>
+          </div>
+
     <swiper v-if="days.length > 1"
       @swiper="setThumbsSwiper"
       :spaceBetween="10"

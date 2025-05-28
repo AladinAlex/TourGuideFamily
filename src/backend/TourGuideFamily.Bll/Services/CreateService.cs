@@ -128,8 +128,8 @@ public class CreateService : ICreateService
         try
         {
             var transaction = await _unitOfWork.BeginTransactionAsync();
-
             var tourImageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
+            var tourDescriptionImageUrl = await _multimediaService.UploadImageAsync(model.DescriptionImage, token);
 
             var slug = await _urlCoderService.EncodeToSlugAsync(model.Name, token);
             var createTourModel = new Tour
@@ -141,7 +141,9 @@ public class CreateService : ICreateService
                 Price = model.Price,
                 DurationHourMin = model.DurationHourMin,
                 DurationHourMax = model.DurationHourMax,
-                Slug = slug
+                Slug = slug,
+                Description = model.Description,
+                DescriptionImage = tourDescriptionImageUrl,
             };
             var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);
             var tasks = new List<Task>();

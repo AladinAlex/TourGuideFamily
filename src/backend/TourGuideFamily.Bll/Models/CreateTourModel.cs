@@ -14,4 +14,6 @@ public class CreateTourModel
     public CreateTourPromoModel[]? Promos { get; init; }
     public CreateTourDayModel[]? Days { get; init; }
     public CreateInclusionModel[]? Inclusions { get; init; }
+    public required IFormFile DescriptionImage { get; init; }
+    public required string Description { get; init; }
 }

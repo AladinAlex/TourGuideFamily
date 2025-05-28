@@ -114,6 +114,8 @@ public class GetTourService : IGetTourService
             Promos = promos,
             Included = included,
             Excluded = excluded,
+            Description = tour.Description,
+            DescriptionImage = $"{_storageUrl}/{tour.DescriptionImage}"
         };
     }
 

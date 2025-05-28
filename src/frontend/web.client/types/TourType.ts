@@ -13,4 +13,6 @@ export type TourType = {
     promos: PromoType[],
     included: string[],
     excluded: string[],
+    descriptionImage: string,
+    description: string,
 }

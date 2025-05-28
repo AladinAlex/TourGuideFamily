@@ -15,4 +15,6 @@ public class TourModel
     public required PromoTourModel[] Promos  { get; init; }
     public required string[] Included  { get; init; }
     public required string[] Excluded  { get; init; }
+    public required string DescriptionImage { get; init; }
+    public required string Description { get; init; }
 }

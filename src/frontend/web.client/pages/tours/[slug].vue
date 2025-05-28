@@ -107,7 +107,7 @@ const duration = () => {
       </div>
     </div>
   </div>
-  <TourProgram :days="tour?.days" />
+  <TourProgram :days="tour?.days" :description="tour?.description" :description-image="tour?.descriptionImage" />
   <PresentationTour
     :price="tour?.price"
     :included="tour?.included"

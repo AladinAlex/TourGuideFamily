@@ -9,4 +9,6 @@ public record TourModel
     public required decimal Price { get; init; }
     public short? DurationHourMin { get; init; }
     public short? DurationHourMax { get; init; }
+    public required string Description { get; init; }
+    public required string DescriptionImage { get; init; }
 }
