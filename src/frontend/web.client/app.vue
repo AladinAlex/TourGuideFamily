@@ -51,7 +51,7 @@ const openEarlyBookingModal = () => {
 
 const modal = useModalStore();
 onMounted(() => {
-  openEarlyBookingModal()
+  // openEarlyBookingModal()
 });
 
 </script>

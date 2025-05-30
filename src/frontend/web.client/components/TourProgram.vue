@@ -37,18 +37,18 @@ const setThumbsSwiper = (swiper: any) => {
 <template>
   <section class="tour-program section">
 
-<div class="day-content">
-          <div class="image-container">
-            <img
-              :src="descriptionImage"
-              alt='Описание'
-              class="day-image"
-            />
-          </div>
-          <div class="day-description">
-            {{ description }}
-          </div>
-          </div>
+    <div class="day-content">
+      <div class="image-container">
+        <img
+          :src="descriptionImage"
+          alt='Описание'
+          class="day-image"
+        />
+      </div>
+      <div class="day-description">
+        {{ description }}
+      </div>
+    </div>
 
     <swiper v-if="days.length > 1"
       @swiper="setThumbsSwiper"
@@ -85,6 +85,8 @@ const setThumbsSwiper = (swiper: any) => {
           <div class="day-description">
             {{ day.description }}
           </div>
+          <!-- <div class="day-description" v-html="description">
+          </div> -->
         </div>
       </swiper-slide>
     </swiper>
