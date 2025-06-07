@@ -2,7 +2,7 @@ import { $fetch } from 'ofetch';
 
 export default defineNuxtPlugin((nuxtApp) => {
     const api = $fetch.create({
-      baseURL: 'https://localhost:7276/api'
+      baseURL: 'https://api.kam-brusnika.ru/api'
     })
     return {
       provide: {

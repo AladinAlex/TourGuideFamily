@@ -6,12 +6,15 @@ import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { MainType } from "~/types/MainType";
 
-
 const { $api } = useNuxtApp();
 
 definePageMeta({
   title: "Туры по Камчатке",
   layout: "default",
+});
+
+useHead({
+  title: "Туры по Камчатке"
 });
 
 const model = ref<MainType | null>();

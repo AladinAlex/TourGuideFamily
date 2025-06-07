@@ -1,48 +1,55 @@
 <script setup lang="ts">
+import { useModalStore } from "@/stores/modal";
 import TourProgram from "~/components/TourProgram.vue";
 import PresentationTour from "~/components/PresentationTour.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
-import type { TourType } from "~/types/TourType";
 import FeedbackModal from "@/components/Modals/FeedbackModal.vue";
-import { useModalStore } from "@/stores/modal";
+
+import type { TourType } from "~/types/TourType";
+
 const { $api } = useNuxtApp()
 
 definePageMeta({
-  title: "Страница тура",
+  // title: "Страница тура",
   layout: "default",
 });
+
 const route = useRoute();
-// Получаем текущий маршрут
 const slug = route.params.slug as string;
-console.log('in [slug]:', slug)
-var buttonText = "Оставить заявку";
+const buttonText = "Оставить заявку";
 const tour = ref<TourType>()
 
+try {
+  const {
+    data: responseData,
+    error: responseError
+  } = await useAsyncData<TourType>('tour', () => $api<TourType>('/Main/Tour/' + slug));
+  // console.log('responseError', responseError.value);
+  // console.log('responseData', responseData.value);
 
-// Получаем значение параметра из route.params
-// const loadTourData = async () => {
-  try {
-    const {data: responseData, error: responseError} = await useAsyncData<TourType>('tour', () => $api<TourType>('/Main/Tour/' + slug))
-    // console.log('responseError', responseError.value)
-    // console.log('responseData', responseData.value)
-    if(responseError.value) {
-      console.log('error: ', responseError.value)
+  if (responseError.value) {
+    console.log('error: ', responseError.value)
+  } else {
+    if (responseData.value) {
+      tour.value = responseData.value;
+
+      useHead({
+        title: () => tour.value?.name || "Страница тура"
+      });
     } else {
-      if(responseData.value)
-        tour.value = responseData.value
-      else
-        tour.value = {} as TourType
+      tour.value = {} as TourType;
     }
-    console.log('tour.value', tour.value)
   }
-  catch(error)
-  {
-    console.log('error', error)
-  }
-// }
 
-// await loadTourData()
+  console.log('tour.value', tour.value);
+} catch(error) {
+  useHead({
+    title: "Страница тура"
+  });
+
+  console.log('error', error);
+}
 
 const modal = useModalStore();
 const handleClick = () => {

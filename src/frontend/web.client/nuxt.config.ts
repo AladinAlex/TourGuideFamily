@@ -2,6 +2,7 @@
 import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
+  ssr: true,
   // plugins: [
   //   // '~/plugins/pinia.client.ts',
   // ],
