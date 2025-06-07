@@ -1,4 +1,5 @@
-﻿using TourGuideFamily.Bll.Models;
+﻿using Microsoft.Extensions.Configuration;
+using TourGuideFamily.Bll.Models;
 using TourGuideFamily.Bll.Services.Interfaces;
 using TourGuideFamily.Domain.Interfaces;
 
@@ -11,18 +12,23 @@ public class GetTourService : IGetTourService
     readonly IPromoRepository _promoRepository;
     readonly ITourDayRepository _tourDayRepository;
     readonly IInclusionRepository _inclusionRepository;
+    readonly IConfiguration _config;
+    private string _storageUrl;
 
     public GetTourService(IGuideRepository guideRepository,
         ITourRepository tourRepository,
         IPromoRepository promoRepository,
         ITourDayRepository tourDayRepository,
-        IInclusionRepository inclusionRepository)
+        IInclusionRepository inclusionRepository,
+        IConfiguration config)
     {
         _guideRepository = guideRepository;
         _tourRepository = tourRepository;
         _promoRepository = promoRepository;
         _tourDayRepository = tourDayRepository;
         _inclusionRepository = inclusionRepository;
+        _config = config;
+        _storageUrl = _config["Storage:Url"]!;
     }
 
     public async Task<MainModel> Main(CancellationToken token)
@@ -33,9 +39,31 @@ public class GetTourService : IGetTourService
 
         await Task.WhenAll(guideTask, toursInfoTask, promoTask);
 
-        var guide = guideTask.Result;
-        var toursInfo = toursInfoTask.Result;
-        var promo = promoTask.Result;
+        var guide = guideTask.Result.Select(x => new GuideModel
+        {
+            Description = x.Description,
+            Firstname = x.Firstname,
+            Surname = x.Surname,
+            Image = $"{_storageUrl}/{x.Image}"
+        }).ToArray();
+        var toursInfo = toursInfoTask.Result.Select(x => new TourInfoModel
+        {
+            Image = $"{_storageUrl}/{x.Image}",
+            MaxParticipants = x.MaxParticipants,
+            MinParticipants = x.MinParticipants,
+            Name = x.Name,
+            Price = x.Price,
+            Slug = x.Slug,
+            DayCount = x.DayCount,
+            DurationHourMin = x.DurationHourMin,
+            DurationHourMax = x.DurationHourMax,
+        }).ToArray();
+        var promo = promoTask.Result.Select(x => new PromoModel
+        {
+            Description = x.Description,
+            Image = $"{_storageUrl}/{x.Image}",
+            Name = x.Name,
+        }).ToArray();
 
         return new MainModel
         {
@@ -56,8 +84,19 @@ public class GetTourService : IGetTourService
         await Task.WhenAll(tourTask, daysTask, promosTask, inclusionsTask);
 
         var tour = tourTask.Result;
-        var days = daysTask.Result;
-        var promos = promosTask.Result;
+        var days = daysTask.Result.Select(x => new TourDayModel
+        {
+            Description = x.Description,
+            Name = x.Name,
+            Number = x.Number,
+            Image = $"{_storageUrl}/{x.Image}",
+        }).ToArray();
+        var promos = promosTask.Result.Select(x => new PromoTourModel
+        {
+            Description = x.Description,
+            Name = x.Name,
+            Image = $"{_storageUrl}/{x.Image}",
+        }).ToArray();
         var inclusions = inclusionsTask.Result;
         var included = inclusions.Where(x => x.Include).Select(x => x.Description).ToArray();
         var excluded = inclusions.Where(x => !x.Include).Select(x => x.Description).ToArray();
@@ -65,15 +104,24 @@ public class GetTourService : IGetTourService
         return new TourModel
         {
             Name = tour.Name,
-            Image = tour.Image,
+            Image = $"{_storageUrl}/{tour.Image}",
             MinParticipants = tour.MinParticipants,
             MaxParticipants = tour.MaxParticipants,
             Price = tour.Price,
-            DurationHour = tour.DurationHour,
+            DurationHourMin = tour.DurationHourMin,
+            DurationHourMax = tour.DurationHourMax,
             Days = days,
             Promos = promos,
             Included = included,
             Excluded = excluded,
+            Description = tour.Description,
+            DescriptionImage = $"{_storageUrl}/{tour.DescriptionImage}"
         };
+    }
+
+    public async Task<TourGuideFamily.Domain.Models.TourLinkModel[]> GetTopTourLinks(int? limit, CancellationToken token)
+    {
+        var topTours = await _tourRepository.GetTourLink(limit, token);
+        return topTours;
     }
 }

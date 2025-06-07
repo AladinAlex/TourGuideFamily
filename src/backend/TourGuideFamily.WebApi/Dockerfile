@@ -4,20 +4,24 @@
 # Дополнительные сведения см. на странице https://aka.ms/containercompat
 
 # Этот этап используется при запуске из VS в быстром режиме (по умолчанию для конфигурации отладки)
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-nanoserver-1809 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
 
 # Этот этап используется для сборки проекта службы
-FROM mcr.microsoft.com/dotnet/sdk:9.0-nanoserver-1809 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/backend/TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj", "src/backend/TourGuideFamily.WebApi/"]
-RUN dotnet restore "./src/backend/TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj"
+COPY ["TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj", "TourGuideFamily.WebApi/"]
+COPY ["TourGuideFamily.Bll/TourGuideFamily.Bll.csproj", "TourGuideFamily.Bll/"]
+COPY ["TourGuideFamily.Dal/TourGuideFamily.Dal.csproj", "TourGuideFamily.Dal/"]
+COPY ["TourGuideFamily.Domain/TourGuideFamily.Domain.csproj", "TourGuideFamily.Domain/"]
+COPY ["s3/Storage.GrpcContracts/Storage.GrpcContracts.csproj", "s3/Storage.GrpcContracts/"]
+RUN dotnet restore "./TourGuideFamily.WebApi/TourGuideFamily.WebApi.csproj"
 COPY . .
-WORKDIR "/src/src/backend/TourGuideFamily.WebApi"
+WORKDIR "/src/TourGuideFamily.WebApi"
 RUN dotnet build "./TourGuideFamily.WebApi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап

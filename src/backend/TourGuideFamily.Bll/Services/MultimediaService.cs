@@ -8,21 +8,22 @@ namespace TourGuideFamily.Bll.Services;
 
 public class MultimediaService : IMultimediaService
 {
-    public MultimediaService()
+    private readonly UploadFileService.UploadFileServiceClient _grpcClient;
+    public MultimediaService(UploadFileService.UploadFileServiceClient grpcClient)
     {
-
+        _grpcClient = grpcClient;
     }
 
     public async Task<string> UploadImageAsync(IFormFile file, CancellationToken token)
     {
-        using var channel = GrpcChannel.ForAddress("https://localhost:7017");
-        var client = new UploadFileService.UploadFileServiceClient(channel);
+        //using var channel = GrpcChannel.ForAddress("https://localhost:7017");
+        //var client = new UploadFileService.UploadFileServiceClient(channel);
 
         using var memoryStream = new MemoryStream();
         await file.CopyToAsync(memoryStream);
         var bytes = memoryStream.ToArray();
 
-        var call = client.UploadFile();
+        var call = _grpcClient.UploadFile();
         var metadata = new Metadata
         {
             FileName = file.FileName,

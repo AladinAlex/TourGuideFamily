@@ -14,7 +14,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/backend/s3/Storage.WebApi/Storage.WebApi.csproj", "src/backend/s3/Storage.WebApi/"]
+COPY ["Storage.WebApi/Storage.WebApi.csproj", "Storage.WebApi/"]
+COPY ["Storage.Bll/Storage.Bll.csproj", "Storage.Bll/"]
+COPY ["Storage.GrpcContracts/Storage.GrpcContracts.csproj", "Storage.GrpcContracts/"]
 RUN dotnet restore "./src/backend/s3/Storage.WebApi/Storage.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/backend/s3/Storage.WebApi"

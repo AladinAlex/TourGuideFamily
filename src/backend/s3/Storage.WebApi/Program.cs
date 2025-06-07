@@ -1,7 +1,8 @@
-using Storage.WebApi.GrpcServices;
-using Storage.Bll;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.FileProviders;
-using Storage.Bll.Consts;
+using Storage.Bll;
+using Storage.WebApi.GrpcServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +12,25 @@ builder.Services.AddGrpc(options =>
     //interceptors
 }).AddJsonTranscoding();
 
+//#if DEBUG
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.Listen(IPAddress.Any, 5201, listenOptions =>
+//    {
+//        listenOptions.Protocols = HttpProtocols.Http2;
+//        listenOptions.UseHttps("server.pfx", "your-password");
+//    });
+//});
+//#endif
 
 builder.Services.AddGrpcReflection();
 builder.Services.AddGrpcSwagger();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddServices();
+
+builder.Services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy());
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -25,13 +39,41 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapGrpcReflectionService();
 }
-string filesPath = Path.Combine(AppContext.BaseDirectory, StorageResourse.ResourseFolderName);
+
+var storageFolder = builder.Configuration["StoragePath"]!;
+string filesPath = Path.Combine(AppContext.BaseDirectory, storageFolder);
+if (!Directory.Exists(filesPath))
+{
+    Directory.CreateDirectory(filesPath);
+}
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(filesPath),
-    RequestPath = $"/{StorageResourse.ResourseFolderName}",
+    RequestPath = $"/{storageFolder}",
     ServeUnknownFileTypes = true,
     DefaultContentType = "application/octet-stream"
 });
 app.MapGrpcService<UploadFileServiceGrpc>();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        var result = new
+        {
+            Status = report.Status.ToString(),
+            Checks = report.Entries.Select(e => new
+            {
+                Name = e.Key,
+                Status = e.Value.Status.ToString(),
+                Description = e.Value.Description
+            }),
+            Duration = report.TotalDuration
+        };
+
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(result);
+    }
+});
+
 app.Run();

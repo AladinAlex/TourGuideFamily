@@ -5,15 +5,12 @@ const props = defineProps<CardTourType>();
 
 const router = useRouter();
 const routeToTour = (slug: string) => {
-  console.log('slug: ', slug)
-  router.push('/tours/' + slug);
+  var link = getTourRoute(slug)
+  router.push(link);
 }
 
 const duration = () => {
-  if(props.durationHour)
-    return props.durationHour + ' ч.'
-  else
-    return props.dayCount + ' дн.'
+  return getDuration(props.durationHourMin, props.durationHourMax, props.dayCount)
 }
 
 </script>
@@ -21,7 +18,7 @@ const duration = () => {
 <template>
   <div class="tour-card" @click.self="routeToTour(props.slug)">
     <div class="tour-card__image-block">
-      <img :src="image" class="tour-card__image" />
+      <img :src="image" class="tour-card__image" alt="Заставка тура"/>
     </div>
     <div class="tour-card__content">
       <!-- TODO: переделать, добавить иконки (1 день или несколько, также для времени, лучше добрать икноку часов и дальше 8ч) -->

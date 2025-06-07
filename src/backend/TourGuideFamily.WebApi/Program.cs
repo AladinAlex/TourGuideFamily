@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using TourGuideFamily.Bll;
 using TourGuideFamily.Dal.Extensions;
+using TourGuideFamily.WebApi.Middlewares;
 using TourGuideFamily.WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +19,7 @@ services
     .AddLogging()
     .AddDalInfrastructure(builder.Configuration)
     .AddDalRepositories()
-    .AddServices()
+    .AddServices(builder.Configuration)
     .AddCors(options =>
     {
         options.AddPolicy("VuePolicy", builder =>
@@ -29,6 +32,9 @@ services
         });
     });
 
+services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy());
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -36,6 +42,28 @@ if (app.Environment.IsDevelopment())
     //app.UseSwaggerUi();
 }
 
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        var result = new
+        {
+            Status = report.Status.ToString(),
+            Checks = report.Entries.Select(e => new
+            {
+                Name = e.Key,
+                Status = e.Value.Status.ToString(),
+                Description = e.Value.Description
+            }),
+            Duration = report.TotalDuration
+        };
+
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(result);
+    }
+});
+
+app.UseMiddleware<GrpcExceptionMiddleware>();
 
 app.UseCors("VuePolicy");
 //app.UseHttpsRedirection();

@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Text;
 using Dapper;
 using Microsoft.Extensions.Options;
 using TourGuideFamily.Dal.Settings;
@@ -17,8 +18,8 @@ public class TourRepository : PgRepository, ITourRepository
     public async Task<long> AddAsync(Tour entity, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
-insert into tours (image, name, min_participants, max_participants, price, duration_hour, slug)
-     values (@image, @name, @min_participants, @max_participants, @price, @duration_hour, @slug)
+insert into tours (image, name, min_participants, max_participants, price, duration_hour_min, duration_hour_max, slug, description, description_image)
+     values (@image, @name, @min_participants, @max_participants, @price, @duration_hour_min, @duration_hour_max, @slug, @description, @description_image)
   returning id;
 ";
 
@@ -32,9 +33,12 @@ insert into tours (image, name, min_participants, max_participants, price, durat
                 min_participants = entity.MinParticipants,
                 max_participants = entity.MaxParticipants,
                 price = entity.Price,
-                duration_hour = entity.DurationHour,
+                duration_hour_min = entity.DurationHourMin,
+                duration_hour_max = entity.DurationHourMax,
                 image = entity.Image,
-                slug = entity.Slug
+                slug = entity.Slug,
+                description = entity.Description,
+                description_image = entity.DescriptionImage
             },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token,
@@ -50,7 +54,8 @@ insert into tours (image, name, min_participants, max_participants, price, durat
         , t.min_participants
         , t.max_participants
         , t.price
-        , t.duration_hour
+        , t.duration_hour_min
+        , t.duration_hour_max
         , t.slug
         , count(1) as day_count
      from tours t
@@ -60,7 +65,8 @@ left join tour_days d on d.tour_id = t.id
         , t.min_participants
         , t.max_participants
         , t.price
-        , t.duration_hour
+        , t.duration_hour_min
+        , t.duration_hour_max
         , t.slug
 ";
         using var dataSource = dataSourceBuilder.Build();
@@ -82,7 +88,10 @@ select t.name
      , t.min_participants
      , t.max_participants
      , t.price
-     , t.duration_hour
+     , t.duration_hour_min
+     , t.duration_hour_max
+     , t.description
+     , t.description_image
   from tours t
  where t.id = @tourId
 ";
@@ -137,5 +146,30 @@ select t.id
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token);
         return await connection.QueryFirstAsync<long>(cmd);
+    }
+
+    public async Task<TourLinkModel[]> GetTourLink(int? limit, CancellationToken token)
+    {
+        var sql = new StringBuilder(@"
+select name
+     , slug
+  from tours
+");
+
+        var @params = new DynamicParameters();
+        if(limit.HasValue)
+        {
+            @params.Add("@limit", limit.Value);
+            sql.AppendLine("limit @limit");
+        }
+        using var dataSource = dataSourceBuilder.Build();
+        using var connection = await dataSource.OpenConnectionAsync(token);
+        var cmd = new CommandDefinition(
+            sql.ToString(),
+            @params,
+            commandTimeout: DefaultTimeoutInSeconds,
+            cancellationToken: token);
+        return (await connection.QueryAsync<TourLinkModel>(cmd))
+            .ToArray();
     }
 }

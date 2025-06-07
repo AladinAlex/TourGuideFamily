@@ -26,6 +26,7 @@
 
 .days-navigation {
   margin-bottom: 30px;
+  margin-top: 30px;
   width: 600px;
 
   .swiper-slide-thumb-active .day-button {
@@ -105,6 +106,7 @@
   .days-navigation {
     gap: 8px; /* Уменьшаем отступ между кнопками */
     margin-bottom: 25px; /* Уменьшаем отступ снизу */
+    margin-top: 25px;
   }
 
   .day-button {
@@ -138,6 +140,7 @@
     // align-items: center; /* Центрируем кнопки */
     gap: 5px; /* Уменьшаем отступ между кнопками */
     margin-bottom: 20px; /* Уменьшаем отступ снизу */
+    margin-top: 20px;
   }
 
   .day-button {
@@ -174,6 +177,7 @@
     max-width: 360px;
     gap: 3px; /* Ещё меньше отступ между кнопками */
     margin-bottom: 15px; /* Уменьшаем отступ снизу */
+    margin-top: 15px;
   }
 
   .day-button {

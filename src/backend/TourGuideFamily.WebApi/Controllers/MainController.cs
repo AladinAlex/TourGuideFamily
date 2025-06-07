@@ -35,15 +35,15 @@ public class MainController
     }
 
     [HttpGet("Tour/{slug}")]
-    public async Task<IActionResult> Tour(string slug, CancellationToken token)
+    public async Task<IResult> Tour(string slug, CancellationToken token)
     {
         try
         {
-            return new JsonResult(await _getTourService.Tour(slug, token));
+            return Results.Ok(await _getTourService.Tour(slug, token));
         }
         catch (Exception ex)
         {
-            return new JsonResult(new ErrorResponse
+            return Results.BadRequest(new ErrorResponse
             {
                 Error = ex.Message
             });
@@ -60,6 +60,22 @@ public class MainController
         catch (Exception ex)
         {
             return new JsonResult(new ErrorResponse
+            {
+                Error = ex.Message
+            });
+        }
+    }
+
+    [HttpGet("TopTour/{limit?}")]
+    public async Task<IResult> Tour(int? limit, CancellationToken token)
+    {
+        try
+        {
+            return Results.Ok(await _getTourService.GetTopTourLinks(limit, token));
+        }
+        catch (Exception ex)
+        {
+            return Results.BadRequest(new ErrorResponse
             {
                 Error = ex.Message
             });

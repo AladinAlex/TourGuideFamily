@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.WebApi", "src\backe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.GrpcContracts", "src\backend\s3\Storage.GrpcContracts\Storage.GrpcContracts.csproj", "{E4588BE2-FA18-4755-99AB-B5093FF31B8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramService", "src\backend\TelegramService\TelegramService.csproj", "{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{E4588BE2-FA18-4755-99AB-B5093FF31B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4588BE2-FA18-4755-99AB-B5093FF31B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4588BE2-FA18-4755-99AB-B5093FF31B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{45652F9F-3BD7-48E7-A8BB-E093073A0732} = {FF383CF7-127A-48BD-9866-293ABB09637B}
 		{56C6759A-7126-48D5-B8C1-7954D837025A} = {01B30EE8-CA61-4758-824F-33E842BC6397}
 		{E4588BE2-FA18-4755-99AB-B5093FF31B8B} = {01B30EE8-CA61-4758-824F-33E842BC6397}
+		{C55B2919-86F6-4EA8-A6DF-4DA3E47D148D} = {FF383CF7-127A-48BD-9866-293ABB09637B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB665D89-7CE5-4393-B355-9C5D77CAF5AC}

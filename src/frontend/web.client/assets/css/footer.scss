@@ -64,7 +64,7 @@
 
   &__wrap-nav {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
+    grid-template-columns: repeat(4, 25%);
     grid-row-gap: 30px;
     grid-column-gap: 30px;
     justify-content: space-between;

@@ -1,0 +1,131 @@
+# version: '3.8'
+
+services:
+
+  # ========== БД (PostgreSQL) ==========
+  postgres:
+    image: postgres:16
+    container_name: tourguide_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aladin
+      POSTGRES_DB: touristing
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    # command: -c log_statement=all
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d touristing"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tourguide_net
+  
+  # ========== Сервис 1 (gRPC-клиент + БД) ==========
+  main:
+    build:
+      context: ./backend
+      dockerfile: DockerfileTourGuide
+    container_name: tourguide_main
+    restart: unless-stopped
+    ports:
+      - "5000:80"  # HTTP-порт (REST API)
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DalOptions__PostgresConnectionString=Host=postgres;Database=touristing;Username=postgres;Password=aladin
+      - Grpc__StorageUrl=http://storage:5001  # gRPC-адрес сервиса storage
+      - CorsSetting__Urls__0=http://frontend:3000
+      - CorsSetting__Urls__1=https://kam-brusnika.ru
+      - CorsSetting__Urls__2=http://89.111.142.80:3000
+      - Storage__Url=https://storage.kam-brusnika.ru
+    depends_on:
+      postgres:
+        condition: service_healthy
+      storage:
+        condition: service_started
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
+    networks:
+      - tourguide_net
+
+  # ========== Сервис 2 (gRPC-сервер + работа с файлами) ==========
+  storage:
+    build:
+      context: ./backend
+      dockerfile: DockerfileS3Storage
+    container_name: tourguide_storage
+    restart: unless-stopped
+    ports:
+      - "5001:5001"  # gRPC-порт
+      - "5002:5000"  # http-порт
+    volumes:
+      - uploaded_images:/app/Storage  # Папка для сохранения картинок
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000;http://+:5001
+      - ASPNETCORE_Kestrel__Endpoints__gRPC__Protocols=Http2
+      - ASPNETCORE_Kestrel__Endpoints__gRPC__Url=http://+:5001
+      - ASPNETCORE_Kestrel__Endpoints__Http__Protocols=Http1
+      - ASPNETCORE_Kestrel__Endpoints__Http__Url=http://+:5000
+      - StoragePath=Storage
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
+    networks:
+      - tourguide_net
+
+  # ========== Фронтенд (Nuxt.js SSR) ==========
+  frontend:
+    build:
+      context: ./frontend/web.client
+      dockerfile: Dockerfile
+    container_name: tourguide_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"  # Порт Nuxt SSR
+    environment:
+      # - API_BASE_URL=http://main:80  # API сервиса 1
+      - API_BASE_URL=https://api.kam-brusnika.ru  # API сервиса 1
+    depends_on:
+      main:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - tourguide_net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: tourguide_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: aladinsky_2001@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: aladin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - tourguide_net
+
+volumes:
+  postgres_data:
+  uploaded_images:
+
+networks:
+  tourguide_net:
+    driver: bridge
+  
+#docker-compose up -d --build

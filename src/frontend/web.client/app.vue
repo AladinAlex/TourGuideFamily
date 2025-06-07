@@ -6,12 +6,30 @@ import { useModalStore } from "@/stores/modal";
 
 const route = useRoute();
 const layout = ref();
+const config = useRuntimeConfig();
+
+useHead({
+  title: "Туры по Камчатке от Александра и Марины Аладинских",
+  meta: [
+    { name: 'description', content: 'Групповые и ндивидуальные туры по Камчатке с местными гидами. Восхождения на вулканы, термальные источники, смотровыеЮ местная культура. Лучшие цены 2025!' },
+    { name: 'keywords', content: "туры на Камчатку, Камчатка 2025, вулканы Камчатки, тур к медведям, отдых на Камчатке цена, кам-брусника, кам брусника" },
+    { name: 'og:title', content: 'Туры по Камчатке от Александра и Марины Аладинских' },
+    { name: 'og:description', content: 'Групповые и ндивидуальные туры по Камчатке с лучшими гидами' },
+    { name: 'og:image', content: '/og.jpg' },
+    { property: 'og:type', content: 'website' },
+  ],
+  script: [
+    {
+      src: `https://www.google.com/recaptcha/api.js?render=${config.public.recaptchaSiteKey}`,
+      defer: true
+    }
+  ]
+})
+
 
 watch(
   () => route.meta,
   async (newMeta, oldMeta) => {
-    console.log("old", oldMeta);
-    console.log("new", newMeta);
     if (
       newMeta?.layout === undefined ||
       (newMeta?.layout || "default") !== (oldMeta?.layout || "default")
@@ -41,7 +59,7 @@ const openEarlyBookingModal = () => {
 
 const modal = useModalStore();
 onMounted(() => {
-  openEarlyBookingModal()
+  // openEarlyBookingModal()
 });
 
 </script>

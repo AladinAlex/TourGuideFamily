@@ -11,4 +11,5 @@ public interface ITourRepository
     Task<TourModel> GetById(long tourId, CancellationToken token);
     Task<int> GetCountBySlug(string slug, CancellationToken token);
     Task<long> GetTourIdBySlug(string slug, CancellationToken token);
+    Task<TourLinkModel[]> GetTourLink(int? limit, CancellationToken token);
 }

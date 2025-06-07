@@ -1,9 +1,15 @@
-﻿using System.Transactions;
+﻿using System;
+using System.Transactions;
+using Microsoft.Extensions.Options;
+using TelegramService;
+using TelegramService.Models;
+using TelegramService.Settings;
 using TourGuideFamily.Bll.Models;
 using TourGuideFamily.Bll.Services.Interfaces;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
 using TourGuideFamily.Domain.Models;
+using TourGuideFamily.Bll.Utils;
 
 namespace TourGuideFamily.Bll.Services;
 
@@ -19,6 +25,8 @@ public class CreateService : ICreateService
     readonly IDateTimeService _dateTimeService;
     readonly IUnitOfWork _unitOfWork;
     readonly IUrlCoderService _urlCoderService;
+    readonly ITelegramApiService _telegramApiService;
+    readonly Telegram telegram;
     public CreateService(IGuideRepository guideRepository,
         IMultimediaService multimediaService,
         IPromoRepository promoRepository,
@@ -28,7 +36,9 @@ public class CreateService : ICreateService
         IDateTimeService dateTimeService,
         IFeedbackRepository feedbackRepository,
         IUnitOfWork unitOfWork,
-        IUrlCoderService urlCoderService)
+        IUrlCoderService urlCoderService,
+        ITelegramApiService telegramApiService,
+        IOptions<Telegram> optionTg)
     {
         _guideRepository = guideRepository;
         _multimediaService = multimediaService;
@@ -40,6 +50,8 @@ public class CreateService : ICreateService
         _dateTimeService = dateTimeService;
         _unitOfWork = unitOfWork;
         _urlCoderService = urlCoderService;
+        _telegramApiService = telegramApiService;
+        telegram = optionTg.Value;
     }
 
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
@@ -99,7 +111,16 @@ public class CreateService : ICreateService
             TourId = tourId,
             CreatedOn = _dateTimeService.GetDateTimeOffset()
         };
+
+        string message = "Новая заявка от " + model.Firstname + ". Телефон: " + model.PhoneNumber + ". Способ связи: " + model.ContactMethod.GetDescription();
+        using var transaction = CreateTransactionScope();
         var id = await _feedbackRepository.AddAsync(createModel, token);
+        var tasks = new List<Task>(telegram.Chats.Length);
+        foreach (long chat in telegram.Chats)
+        {
+            tasks.Add(sendMessage(chat, message));
+        }
+        transaction.Complete();
         return id;
     }
     public async Task<long> Tour(CreateTourModel model, CancellationToken token)
@@ -107,8 +128,8 @@ public class CreateService : ICreateService
         try
         {
             var transaction = await _unitOfWork.BeginTransactionAsync();
-
             var tourImageUrl = await _multimediaService.UploadImageAsync(model.Image, token);
+            var tourDescriptionImageUrl = await _multimediaService.UploadImageAsync(model.DescriptionImage, token);
 
             var slug = await _urlCoderService.EncodeToSlugAsync(model.Name, token);
             var createTourModel = new Tour
@@ -118,8 +139,11 @@ public class CreateService : ICreateService
                 MinParticipants = model.MinParticipants,
                 MaxParticipants = model.MaxParticipants,
                 Price = model.Price,
-                DurationHour = model.DurationHour,
-                Slug = slug
+                DurationHourMin = model.DurationHourMin,
+                DurationHourMax = model.DurationHourMax,
+                Slug = slug,
+                Description = model.Description,
+                DescriptionImage = tourDescriptionImageUrl,
             };
             var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);
             var tasks = new List<Task>();
@@ -185,5 +209,33 @@ public class CreateService : ICreateService
             throw;
         }
     }
+    private TransactionScope CreateTransactionScope(
+    IsolationLevel level = IsolationLevel.ReadCommitted)
+    {
+        return new TransactionScope(
+            TransactionScopeOption.Required,
+            new TransactionOptions
+            {
+                IsolationLevel = level,
+                Timeout = TimeSpan.FromSeconds(5)
+            },
+            TransactionScopeAsyncFlowOption.Enabled);
+    }
+    private async Task sendMessage(long chat_id, string text)
+    {
+        bool End = false;
+        int counter = 1;
+        int mls = 500;
+        TelegramServiceResponse response = new();
+        while (counter <= 5 && !End)
+        {
+            response = await _telegramApiService.SendMessage(chat_id, text);
+            if (response != null && response.Success)
+                End = true;
+            await Task.Delay(mls);
+            counter++;
+            mls += 1000;
+        }
 
+    }
 }

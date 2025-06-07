@@ -5,7 +5,7 @@
     <img
       class="separate-line__image"
       src="@/assets/images/lingonberry.png"
-      alt=""
+      alt="брусника"
     />
   </div>
 </template>

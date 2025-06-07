@@ -5,7 +5,7 @@ const props = defineProps<PromoType>();
 
 <template>
     <div class="promo-card">
-        <img class="promo-card__image" :src="image" alt="" />
+        <img class="promo-card__image" :src="image" alt="промо" />
         <p class="promo-card__title">{{ name }}</p>
         <p class="promo-card__description description">{{ description }}</p>
     </div>

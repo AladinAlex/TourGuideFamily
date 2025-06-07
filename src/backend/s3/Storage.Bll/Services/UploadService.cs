@@ -1,14 +1,17 @@
-﻿using Storage.Bll.Consts;
+﻿using Microsoft.Extensions.Configuration;
+using Storage.Bll.Consts;
 using Storage.Bll.Services.Interfaces;
 
 namespace Storage.Bll.Services;
 public class UploadService : IUploadService
 {
     private readonly string _storagePath;
+    private readonly string _storageFolder;
 
-    public UploadService()
+    public UploadService(IConfiguration configuration)
     {
-        _storagePath = Path.Combine(AppContext.BaseDirectory, StorageResourse.ResourseFolderName);
+        _storageFolder = configuration["StoragePath"]!;
+        _storagePath = Path.Combine(AppContext.BaseDirectory, _storageFolder);
         if (!Directory.Exists(_storagePath))
         {
             Directory.CreateDirectory(_storagePath);
@@ -35,6 +38,6 @@ public class UploadService : IUploadService
 
     public string GenerateFileUrl(string fileName, string scheme, string host, int? port)
     {
-        return $"{scheme}://{host}:{port}/{StorageResourse.ResourseFolderName}/{fileName}";
+        return $"{_storageFolder}/{fileName}";
     }
 }

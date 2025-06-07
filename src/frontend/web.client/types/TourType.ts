@@ -4,13 +4,15 @@ import type { DayType } from "./DayType"
 export type TourType = {
     image: string,
     name: string,
-    description: string,
     minParticipants: number,
     maxParticipants: number,
     price: number,
-    durationHour: number | undefined,
+    durationHourMin: number | undefined,
+    durationHourMax: number | undefined,
     days: DayType[],
     promos: PromoType[],
     included: string[],
     excluded: string[],
+    descriptionImage: string,
+    description: string,
 }

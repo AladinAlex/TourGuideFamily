@@ -43,10 +43,10 @@ watch(
       </NuxtLink>
       <div>
         <div>
-          <span class="logo-text">BRUSNIKA</span>
+          <span class="logo-text">KAM-BRUSNIKA</span>
         </div>
         <div>
-          <span class="logo-text2">By Aladinskiy Family</span>
+          <span class="logo-text2">By Aladinsky Family</span>
         </div>
       </div>
     </div>

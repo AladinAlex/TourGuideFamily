@@ -15,6 +15,8 @@ definePageMeta({
   layout: "default",
 });
 
+const config = useRuntimeConfig()
+
 const route = useRoute();
 const slug = route.params.slug as string;
 const buttonText = "Оставить заявку";
@@ -58,6 +60,10 @@ const handleClick = () => {
     componentProps: {},
   });
 };
+
+const duration = () => {
+  return getDuration(tour.value?.durationHourMin, tour.value?.durationHourMax, tour.value?.days.length)
+}
 </script>
 
 <template>
@@ -70,7 +76,7 @@ const handleClick = () => {
       <div class="content-overlay">
         <h1 class="tour-title">{{ tour?.name }}</h1>
 
-        <p class="tour-description">{{ tour?.description }}</p>
+        <!-- <p class="tour-description">{{ tour?.description }}</p> -->
 
         <div class="tour-price">
           <img
@@ -78,7 +84,12 @@ const handleClick = () => {
             class="tour-price__image"
             alt="Рубль"
           />
-          <span class="tour-price__text">{{ formatPrice(tour?.price ?? 0) }}</span>
+          <div>
+            <span class="tour-price__text">{{
+              formatPrice(tour?.price ?? 0)
+            }}</span>
+          <span class="tour-price__text2">за машину</span>
+        </div>
         </div>
 
         <div class="tour-duration">
@@ -88,9 +99,7 @@ const handleClick = () => {
             alt="Рубль"
           />
           <span class="tour-duration__text">
-            {{
-              1 + " " + addWordDay(1)
-            }}</span
+            {{ duration() }}</span
           >
         </div>
 
@@ -98,7 +107,7 @@ const handleClick = () => {
       </div>
     </div>
   </div>
-  <TourProgram :days="tour?.days" />
+  <TourProgram :days="tour?.days" :description="tour?.description" :description-image="tour?.descriptionImage" />
   <PresentationTour
     :price="tour?.price"
     :included="tour?.included"
