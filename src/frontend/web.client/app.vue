@@ -6,6 +6,8 @@ import { useModalStore } from "@/stores/modal";
 
 const route = useRoute();
 const layout = ref();
+const config = useRuntimeConfig();
+
 useHead({
   title: "Туры по Камчатке от Александра и Марины Аладинских",
   meta: [
@@ -16,6 +18,12 @@ useHead({
     { name: 'og:image', content: '/og.jpg' },
     { property: 'og:type', content: 'website' },
   ],
+  script: [
+    {
+      src: `https://www.google.com/recaptcha/api.js?render=${config.public.recaptchaSiteKey}`,
+      defer: true
+    }
+  ]
 })
 
 

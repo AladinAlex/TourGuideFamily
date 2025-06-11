@@ -9,6 +9,10 @@ import type { MainType } from "~/types/MainType";
 const { $api } = useNuxtApp();
 const config = useRuntimeConfig();
 
+useHead({
+  title: "Туры по Камчатке"
+});
+
 const model = ref<MainType | null>();
 // const route = useRoute();
 // function scrollToBlock(blockId: string) {

@@ -1,57 +1,57 @@
 <script setup lang="ts">
+import { useModalStore } from "@/stores/modal";
 import TourProgram from "~/components/TourProgram.vue";
 import PresentationTour from "~/components/PresentationTour.vue";
 import Promo from "~/components/Promo.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
-import type { TourType } from "~/types/TourType";
 import FeedbackModal from "@/components/Modals/FeedbackModal.vue";
-import { useModalStore } from "@/stores/modal";
-const { $api } = useNuxtApp();
+
+import type { TourType } from "~/types/TourType";
+
+const { $api } = useNuxtApp()
+
+definePageMeta({
+  // title: "Страница тура",
+  layout: "default",
+});
 
 const config = useRuntimeConfig()
+
 const route = useRoute();
-// Получаем текущий маршрут
 const slug = route.params.slug as string;
-var buttonText = "Оставить заявку";
-const tour = ref<TourType>();
+const buttonText = "Оставить заявку";
+const tour = ref<TourType>()
 
-// Получаем значение параметра из route.params
-// const loadTourData = async () => {
 try {
-  // console.log('slug: ', slug)
+  const {
+    data: responseData,
+    error: responseError
+  } = await useAsyncData<TourType>('tour', () => $api<TourType>('/Main/Tour/' + slug));
+  // console.log('responseError', responseError.value);
+  // console.log('responseData', responseData.value);
 
-  // // const {data: responseData, error: responseError} = await useAsyncData<TourType>('tour', () => $api<TourType>('api/Main/Tour/' + slug))
-  //   const {data: responseData, error: responseError} = await useFetch('/api/Main/Tour/slug')
-  // if(responseError.value) {
-  //   console.log('error: ', responseError.value)
-  // } else {
-  //   if(responseData.value)
-  //     tour.value = responseData.value
-  //   else
-  //     tour.value = {} as TourType
-  // }
-
-  const { data, error, status } = await useFetch<TourType>(
-    "/api/Main/Tour/" + slug,
-    {
-      baseURL: config.public.apiBase,
-      onRequestError({ error }) {
-        console.error("Request error (" + slug + "): ", error);
-      },
-    }
-  );
-  if (error.value) {
-    console.log("error: ", error.value);
+  if (responseError.value) {
+    console.log('error: ', responseError.value)
   } else {
-    if (data.value) tour.value = data.value
-    else tour.value = {} as TourType;
-  }
-} catch (error) {
-  console.log("error", error);
-}
-// }
+    if (responseData.value) {
+      tour.value = responseData.value;
 
-// await loadTourData()
+      useHead({
+        title: () => tour.value?.name || "Страница тура"
+      });
+    } else {
+      tour.value = {} as TourType;
+    }
+  }
+
+  console.log('tour.value', tour.value);
+} catch(error) {
+  useHead({
+    title: "Страница тура"
+  });
+
+  console.log('error', error);
+}
 
 const modal = useModalStore();
 const handleClick = () => {

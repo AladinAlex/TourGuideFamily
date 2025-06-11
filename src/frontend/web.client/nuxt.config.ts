@@ -25,6 +25,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.API_BASE_URL ?? 'https://api.kam-brusnika.ru',
+      recaptchaSecretKey: process.env.APP_RECAPTCHA_SECRET_KEY ?? '',
+      recaptchaSiteKey: process.env.APP_RECAPTCHA_SITE_KEY ?? ''
     }
   },
   devtools: { enabled: true },

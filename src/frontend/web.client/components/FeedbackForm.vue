@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { FeedbackType } from "~/types/FeedbackType";
 import { useModalStore } from "@/stores/modal";
 import RequestSendedModal from "@/components/Modals/RequestSendedModal.vue";
+
+import type { FeedbackType } from "~/types/FeedbackType";
 
 const props = defineProps({
   slug: {
@@ -19,13 +20,38 @@ const { contactOptions } = useContactOptions();
 //   slug: props.slug,
 // });
 
+const recaptchaSiteKey = config.public.recaptchaSiteKey
 const firstname = ref<string>("");
 const phone = ref<string>("");
 const slug = ref<string | undefined>("");
 const contactMethod = ref<number>(contactOptions[0].id);
 
+const mask = {
+  mask: '{+7} (000) 000-00-00',
+  lazy: true
+};
+
 const sendClick = async () => {
-  if (contactMethod && firstname && phone) {
+  const grecaptcha = (window as any).grecaptcha;
+  const token = await grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
+  let isSuccessRecaptcha = false;
+
+  const { data, error } = await useFetch('/api/verify-captcha-v3', {
+    method: 'POST',
+    body: {
+      token,
+      phone: phone.value,
+    }
+  })
+
+  if (data.value?.success && data.value?.score >= 0.5) {
+    console.log('Рекапча пройдена');
+    isSuccessRecaptcha = true;
+  } else {
+    console.log('Рекапча не пройдена');
+  }
+
+  if (contactMethod && firstname && phone && isSuccessRecaptcha) {
     let isOk = true
     try {
       const { data, error, status } = await useFetch("/api/main/feedback", {
@@ -77,15 +103,18 @@ const privacyHandle = () => {
           placeholder="Имя *"
           required
           class="feedback-form__form-inputname"
-          @change="console.log('Name changed:', firstname)"
+          @change="() => console.log('Name changed:', firstname)"
         />
-        <input
-          type="tel"
-          v-model="phone"
-          placeholder="Номер телефона *"
-          required
-          class="feedback-form__form-inputphone"
-        />
+        <client-only>
+          <input
+            type="tel"
+            :value="phone"
+            v-imask="mask"
+            placeholder="Номер телефона *"
+            required
+            class="feedback-form__form-inputphone"
+          />
+        </client-only>
         <select
           v-model="contactMethod"
           class="feedback-form__form-selecttype"
