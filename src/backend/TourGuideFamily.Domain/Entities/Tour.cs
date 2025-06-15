@@ -13,4 +13,5 @@ public record Tour
     public required string Slug { get; init; }
     public required string Description { get; init; }
     public required string DescriptionImage { get; init; }
+    public required short SortOrder { get; init; }
 }

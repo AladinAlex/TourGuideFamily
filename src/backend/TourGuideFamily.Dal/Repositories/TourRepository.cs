@@ -18,8 +18,8 @@ public class TourRepository : PgRepository, ITourRepository
     public async Task<long> AddAsync(Tour entity, CancellationToken token, IDbTransaction transaction)
     {
         var sql = @"
-insert into tours (image, name, min_participants, max_participants, price, duration_hour_min, duration_hour_max, slug, description, description_image)
-     values (@image, @name, @min_participants, @max_participants, @price, @duration_hour_min, @duration_hour_max, @slug, @description, @description_image)
+insert into tours (image, name, min_participants, max_participants, price, duration_hour_min, duration_hour_max, slug, description, description_image, sort_order)
+     values (@image, @name, @min_participants, @max_participants, @price, @duration_hour_min, @duration_hour_max, @slug, @description, @description_image, @sort_order)
   returning id;
 ";
 
@@ -38,7 +38,8 @@ insert into tours (image, name, min_participants, max_participants, price, durat
                 image = entity.Image,
                 slug = entity.Slug,
                 description = entity.Description,
-                description_image = entity.DescriptionImage
+                description_image = entity.DescriptionImage,
+                sort_order = entity.SortOrder,
             },
             commandTimeout: DefaultTimeoutInSeconds,
             cancellationToken: token,
@@ -68,6 +69,8 @@ left join tour_days d on d.tour_id = t.id
         , t.duration_hour_min
         , t.duration_hour_max
         , t.slug
+        , t.sort_order
+ order by t.sort_order
 ";
         using var dataSource = dataSourceBuilder.Build();
         using var connection = await dataSource.OpenConnectionAsync(token);
@@ -151,9 +154,10 @@ select t.id
     public async Task<TourLinkModel[]> GetTourLink(int? limit, CancellationToken token)
     {
         var sql = new StringBuilder(@"
-select name
-     , slug
-  from tours
+  select name
+       , slug
+    from tours
+order by sort_order asc
 ");
 
         var @params = new DynamicParameters();

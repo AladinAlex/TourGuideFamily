@@ -16,4 +16,5 @@ public class CreateTourModel
     public CreateInclusionModel[]? Inclusions { get; init; }
     public required IFormFile DescriptionImage { get; init; }
     public required string Description { get; init; }
+    public required short SortOrder { get; init; }
 }

@@ -144,6 +144,7 @@ public class CreateService : ICreateService
                 Slug = slug,
                 Description = model.Description,
                 DescriptionImage = tourDescriptionImageUrl,
+                SortOrder = model.SortOrder
             };
             var tourId = await _tourRepository.AddAsync(createTourModel, token, transaction);
             var tasks = new List<Task>();
