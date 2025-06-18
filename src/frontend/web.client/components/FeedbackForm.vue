@@ -108,7 +108,7 @@ const privacyHandle = () => {
         <client-only>
           <input
             type="tel"
-            :value="phone"
+            v-model="phone"
             v-imask="mask"
             placeholder="Номер телефона *"
             required
