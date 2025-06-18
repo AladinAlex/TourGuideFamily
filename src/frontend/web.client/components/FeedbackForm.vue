@@ -34,26 +34,27 @@ const mask = {
 };
 
 const sendClick = async () => {
-  const grecaptcha = (window as any).grecaptcha;
-  const token = await grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
-  let isSuccessRecaptcha = false;
+  // const grecaptcha = (window as any).grecaptcha;
+  // const token = await grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
+  // let isSuccessRecaptcha = false;
 
-  const { data, error } = await useFetch<RecaptchaResponse>('https://www.google.com/recaptcha/api/siteverify', {
-    method: 'POST',
-    body: {
-      secret: recaptchaSecretKey,
-      response: token,
-      // remoteip
-    }
-  })
+  // const { data, error } = await useFetch<RecaptchaResponse>('https://www.google.com/recaptcha/api/siteverify', {
+  //   method: 'POST',
+  //   body: {
+  //     secret: recaptchaSecretKey,
+  //     response: token,
+  //     // remoteip
+  //   }
+  // })
 
-  if (data.value && data.value.success && data.value.score >= 0.5) {
-    console.log('Рекапча пройдена');
-    isSuccessRecaptcha = true;
-  } else {
-    console.log('Рекапча не пройдена');
-  }
+  // if (data.value && data.value.success && data.value.score >= 0.5) {
+  //   console.log('Рекапча пройдена');
+  //   isSuccessRecaptcha = true;
+  // } else {
+  //   console.log('Рекапча не пройдена');
+  // }
 
+  let isSuccessRecaptcha = true
   if (contactMethod && firstname && phone && isSuccessRecaptcha) {
     let isOk = true
     try {

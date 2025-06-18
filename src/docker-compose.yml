@@ -41,8 +41,6 @@ services:
       - CorsSetting__Urls__0=http://frontend:3000
       - CorsSetting__Urls__1=https://kam-brusnika.ru
       - CorsSetting__Urls__2=http://89.111.142.80:3000
-      - CorsSetting__Urls__3=https://www.google.com
-      - CorsSetting__Urls__4=https://www.google.com/recaptcha/api/siteverify
       - Storage__Url=https://storage.kam-brusnika.ru
     depends_on:
       postgres:
