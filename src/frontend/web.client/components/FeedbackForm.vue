@@ -3,6 +3,7 @@ import { useModalStore } from "@/stores/modal";
 import RequestSendedModal from "@/components/Modals/RequestSendedModal.vue";
 
 import type { FeedbackType } from "~/types/FeedbackType";
+import type { RecaptchaResponse } from "~/types/RecaptchaResponse";
 
 const props = defineProps({
   slug: {
@@ -21,6 +22,7 @@ const { contactOptions } = useContactOptions();
 // });
 
 const recaptchaSiteKey = config.public.recaptchaSiteKey
+const recaptchaSecretKey = config.public.recaptchaSecretKey
 const firstname = ref<string>("");
 const phone = ref<string>("");
 const slug = ref<string | undefined>("");
@@ -36,15 +38,16 @@ const sendClick = async () => {
   const token = await grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
   let isSuccessRecaptcha = false;
 
-  const { data, error } = await useFetch('/api/verify-captcha-v3', {
+  const { data, error } = await useFetch<RecaptchaResponse>('https://www.google.com/recaptcha/api/siteverify', {
     method: 'POST',
     body: {
-      token,
-      phone: phone.value,
+      secret: recaptchaSecretKey,
+      response: token,
+      // remoteip
     }
   })
 
-  if (data.value?.success && data.value?.score >= 0.5) {
+  if (data.value && data.value.success && data.value.score >= 0.5) {
     console.log('Рекапча пройдена');
     isSuccessRecaptcha = true;
   } else {
