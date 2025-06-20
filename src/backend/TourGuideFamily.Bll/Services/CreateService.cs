@@ -10,11 +10,13 @@ using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
 using TourGuideFamily.Domain.Models;
 using TourGuideFamily.Bll.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace TourGuideFamily.Bll.Services;
 
 public class CreateService : ICreateService
 {
+    private readonly ILogger<CreateService> _logger;
     readonly IGuideRepository _guideRepository;
     readonly IPromoRepository _promoRepository;
     readonly IMultimediaService _multimediaService;
@@ -26,7 +28,7 @@ public class CreateService : ICreateService
     readonly IUnitOfWork _unitOfWork;
     readonly IUrlCoderService _urlCoderService;
     readonly ITelegramApiService _telegramApiService;
-    readonly Telegram telegram;
+    readonly Telegram _telegram;
     public CreateService(IGuideRepository guideRepository,
         IMultimediaService multimediaService,
         IPromoRepository promoRepository,
@@ -38,7 +40,8 @@ public class CreateService : ICreateService
         IUnitOfWork unitOfWork,
         IUrlCoderService urlCoderService,
         ITelegramApiService telegramApiService,
-        IOptions<Telegram> optionTg)
+        IOptions<Telegram> optionTg,
+        ILogger<CreateService> logger)
     {
         _guideRepository = guideRepository;
         _multimediaService = multimediaService;
@@ -51,7 +54,8 @@ public class CreateService : ICreateService
         _unitOfWork = unitOfWork;
         _urlCoderService = urlCoderService;
         _telegramApiService = telegramApiService;
-        telegram = optionTg.Value;
+        _telegram = optionTg.Value;
+        _logger = logger;
     }
 
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
@@ -87,7 +91,7 @@ public class CreateService : ICreateService
                 Image = imageUrl
             };
             var id = await _promoRepository.AddRangeAsync(new[] { createModel }, token);
-            
+
             return id[0];
         }
         catch (Exception ex)
@@ -99,7 +103,7 @@ public class CreateService : ICreateService
     public async Task<long> Feedback(CreateFeedbackModel model, CancellationToken token)
     {
         long? tourId = null;
-        if(!string.IsNullOrWhiteSpace(model.Slug))
+        if (!string.IsNullOrWhiteSpace(model.Slug))
         {
             tourId = await _tourRepository.GetTourIdBySlug(model.Slug, token);
         }
@@ -115,8 +119,8 @@ public class CreateService : ICreateService
         string message = "Новая заявка от " + model.Firstname + ". Телефон: " + model.PhoneNumber + ". Способ связи: " + model.ContactMethod.GetDescription();
         using var transaction = CreateTransactionScope();
         var id = await _feedbackRepository.AddAsync(createModel, token);
-        var tasks = new List<Task>(telegram.Chats.Length);
-        foreach (long chat in telegram.Chats)
+        var tasks = new List<Task>(_telegram.Chats.Length);
+        foreach (long chat in _telegram.Chats)
         {
             tasks.Add(sendMessage(chat, message));
         }
@@ -231,6 +235,7 @@ public class CreateService : ICreateService
         while (counter <= 5 && !End)
         {
             response = await _telegramApiService.SendMessage(chat_id, text);
+            _logger.LogInformation($"Send to chat_id: {chat_id}; message: {text}; Success: {response}, response: {response.Data}, error: {response.Error}");
             if (response != null && response.Success)
                 End = true;
             await Task.Delay(mls);

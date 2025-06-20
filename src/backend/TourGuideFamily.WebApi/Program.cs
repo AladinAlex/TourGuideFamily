@@ -4,8 +4,10 @@ using TourGuideFamily.Bll;
 using TourGuideFamily.Dal.Extensions;
 using TourGuideFamily.WebApi.Middlewares;
 using TourGuideFamily.WebApi.Models;
+using Logger;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSeriLogging();
 var services = builder.Services;
 
 //services.Configure<CorsSetting>(builder.Configuration.GetSection(nameof(CorsSetting)));

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\logger\Logger\Logger.csproj" />
     <ProjectReference Include="..\s3\Storage.GrpcContracts\Storage.GrpcContracts.csproj" />
     <ProjectReference Include="..\TelegramService\TelegramService.csproj" />
     <ProjectReference Include="..\TourGuideFamily.Dal\TourGuideFamily.Dal.csproj" />
