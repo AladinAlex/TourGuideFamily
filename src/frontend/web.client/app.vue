@@ -17,13 +17,14 @@ useHead({
     { name: 'og:description', content: 'Групповые и ндивидуальные туры по Камчатке с лучшими гидами' },
     { name: 'og:image', content: '/og.jpg' },
     { property: 'og:type', content: 'website' },
-  ],
-  script: [
-    {
-      src: `https://www.google.com/recaptcha/api.js?render=${config.public.recaptchaSiteKey}`,
-      defer: true
-    }
   ]
+  // ,
+  // script: [
+  //   {
+  //     src: `https://www.google.com/recaptcha/api.js?render=${config.public.recaptchaSiteKey}`,
+  //     defer: true
+  //   }
+  // ]
 })
 
 
