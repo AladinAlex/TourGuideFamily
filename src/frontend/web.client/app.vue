@@ -3,6 +3,7 @@ import { useRoute } from "vue-router";
 import Modal from "@/components/Modal.vue";
 import EarlyBookingModal from "~/components/Modals/EarlyBookingModal.vue";
 import { useModalStore } from "@/stores/modal";
+import YandexMetrika from "@/components/YandexMetrika.vue";
 
 const route = useRoute();
 const layout = ref();
@@ -70,6 +71,7 @@ onMounted(() => {
     <NuxtPage />
   </NuxtLayout>
   <Modal />
+  <YandexMetrika />
 </template>
 
 <style lang="scss">
