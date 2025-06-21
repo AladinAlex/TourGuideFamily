@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Yandex.Metrika counter -->
-    <img src="https://mc.yandex.ru/watch/КОД" style="position:absolute; left:-9999px;" alt=""/>
+    <img src="https://mc.yandex.ru/watch/101335877" style="position:absolute; left:-9999px;" alt=""/>
     <!-- /Yandex.Metrika counter -->
   </div>
 </template>
