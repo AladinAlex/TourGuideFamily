@@ -125,6 +125,7 @@ services:
 volumes:
   postgres_data:
   uploaded_images:
+  main_logs:
 
 networks:
   tourguide_net:
