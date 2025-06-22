@@ -48,7 +48,7 @@ const duration = () => {
             alt="Рубль"
           />
         <span class="tour-card__price-text">
-          {{ formatPrice(props.price) }}
+          {{ formatPrice(props.price) }} за машину
         </span>
 
       </p>
