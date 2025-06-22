@@ -55,7 +55,7 @@ const sendClick = async () => {
   // }
 
   let isSuccessRecaptcha = true
-  if (contactMethod && firstname && phone && isSuccessRecaptcha) {
+  if (contactMethod.value && firstname.value && phone.value && isSuccessRecaptcha) {
     let isOk = true
     try {
       const { data, error, status } = await useFetch("/api/main/feedback", {
