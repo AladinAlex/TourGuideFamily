@@ -14,7 +14,6 @@
   }
 
   .usp-icon {
-    // background: #fff4f0;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -37,5 +36,62 @@
   p {
     color: #666;
     line-height: 1.6;
+  }
+
+  // Планшеты (768px и меньше)
+  @media (max-width: 768px) {
+    padding: 25px;
+
+    .usp-icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+
+      img {
+        width: 70px;
+      }
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  }
+
+  // Мобильные (480px и меньше)
+  @media (max-width: 480px) {
+    padding: 20px;
+    margin-bottom: 15px;
+
+    .usp-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 12px;
+
+      img {
+        width: 60px;
+      }
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    // Убираем трансформацию при наведении на мобильных
+    &:hover {
+      transform: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
   }
 }
