@@ -4,11 +4,14 @@ import uspCard from "~/components/uspCard.vue";
 import type { BenefitType } from "~/types/BenefitType";
 import type { uspType } from "~/types/uspType";
 import roadImage from "@/assets/images/road.png";
-import lunchImage from "@/assets/images/lunch.png";
-import waterImage from "@/assets/images/water.png";
 import trekkingpolesImage from "@/assets/images/trekkingpoles.png";
 import permissionImage from "@/assets/images/permission.png";
-import jeepImage from "@/assets/images/jeep.png";
+import compassImage from "@/assets/images/compass.png";
+import mountainImage from "@/assets/images/mountain.png";
+import costImage from "@/assets/images/cost.png";
+import suvImage from "@/assets/images/suv.png";
+import friendsImage from "@/assets/images/friends.png";
+import eatImage from "@/assets/images/eat.png";
 
 const props = defineProps({
   title: {
@@ -48,32 +51,32 @@ var usps: uspType[] =[
   {
   name: 'Местные гиды с 10+ летним опытом',
   description: 'Знаем каждую тропу, куда не водят массовые группы',
-  image: '/_nuxt/assets/images/compass.png'
+  image: compassImage
   },
   {
     name: 'Только проверенные маршруты',
     description: 'Лично протестировали все локации за 12 лет работы с 700+ туристами',
-    image: '/_nuxt/assets/images/mountain.png'
+    image: mountainImage
   },
   {
     name: 'Цены без посредников — дешевле от 20%',
     description: 'Платите только за тур, а не накрутки агентств',
-    image: '/_nuxt/assets/images/cost.png'
+    image: costImage
   },
   {
     name: 'Чистые Nissan Safari после каждого тура',
     description: 'Чистые и подготовленные Nissan Safari с кондиционером',
-    image: '/_nuxt/assets/images/suv.png'
+    image: suvImage
   },
   {
     name: 'Тур только для вашей группы',
     description: 'Никаких незнакомцев — только ваши эмоции',
-    image: '/_nuxt/assets/images/friends.png'
+    image: friendsImage
   },
   {
     name: 'Горячий ланч и вода — чтобы сил хватило на приключения!',
     description: '"Мы продумали каждую мелочь — вам остаётся только наслаждаться видами!',
-    image: '/_nuxt/assets/images/eat.png'
+    image: eatImage
   },
 ]
 </script>
