@@ -63,7 +63,7 @@ let title = 'Сайт гидов-экскурсоводов Александра
           :image="guide.image"
         />
       </div>
-      <div class="about-us__why-we">
+      <!-- <div class="about-us__why-we">
         <div class="about-us__why-we__title">
           <span class="title">Дорогие друзья!</span>
         </div>
@@ -88,7 +88,7 @@ let title = 'Сайт гидов-экскурсоводов Александра
             Душевность, профессионализм и страсть к родному краю - вот что делает наши туры особенными!
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>

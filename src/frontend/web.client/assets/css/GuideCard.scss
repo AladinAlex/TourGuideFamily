@@ -31,7 +31,6 @@
       object-fit: cover;
       object-position: center;
       border-radius: 15px;
-      transition: transform 0.5s;
       @media (max-width: 768px) {
         width: 100%;
         height: auto;
@@ -43,14 +42,6 @@
         width: 100%;
         max-width: 300px;
         border-radius: 5px;
-      }
-    }
-    &-image:hover {
-      transform: scale(0.95);
-      transition: transform 0.5s;
-
-      @media (hover: none) {
-        transform: none;
       }
     }
   }

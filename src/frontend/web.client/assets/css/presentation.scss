@@ -59,6 +59,11 @@
     color: $text_description;
     margin-bottom: 30px;
     font-style: italic;
+    font-weight: 500;
+    &__1 {
+      color: #4b7742;
+      font-style: normal;
+    }
   }
 }
 

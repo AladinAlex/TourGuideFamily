@@ -4,7 +4,7 @@ const props = defineProps<PromoType>();
 </script>
 
 <template>
-    <div class="promo-card">
+    <div class="promo-card" data-aos="fade-up">
         <img class="promo-card__image" :src="image" alt="промо" />
         <p class="promo-card__title">{{ name }}</p>
         <p class="promo-card__description description">{{ description }}</p>

@@ -4,7 +4,7 @@ const props = defineProps<GuideType>();
 </script>
 
 <template>
-  <div class="guideCard">
+  <div class="guideCard" data-aos="fade-up">
     <div class="guideCard_left">
       <img class="guideCard__left-image" :src="image" alt="Фото гида" />
     </div>

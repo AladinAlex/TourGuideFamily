@@ -1,4 +1,3 @@
-
 import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
@@ -31,10 +30,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   compatibilityDate: "2025-02-04",
-  modules: [
-    '@nuxt/image',
-    '@pinia/nuxt',
-  ],
+  modules: ['@nuxt/image', '@pinia/nuxt', 'nuxt-aos'],
   vite: {
     css: {
       preprocessorOptions: {

@@ -3,6 +3,7 @@ import Presentation from "~/components/Presentation.vue";
 import AboutUs from "~/components/AboutUs.vue";
 import Tours from "~/components/Tours.vue";
 import Promo from "~/components/Promo.vue";
+import OurBenefit from "~/components/OurBenefit.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
 import type { MainType } from "~/types/MainType";
 
@@ -85,6 +86,7 @@ await loadMainData();
       <Presentation />
       <AboutUs id="about" :guides="model?.guides" />
       <Tours id="tours" :tours="model?.tours" />
+      <OurBenefit id="benefit" :promos="model?.promos" title="В каждом туре" />
       <Promo id="promo" :promos="model?.promos" title="Акции и скидки" />
       <FeedbackForm />
     </div>
