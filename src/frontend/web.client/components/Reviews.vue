@@ -28,14 +28,14 @@ let title = "Отзывы наших гостей";
           :description="review.description"
         />
       </div>
-      
+
       <div class="reviews-actions">
         <a
           href="https://experience.tripster.ru/guide/858783/#reviews"
           target="_blank"
           class="btn-primary btn"
         >
-          Все отзывы на TripAdvisor
+          Все отзывы на Tripster
         </a>
         <!-- <button class="btn-secondary btn" id="add-review">Оставить отзыв</button> -->
       </div>
