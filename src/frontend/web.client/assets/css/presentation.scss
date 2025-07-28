@@ -61,12 +61,12 @@
     font-style: italic;
     font-weight: 500;
     &__1 {
-      color: $main-color3;
+      // color: $main-color3;
+      color: $text_description;
       font-style: normal;
     }
   }
 }
-
 
 @media (max-width: 1024px) {
   .presentation {
