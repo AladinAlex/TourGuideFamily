@@ -5,6 +5,7 @@ import Tours from "~/components/Tours.vue";
 import Promo from "~/components/Promo.vue";
 import OurBenefit from "~/components/OurBenefit.vue";
 import FeedbackForm from "~/components/FeedbackForm.vue";
+import Reviews from "~/components/Reviews.vue";
 import type { MainType } from "~/types/MainType";
 
 const { $api } = useNuxtApp();
@@ -86,8 +87,9 @@ await loadMainData();
       <Presentation />
       <AboutUs id="about" :guides="model?.guides" />
       <Tours id="tours" :tours="model?.tours" />
-      <OurBenefit id="benefit" :promos="model?.promos" title="В каждом туре" />
-      <Promo id="promo" :promos="model?.promos" title="Акции и скидки" />
+      <OurBenefit id="benefit" :promos="model?.promos"/>
+      <Reviews id="review" :reviews="model?.reviews" />
+      <Promo id="promo" :promos="model?.promos"/>
       <FeedbackForm />
     </div>
   </main>

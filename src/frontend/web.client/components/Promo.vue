@@ -7,13 +7,10 @@ const props = defineProps({
     type: Array as PropType<PromoType[]>,
     default: () => [],
     required: false,
-  },
-  title: {
-    type: String,
-    required: false
   }
 });
 
+let title = "Акции и скидки";
 
 </script>
 

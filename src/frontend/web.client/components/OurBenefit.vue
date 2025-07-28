@@ -13,12 +13,7 @@ import suvImage from "@/assets/images/suv.png";
 import friendsImage from "@/assets/images/friends.png";
 import eatImage from "@/assets/images/eat.png";
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: false,
-  }
-});
+let title = "В каждом туре";
 
 var benefits: BenefitType[] = [
   {
@@ -64,8 +59,8 @@ var usps: uspType[] =[
     image: costImage
   },
   {
-    name: 'Чистые Nissan Safari после каждого тура',
-    description: 'Чистые и подготовленные Nissan Safari с кондиционером',
+    name: 'Чистые Nissan Safari на каждый тур',
+    description: 'Чистые и подготовленные Nissan Safari',
     image: suvImage
   },
   {
@@ -74,7 +69,7 @@ var usps: uspType[] =[
     image: friendsImage
   },
   {
-    name: 'Горячий ланч и вода — чтобы сил хватило на приключения!',
+    name: 'Вкусный ланч и вода — чтобы сил хватило на приключения!',
     description: '"Мы продумали каждую мелочь — вам остаётся только наслаждаться видами!',
     image: eatImage
   },
