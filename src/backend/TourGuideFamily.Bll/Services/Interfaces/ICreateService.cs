@@ -9,4 +9,5 @@ public interface ICreateService
     Task<long> Promo(CreatePromoModel model, CancellationToken token);
     Task<long> Feedback(CreateFeedbackModel model, CancellationToken token);
     Task<long> Tour(CreateTourModel model, CancellationToken token);
+    Task<long> Review(CreateReviewModel model, CancellationToken token);
 }

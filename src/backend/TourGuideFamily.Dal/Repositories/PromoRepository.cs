@@ -13,6 +13,7 @@ public class PromoRepository : PgRepository, IPromoRepository
     public PromoRepository(IOptions<DalOptions> dalSettings) : base(dalSettings.Value)
     {
         dataSourceBuilder.MapComposite<Promo>("promo_type", Translator);
+        dataSourceBuilder.MapComposite<DateOnly>("date");
     }
 
     public async Task<long[]> AddRangeAsync(Promo[] entities, CancellationToken token, IDbTransaction transaction = null)

@@ -12,6 +12,7 @@ public class GetTourService : IGetTourService
     readonly IPromoRepository _promoRepository;
     readonly ITourDayRepository _tourDayRepository;
     readonly IInclusionRepository _inclusionRepository;
+    readonly IReviewRepository _reviewRepository;
     readonly IConfiguration _config;
     private string _storageUrl;
 
@@ -20,7 +21,8 @@ public class GetTourService : IGetTourService
         IPromoRepository promoRepository,
         ITourDayRepository tourDayRepository,
         IInclusionRepository inclusionRepository,
-        IConfiguration config)
+        IConfiguration config,
+        IReviewRepository reviewRepository)
     {
         _guideRepository = guideRepository;
         _tourRepository = tourRepository;
@@ -29,6 +31,7 @@ public class GetTourService : IGetTourService
         _inclusionRepository = inclusionRepository;
         _config = config;
         _storageUrl = _config["Storage:Url"]!;
+        _reviewRepository = reviewRepository;
     }
 
     public async Task<MainModel> Main(CancellationToken token)
@@ -36,6 +39,7 @@ public class GetTourService : IGetTourService
         var guideTask = _guideRepository.GetAllAsync(token);
         var toursInfoTask = _tourRepository.GetToursInfo(token);
         var promoTask = _promoRepository.GetMainPromo(token);
+        var reviewTask = _reviewRepository.GetAsync(6, token);
 
         await Task.WhenAll(guideTask, toursInfoTask, promoTask);
 
@@ -64,12 +68,21 @@ public class GetTourService : IGetTourService
             Image = $"{_storageUrl}/{x.Image}",
             Name = x.Name,
         }).ToArray();
+        var reviews = reviewTask.Result.Select(x => new ReviewModel
+        {
+            CreatedOn = x.CreatedOn,
+            Description = x.Description,
+            Firstname = x.Firstname,
+            Rating = x.Rating,
+            TourName = x.TourName 
+        }).ToArray();
 
         return new MainModel
         {
             Guides = guide,
             Promos = promo,
             Tours = toursInfo,
+            Reviews = reviews
         };
     }
 

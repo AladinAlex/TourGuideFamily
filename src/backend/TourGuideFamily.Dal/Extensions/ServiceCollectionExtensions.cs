@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TourGuideFamily.Dal.Infrastructure;
 using TourGuideFamily.Dal.Repositories;
 using TourGuideFamily.Dal.Settings;
+using TourGuideFamily.Dal.TypeHandler;
 using TourGuideFamily.Domain.Interfaces;
 
 namespace TourGuideFamily.Dal.Extensions;
@@ -26,6 +28,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ITourDayRepository, TourDayRepository>();
         services.AddScoped<ITourRepository, TourRepository>();
         services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
     }
 
     public static IServiceCollection AddDalInfrastructure(
@@ -40,6 +43,8 @@ public static class ServiceCollectionExtensions
 
         //add migrations
         Postgres.AddMigrations(services);
+
+        SqlMapper.AddTypeHandler(new DateOnlyHandler());
 
         return services;
 

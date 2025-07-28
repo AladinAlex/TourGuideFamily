@@ -1,16 +1,16 @@
-﻿using System;
-using System.Transactions;
+﻿using System.Transactions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TelegramService;
 using TelegramService.Models;
 using TelegramService.Settings;
 using TourGuideFamily.Bll.Models;
 using TourGuideFamily.Bll.Services.Interfaces;
+using TourGuideFamily.Bll.Utils;
+using TourGuideFamily.Dal.Repositories;
 using TourGuideFamily.Domain.Entities;
 using TourGuideFamily.Domain.Interfaces;
 using TourGuideFamily.Domain.Models;
-using TourGuideFamily.Bll.Utils;
-using Microsoft.Extensions.Logging;
 
 namespace TourGuideFamily.Bll.Services;
 
@@ -24,6 +24,7 @@ public class CreateService : ICreateService
     readonly ITourRepository _tourRepository;
     readonly ITourDayRepository _tourDayRepository;
     readonly IInclusionRepository _inclusionRepository;
+    readonly IReviewRepository _reviewRepository;
     readonly IDateTimeService _dateTimeService;
     readonly IUnitOfWork _unitOfWork;
     readonly IUrlCoderService _urlCoderService;
@@ -41,7 +42,8 @@ public class CreateService : ICreateService
         IUrlCoderService urlCoderService,
         ITelegramApiService telegramApiService,
         IOptions<Telegram> optionTg,
-        ILogger<CreateService> logger)
+        ILogger<CreateService> logger,
+        IReviewRepository reviewRepository)
     {
         _guideRepository = guideRepository;
         _multimediaService = multimediaService;
@@ -56,6 +58,7 @@ public class CreateService : ICreateService
         _telegramApiService = telegramApiService;
         _telegram = optionTg.Value;
         _logger = logger;
+        _reviewRepository = reviewRepository;
     }
 
     public async Task<long> Guide(CreateGuideModel model, CancellationToken token)
@@ -213,6 +216,20 @@ public class CreateService : ICreateService
             await _unitOfWork.RollbackAsync();
             throw;
         }
+    }
+
+    public async Task<long> Review(CreateReviewModel model, CancellationToken token)
+    {
+        var createModel = new Review
+        {
+            Firstname = model.Firstname,
+            Rating = model.Rating,
+            TourName = model.TourName,
+            Description = model.Description,
+            CreatedOn = model.CreatedOn
+        };
+        var reviewId = await _reviewRepository.AddAsync(createModel, token);
+        return reviewId;
     }
     private TransactionScope CreateTransactionScope(
     IsolationLevel level = IsolationLevel.ReadCommitted)

@@ -1,5 +1,4 @@
-﻿using TourGuideFamily.Domain.Entities;
-using TourGuideFamily.Domain.Models;
+﻿using TourGuideFamily.Domain.Models;
 
 namespace TourGuideFamily.Domain.Interfaces;
 

@@ -62,4 +62,20 @@ public class CreateController
             });
         }
     }
+
+    [HttpPost("Review")]
+    public async Task<IActionResult> Review(CreateReviewModel model, CancellationToken token)
+    {
+        try
+        {
+            return new JsonResult(await _createService.Review(model, token));
+        }
+        catch (Exception ex)
+        {
+            return new JsonResult(new ErrorResponse
+            {
+                Error = ex.Message
+            });
+        }
+    }
 }
