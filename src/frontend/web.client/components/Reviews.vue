@@ -2,11 +2,11 @@
 import ReviewCard from "~/components/ReviewCard.vue";
 import type { ReviewType } from "~/types/ReviewType";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { FreeMode, Navigation, Thumbs, Pagination } from "swiper/modules";
+import { FreeMode, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import "swiper/css/thumbs";
+import { useModalStore } from "@/stores/modal";
 
 const props = defineProps({
   reviews: {
@@ -16,6 +16,15 @@ const props = defineProps({
   },
 });
 
+// const modal = useModalStore();
+// const handleClick = () => {
+//   modal.open({
+//     component: FeedbackModal,
+//     componentProps: {}
+//   })
+// };
+
+
 let title = "Отзывы наших гостей";
 
 const thumbsSwiper = ref(null);
@@ -23,7 +32,6 @@ const modules = [FreeMode, Navigation];
 const setThumbsSwiper = (swiper: any) => {
   thumbsSwiper.value = swiper;
 };
-const isModal = ref(true);
 
 const slidesPerView = ref(2);
 const swiperBreakpoints = {
@@ -103,7 +111,7 @@ onMounted(() => {
         >
           Все отзывы на Tripster
         </a>
-      <!-- <button class="btn-secondary btn" id="add-review">Оставить отзыв</button> -->
+      <!-- <button class="btn-secondary btn" id="add-review" @click="handleClick">Оставить отзыв</button> -->
       </div>
     </div>
   </section>
