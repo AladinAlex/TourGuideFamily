@@ -82,9 +82,7 @@ const setThumbsSwiper = (swiper: any) => {
           <div class="day-title" v-if="days.length > 1">
             {{ 'День ' + day.number + ': ' + day.name }}
           </div>
-          <div class="day-description">
-            {{ day.description }}
-          </div>
+          <div class="day-description" v-html="day.description" />
           <!-- <div class="day-description" v-html="description">
           </div> -->
         </div>
